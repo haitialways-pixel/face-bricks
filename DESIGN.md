@@ -1,4 +1,4 @@
-# Face-Action: Falling Bricks — Design Doc (prototype v0.3)
+# Face-Action: Falling Bricks — Design Doc (prototype v0.4)
 
 Second game in the Face-Action family, by Steeve J. A phone-browser PWA (single `index.html`, canvas + JS) played with facial gestures through the front camera, or with touch. Built on the first game's tech: MediaPipe Face Landmarker blendshapes (bundled in `vendor/`, CDN fallback), on-device only, calibration saved locally, debug/sensitivity panel, Web Audio synth sounds, EN/FR localization.
 
@@ -20,8 +20,8 @@ Four glowing color stacks stand side by side at the bottom, one each for blue, h
 Each falling brick shows its gesture icon. The touch buttons sit in a 4-column grid aligned exactly under their stacks.
 
 ## Rules
-- Correct gesture: the brick flies to its stack. **10 points** × combo.
-- **Quick bonus +5:** identify the brick in the top third of its fall. A faint gold ring around the brick shows the bonus window.
+- Correct gesture: the brick flies to its stack and scores its **current value × combo**.
+- **Decaying value (v0.4, replaces the flat 10 pts and the quick +5):** each brick is worth `round(20 × (1 − progress))`, where progress goes from 0 at spawn to 1 at the red line (whole numbers, min 0). A live value badge next to the falling brick counts down and shifts gold → white → grey, with a thin drain bar under the brick (and ×N beside it when a combo is active). The popup shows what you earned, e.g. `+17` or `+34 x2`. Catching a brick at 18+ (golden 90+) adds a sparkle.
 - **Lose a heart** for a wrong gesture (the brick cracks and shatters) or a brick reaching the red line unidentified ("Too slow!"). **5 hearts**; game over at 0. Single natural blinks are ignored, and cheek puff on a normal brick is ignored.
 - **Each stack sinks on its own** when it reaches 10 bricks: crunch sound, dust, screen shake, **+20**, and the level goes up.
 - **Difficulty curve:** fall time starts at a generous 6.5 s (+15 % in face mode) and gets 8 % shorter per sink, with a 2.5 s floor. The first 6 bricks are never special.
@@ -31,13 +31,14 @@ Each falling brick shows its gesture icon. The touch buttons sit in a 4-column g
 - **Combo multiplier:** every 3 correct bricks in a row raises it, ×2 → ×5, with a rising pentatonic note per lock and a chord sting at each combo-up. A heart loss resets it.
 - **Color chain:** 3 correct bricks of the same color in a row burst for **+50** and **3 s slow-mo**. Rainbow counts as wild. The HUD shows ●●○ progress in the chain color.
 - **Special bricks** (after brick 6, about 6 % / 6 % / 4 %):
-  - 🌈 **Rainbow:** any color gesture works, and it goes to the **shortest stack**.
-  - 💣 **Bomb:** defuse it for **+1 heart** (max 5). Face mode: **shake/turn your head** clearly left or right (primary), or **puff your cheeks / push your lips out** (backup). Touch mode: tap the bomb (bomb + ~40 px hit area) or press the **💣 Defuse** button, which appears only while a bomb is falling. **Color gestures on a bomb are ignored (no penalty)**, so a stray smile or blink can't cost a heart. The only way to lose a heart to a bomb is letting it reach the red line (it explodes).
-  - ⭐ **Golden:** shows its color; the right gesture sends it to that color's stack for **100 points** (× combo).
+  - 🌈 **Rainbow:** any color gesture works, and it goes to the **shortest stack**. Same 20 → 0 value.
+  - 💣 **Bomb:** defuse it for **+1 heart** (max 5). Face mode: **shake/turn your head** clearly left or right (primary), or **puff your cheeks / push your lips out** (backup). Touch mode: tap the bomb itself (bomb + ~40 px hit area). Since v0.4 there's no Defuse button or hint banner in touch mode. **Color gestures on a bomb are ignored (no penalty)**, so a stray smile or blink can't cost a heart. The only way to lose a heart to a bomb is letting it reach the red line (it explodes).
+  - ⭐ **Golden:** shows its color; the right gesture sends it to that color's stack. Its value starts at **100** and decays the same way to 0 (× combo), so a quick catch is a big reward.
 - **Next brick preview** in the HUD.
 - **Near-miss game over:** "So close! Only N points from your best!" (shown when within 25 % / 60 pts), plus a big **Play again** button.
 - **Daily challenge** (📅 toggle): the brick sequence comes from an RNG seeded by the local date, so everyone gets the same bricks that day. The daily best is saved per day and mode.
-- **Unlockable brick styles**, saved locally, unlocked by your best score ever: Classic (0), Neon (250), Candy (600), Gems (1200). Pick one from 🎨 Styles.
+- Bonuses unchanged: color chain +50, stack sink +20.
+- **Unlockable brick styles**, saved locally, unlocked by your best score ever: Classic (0), Neon (250), Candy (600), Gems (1200). These milestones are unchanged in v0.4: an average catch at about 25–35 % of the fall pays about 13–15 per brick, close to the old 10 (+5 quick). Pick one from 🎨 Styles.
 - **Separate best scores** for Face and Touch modes.
 
 ## Gesture detection
@@ -46,7 +47,7 @@ Each falling brick shows its gesture icon. The touch buttons sit in a 4-column g
 - **Bomb defuse detector (v0.3)** is separate from the color-gesture engine and is not blocked by the one-gesture-at-a-time lock, so a held smile doesn't prevent defusing. It's active only while a bomb is falling.
   - Shake: |yaw − reference| > threshold, held about 0.12 s. The threshold is 50 % of the calibrated turn range, kept between 0.1 and 0.3 rad. The reference yaw slowly follows the player's resting head angle (2.5 s time constant) while no bomb is falling.
   - Puff: max(cheekPuff, 0.8 × max(mouthPucker, mouthFunnel) when the jaw is closed) above a lowered threshold (default 0.14), held about 0.2 s.
-  - The bomb shows a red hint pill ("Shake head / puff cheeks!" / "Secouez la tête / gonflez les joues !"; touch: "Tap to defuse!" / "Touchez pour désamorcer !") and a green progress ring that fills while the defuse gesture is held.
+  - In face mode the bomb shows a red hint pill ("Shake head / puff cheeks!" / "Secouez la tête / gonflez les joues !") and a green progress ring that fills while the defuse gesture is held. Touch mode shows no banner.
 - Bomb taps map pointer coordinates through the canvas' real CSS box (`getBoundingClientRect`), so they're correct regardless of devicePixelRatio or the 100dvh vs innerHeight difference on phones.
 - **Hold times** prevent false triggers. **One gesture at a time:** while a gesture is active (with hysteresis, released below 70 % of its threshold), the others are ignored. Blinks are ignored during smiles (eye squint). There's a 0.5 s lockout after each gesture, and gestures in the first 0.35 s of a brick are ignored.
 - A **small on-screen indicator** in the ground strip shows the detected gesture, its hold progress, "blink 1/2", and a ✓ when it fires.
