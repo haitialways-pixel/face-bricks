@@ -33,10 +33,9 @@ h1 small{display:block;font-size:22px;color:#fff;text-shadow:0 0 12px #ff1493;op
 .hrow{display:flex;align-items:center;gap:12px;width:100%;max-width:440px;text-align:left;background:#1a1430;border:2px solid #ffd54a55;border-radius:12px;padding:7px 10px;box-sizing:border-box;flex:none}
 .hrow .ic{font-size:30px;width:44px;text-align:center;flex:none}.hrow b{color:#ffd54a;font-size:16px}.hrow div{font-size:14px;line-height:1.3;color:#fff}
 .sw{width:44px;height:26px;border-radius:6px;flex:none;border:2px solid #fff;box-shadow:0 0 10px var(--c);background:var(--c);box-sizing:border-box}
-#touch{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom) + 10px);display:flex;justify-content:space-around;align-items:center;z-index:4;padding:0 4px}
-#touch button{min-width:0;width:15vw;height:15vw;max-width:70px;max-height:70px;border-radius:14px;font-size:22px;padding:0;border:3px solid #fff;opacity:.92}
-#touch button.c{box-shadow:0 0 14px var(--c);background:var(--c)}
-#touch button.ar{background:#3b2f63;color:#fff;border-color:#ffd54a;border-radius:50%}
+#touch{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom) + 10px);display:grid;grid-template-columns:repeat(4,1fr);justify-items:center;z-index:4}
+#touch button{min-width:0;width:21vw;max-width:96px;height:62px;border-radius:14px;font-size:28px;padding:0;border:3px solid #fff;opacity:.95;box-shadow:0 0 14px var(--c);background:var(--c)}
+#touch button:active{transform:scale(.93)}
 .stylegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:400px}
 .stylegrid button{min-width:0;padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;background:#1a1430;color:#fff;border:2px solid #ffd54a33;font-size:15px}
 .stylegrid button.sel{border-color:#ffd54a;box-shadow:0 0 14px #ffd54a88}
@@ -56,7 +55,7 @@ small{opacity:.75}
 </div>
 <div id="howto" class="ov hide">
  <h2 data-t="howTitle"></h2>
- <div class="hrow"><span class="ic">↔️</span><div data-h="hMove"></div></div>
+ <div class="hrow"><span class="ic">🧱</span><div data-h="hMove"></div></div>
  <div class="hrow"><span class="sw" style="--c:#2979ff"></span><div data-h="hBlue"></div></div>
  <div class="hrow"><span class="sw" style="--c:#ff1493"></span><div data-h="hPink"></div></div>
  <div class="hrow"><span class="sw" style="--c:#ffd600"></span><div data-h="hYellow"></div></div>
@@ -84,18 +83,18 @@ small{opacity:.75}
 <div id="camInd" class="hide" style="position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 6px);z-index:6;background:rgba(0,0,0,.6);padding:3px 8px;border-radius:10px;font-size:12px"><span style="color:#f33">●</span> <span data-t="camOn"></span></div>
 <button id="camResume" class="hide" style="position:fixed;left:50%;top:40%;transform:translateX(-50%);z-index:6"><span data-t="camResume"></span></button>
 <div id="touch" class="hide">
- <button class="ar" data-k="left">◀</button><button class="c" data-k="blue" style="--c:#2979ff"></button><button class="c" data-k="pink" style="--c:#ff1493"></button><button class="c" data-k="yellow" style="--c:#ffd600"></button><button class="c" data-k="green" style="--c:#00e676"></button><button class="ar" data-k="right">▶</button>
+ <button data-k="blue" style="--c:#2979ff">👀</button><button data-k="pink" style="--c:#ff1493">😮</button><button data-k="yellow" style="--c:#ffd600">😁</button><button data-k="green" style="--c:#00e676">🤨</button>
 </div>
 <script type="module">
 const $=id=>document.getElementById(id);
 // ---------- Localization ----------
 const L={en:{sub:'Falling Bricks',intro:'Stack glowing bricks using only your face.<br><small>Camera stays on your device; nothing is recorded or uploaded.</small>',
 playFace:'😀 Play with Face',playTouch:'👆 Play with Touch',howBtn:'❓ How to Play',recalFace:'🎯 Recalibrate',styleBtn:'🎨 Styles',dailyOff:'📅 Daily challenge',dailyOn:'📅 Daily: ON',privacy:'Privacy policy',copy:'© 2026 Steeve J. All rights reserved.',langBtn:'Français',
-howTitle:'How to Play',hMove:'<b>Slide the brick</b><br>Turn your head left / right to move the falling brick over the stack.',
-hBlue:'<b>Blue = double blink</b><br>Blink twice quickly to drop it.',hPink:'<b>Hot pink = open mouth</b><br>Open wide and hold a moment.',hYellow:'<b>Yellow = smile</b><br>Big smile, hold a moment.',hGreen:'<b>Green = raise eyebrows</b><br>Lift your eyebrows and hold.',
-hHearts:'<b>10 points</b> per brick locked on the stack.<br>A wrong gesture or a brick hitting the ground costs a heart. You have 5.',hSink:'<b>Every 10 rows</b> the stack sinks into the ground and bricks fall a bit faster.',
-hHooks:'<b>Combos</b> x2 to x5 for locks in a row · <b>Perfect</b> alignment +5 · <b>3 same color</b> in a row burst for +50 and slow-mo.',
-hSpecial:'<b>🌈 Rainbow</b> takes any gesture · <b>💣 Bomb</b>: puff your cheeks (touch: tap it) to defuse, +1 ❤️ · <b>⭐ Golden</b> = 100 points.',
+howTitle:'How to Play',hMove:'<b>4 color stacks</b><br>Bricks fall in the middle. Make the brick\'s color gesture and it flies onto its own stack.',
+hBlue:'<b>Blue = double blink</b><br>Blink twice quickly.',hPink:'<b>Hot pink = open mouth</b><br>Open wide and hold a moment.',hYellow:'<b>Yellow = smile</b><br>Big smile, hold a moment.',hGreen:'<b>Green = raise eyebrows</b><br>Lift your eyebrows and hold.',
+hHearts:'<b>10 points</b> per brick sorted. <b>+5</b> if you identify it fast (top third of its fall).<br>A wrong gesture, or a brick reaching the red line, costs a heart. You have 5.',hSink:'<b>10 bricks on a stack</b> and it sinks into the ground: <b>+20</b>. Bricks then fall a bit faster.',
+hHooks:'<b>Combos</b> x2 to x5 for correct bricks in a row · <b>3 of the same color</b> in a row burst for +50 and slow-mo.',
+hSpecial:'<b>🌈 Rainbow</b> takes any gesture and goes to the shortest stack · <b>💣 Bomb</b>: puff your cheeks (touch: tap it) to defuse, +1 ❤️ · <b>⭐ Golden</b> = 100 points.',
 hTip:"Keep your face centered and well lit, about an arm's length away. Use <b>🎯</b> to recalibrate and the <b>🐞</b> slider if gestures feel off.",gotIt:'Got it!',
 styleTitle:'Brick styles',styleP:'Reach score milestones to unlock new looks.',done:'Done',sClassic:'Classic',sNeon:'Neon',sCandy:'Candy',sGems:'Gems',needPts:'🔒 {n} pts',unlocked:'🎨 {s} style unlocked!',
 paused:'⏸ Paused',resume:'▶️ Resume',menu:'🏠 Menu',calibrating:'Calibrating…',restT:'😌 Face break',restP:'Relax your face, look into the distance, blink gently.',skip:'Skip',
@@ -105,18 +104,18 @@ needHttps:'<b style="color:#ff6">⚠️ Face controls need HTTPS.</b><br><small>
 blockedHttps:'<b style="color:#f66">Camera blocked: page is not HTTPS ({p}).</b>',noCamApi:'<b style="color:#f66">This browser has no camera API.</b>',startingCam:'<small>Starting camera…</small>',
 loadFail:'<b style="color:#f66">{e}</b><br><small>Check internet / try another browser. Touch mode works.</small>',camErr:'<b style="color:#f66">Camera error: {e}</b>',loadingModel:'Loading face model…',
 findFace:'Finding your face…',noFaceCal:'No face found — hold the phone at eye level in good light. Continuing anyway; open 🐞 to debug.',stepOf:'Step {i} of {n}',
-c1:'Relax your face and look straight at the screen. Hold still.',c2:'Turn your head to YOUR LEFT and hold it there.',c3:'Face the screen. Blink a few times (blue bricks = double blink).',c4:'Open your mouth wide and hold (hot pink bricks).',c5:'Big smile, hold it (yellow bricks).',c6:'Raise your eyebrows and hold (green bricks).',c7:'Puff your cheeks and hold (defuses bombs).',
-level:'Level',row:'Row',next:'Next',combo:'COMBO x{n}!',perfect:'PERFECT +5',burst:'COLOR BURST +50!',sinkB:'⬇️ Stack sinks! Level {n}',defused:'Defused! +1 ❤️',boom:'💥 BOOM!',
-wrongG:'Wrong! {c} = {g}',slow:'Too slow!',missed:'Missed the stack!',golden:'⭐ GOLDEN +{n}',tapBomb:'TAP!',puffBomb:'PUFF!',noFace:'Face not found — hold phone at eye level',
+c1:'Relax your face and look straight at the screen. Hold still.',c2:'Turn your head to YOUR LEFT and hold it there.',c3:'Blink a few times (blue bricks = double blink).',c4:'Open your mouth wide and hold (hot pink bricks).',c5:'Big smile, hold it (yellow bricks).',c6:'Raise your eyebrows and hold (green bricks).',c7:'Puff your cheeks and hold (defuses bombs).',
+level:'Level',row:'Row',next:'Next',combo:'COMBO x{n}!',quick:'QUICK +5',burst:'COLOR BURST +50!',sinkB:'⬇️ {c} stack sinks! +20 · Level {n}',defused:'Defused! +1 ❤️',boom:'💥 BOOM!',
+wrongG:'Wrong! {c} = {g}',slow:'Too slow!',golden:'⭐ GOLDEN +{n}',tapBomb:'TAP!',puffBomb:'PUFF!',noFace:'Face not found — hold phone at eye level',
 cBlue:'Blue',cPink:'Pink',cYellow:'Yellow',cGreen:'Green',gBlue:'double blink',gPink:'open mouth',gYellow:'smile',gGreen:'raise eyebrows',gPuff:'puff cheeks',gBlink1:'blink 1/2',
 dCam:'cam',dModel:'model',dFace:'face',yes:'YES',no:'NO',dSens:'sens',dBlink:'blink',dMouth:'mouth',dSmile:'smile',dPuff:'puff',dBrow:'brow',dMove:'move'},
 fr:{sub:'Briques en chute',intro:'Empilez des briques lumineuses avec votre visage seulement.<br><small>La caméra reste sur votre appareil ; rien n\'est enregistré ni envoyé.</small>',
 playFace:'😀 Jouer avec le visage',playTouch:'👆 Jouer en tactile',howBtn:'❓ Comment jouer',recalFace:'🎯 Recalibrer',styleBtn:'🎨 Styles',dailyOff:'📅 Défi du jour',dailyOn:'📅 Défi : ACTIF',privacy:'Politique de confidentialité',copy:'© 2026 Steeve J. Tous droits réservés.',langBtn:'English',
-howTitle:'Comment jouer',hMove:'<b>Déplacer la brique</b><br>Tournez la tête à gauche / à droite pour placer la brique au-dessus de la pile.',
-hBlue:'<b>Bleu = double clignement</b><br>Clignez deux fois rapidement pour la lâcher.',hPink:'<b>Rose vif = bouche ouverte</b><br>Ouvrez grand et tenez un instant.',hYellow:'<b>Jaune = sourire</b><br>Grand sourire, tenez un instant.',hGreen:'<b>Vert = sourcils levés</b><br>Levez les sourcils et tenez.',
-hHearts:'<b>10 points</b> par brique posée sur la pile.<br>Un mauvais geste ou une brique qui touche le sol coûte un cœur. Vous en avez 5.',hSink:'<b>Toutes les 10 rangées</b> la pile s\'enfonce dans le sol et les briques tombent un peu plus vite.',
-hHooks:'<b>Combos</b> x2 à x5 pour des poses d\'affilée · Alignement <b>parfait</b> +5 · <b>3 de même couleur</b> d\'affilée explosent : +50 et ralenti.',
-hSpecial:'<b>🌈 Arc-en-ciel</b> accepte tous les gestes · <b>💣 Bombe</b> : gonflez les joues (tactile : touchez-la) pour la désamorcer, +1 ❤️ · <b>⭐ Dorée</b> = 100 points.',
+howTitle:'Comment jouer',hMove:'<b>4 piles de couleur</b><br>Les briques tombent au milieu. Faites le geste de sa couleur et elle s\'envole vers sa pile.',
+hBlue:'<b>Bleu = double clignement</b><br>Clignez deux fois rapidement.',hPink:'<b>Rose vif = bouche ouverte</b><br>Ouvrez grand et tenez un instant.',hYellow:'<b>Jaune = sourire</b><br>Grand sourire, tenez un instant.',hGreen:'<b>Vert = sourcils levés</b><br>Levez les sourcils et tenez.',
+hHearts:'<b>10 points</b> par brique triée. <b>+5</b> si vous la reconnaissez vite (premier tiers de sa chute).<br>Un mauvais geste, ou une brique qui atteint la ligne rouge, coûte un cœur. Vous en avez 5.',hSink:'<b>10 briques sur une pile</b> et elle s\'enfonce dans le sol : <b>+20</b>. Les briques tombent ensuite un peu plus vite.',
+hHooks:'<b>Combos</b> x2 à x5 pour des briques justes d\'affilée · <b>3 de même couleur</b> d\'affilée explosent : +50 et ralenti.',
+hSpecial:'<b>🌈 Arc-en-ciel</b> accepte tous les gestes et va sur la pile la plus basse · <b>💣 Bombe</b> : gonflez les joues (tactile : touchez-la) pour la désamorcer, +1 ❤️ · <b>⭐ Dorée</b> = 100 points.',
 hTip:'Gardez le visage centré et bien éclairé, à environ une longueur de bras. Utilisez <b>🎯</b> pour recalibrer et le curseur <b>🐞</b> si les gestes répondent mal.',gotIt:'Compris !',
 styleTitle:'Styles de briques',styleP:'Atteignez des paliers de score pour débloquer de nouveaux looks.',done:'OK',sClassic:'Classique',sNeon:'Néon',sCandy:'Bonbon',sGems:'Gemmes',needPts:'🔒 {n} pts',unlocked:'🎨 Style {s} débloqué !',
 paused:'⏸ Pause',resume:'▶️ Reprendre',menu:'🏠 Menu',calibrating:'Calibrage…',restT:'😌 Pause visage',restP:'Détendez votre visage, regardez au loin, clignez doucement.',skip:'Passer',
@@ -126,9 +125,9 @@ needHttps:'<b style="color:#ff6">⚠️ Les commandes faciales nécessitent HTTP
 blockedHttps:'<b style="color:#f66">Caméra bloquée : la page n\'est pas en HTTPS ({p}).</b>',noCamApi:'<b style="color:#f66">Ce navigateur n\'a pas d\'accès caméra.</b>',startingCam:'<small>Démarrage de la caméra…</small>',
 loadFail:'<b style="color:#f66">{e}</b><br><small>Vérifiez votre connexion ou essayez un autre navigateur. Le mode tactile fonctionne.</small>',camErr:'<b style="color:#f66">Erreur caméra : {e}</b>',loadingModel:'Chargement du modèle facial…',
 findFace:'Recherche de votre visage…',noFaceCal:'Aucun visage détecté — tenez le téléphone à hauteur des yeux, bien éclairé. On continue quand même ; ouvrez 🐞 pour diagnostiquer.',stepOf:'Étape {i} sur {n}',
-c1:'Détendez votre visage et regardez l\'écran bien en face. Ne bougez pas.',c2:'Tournez la tête vers VOTRE GAUCHE et restez ainsi.',c3:'Regardez l\'écran. Clignez plusieurs fois (briques bleues = double clignement).',c4:'Ouvrez grand la bouche et tenez (briques rose vif).',c5:'Grand sourire, tenez-le (briques jaunes).',c6:'Levez les sourcils et tenez (briques vertes).',c7:'Gonflez les joues et tenez (désamorce les bombes).',
-level:'Niveau',row:'Rangée',next:'Suivante',combo:'COMBO x{n} !',perfect:'PARFAIT +5',burst:'EXPLOSION DE COULEUR +50 !',sinkB:'⬇️ La pile s\'enfonce ! Niveau {n}',defused:'Désamorcée ! +1 ❤️',boom:'💥 BOUM !',
-wrongG:'Raté ! {c} = {g}',slow:'Trop lent !',missed:'À côté de la pile !',golden:'⭐ DORÉE +{n}',tapBomb:'TOUCHE !',puffBomb:'JOUES !',noFace:'Visage introuvable — tenez le téléphone à hauteur des yeux',
+c1:'Détendez votre visage et regardez l\'écran bien en face. Ne bougez pas.',c2:'Tournez la tête vers VOTRE GAUCHE et restez ainsi.',c3:'Clignez plusieurs fois (briques bleues = double clignement).',c4:'Ouvrez grand la bouche et tenez (briques rose vif).',c5:'Grand sourire, tenez-le (briques jaunes).',c6:'Levez les sourcils et tenez (briques vertes).',c7:'Gonflez les joues et tenez (désamorce les bombes).',
+level:'Niveau',row:'Rangée',next:'Suivante',combo:'COMBO x{n} !',quick:'RAPIDE +5',burst:'EXPLOSION DE COULEUR +50 !',sinkB:'⬇️ Pile {c} enfoncée ! +20 · Niveau {n}',defused:'Désamorcée ! +1 ❤️',boom:'💥 BOUM !',
+wrongG:'Raté ! {c} = {g}',slow:'Trop lent !',golden:'⭐ DORÉE +{n}',tapBomb:'TOUCHE !',puffBomb:'JOUES !',noFace:'Visage introuvable — tenez le téléphone à hauteur des yeux',
 cBlue:'Bleu',cPink:'Rose',cYellow:'Jaune',cGreen:'Vert',gBlue:'double clignement',gPink:'bouche ouverte',gYellow:'sourire',gGreen:'sourcils levés',gPuff:'joues gonflées',gBlink1:'clignement 1/2',
 dCam:'caméra',dModel:'modèle',dFace:'visage',yes:'OUI',no:'NON',dSens:'sens.',dBlink:'cligner',dMouth:'bouche',dSmile:'sourire',dPuff:'joues',dBrow:'sourcils',dMove:'bouger'}};
 const detectLang=()=>{const s=localStorage.getItem('fa_lang');if(s==='en'||s==='fr')return s;const ls=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'en']);return String(ls[0]||'').toLowerCase().startsWith('fr')?'fr':'en'};
@@ -225,37 +224,25 @@ function faceGestures(dt){
   }else GE.eyes=false;
   if(GE.blinks.length&&now-GE.blinks[0]>700)GE.blinks=[];
 }
-let mx=0;function moveAxis(){
-  const head=(yaw-yaw0)/Math.max(.08,moveRange)*moveSign;
-  return Math.abs(head)<.15*sens?0:Math.max(-1,Math.min(1,head))}
 // ---------- Touch / keyboard ----------
-const touch={left:false,right:false};let dragDX=0;
 document.querySelectorAll('#touch button').forEach(b=>{const k=b.dataset.k;
-  const on=e=>{e.preventDefault();if(k==='left'||k==='right')touch[k]=true;else gestureQ.push(COLORS[k].g)};
-  const off=e=>{e.preventDefault();if(k==='left'||k==='right')touch[k]=false};
-  b.addEventListener('pointerdown',on);b.addEventListener('pointerup',off);b.addEventListener('pointerleave',off);b.addEventListener('pointercancel',off)});
-let drag=null;
-cv.addEventListener('pointerdown',e=>{if(!running||mode!=='touch')return;drag={x:e.clientX,x0:e.clientX,t:performance.now()}});
-cv.addEventListener('pointermove',e=>{if(!drag)return;dragDX+=e.clientX-drag.x;drag.x=e.clientX});
-cv.addEventListener('pointerup',e=>{if(!drag)return;const tap=Math.abs(e.clientX-drag.x0)<12&&performance.now()-drag.t<400;drag=null;
-  if(tap&&S&&S.cur&&S.cur.kind==='bomb'){const b=S.cur;if(Math.abs(e.clientX-b.x)<S.bw/2+30&&e.clientY>b.y-40&&e.clientY<b.y+S.rh+40)gestureQ.push('puff')}});
-cv.addEventListener('pointercancel',()=>drag=null);
+  b.addEventListener('pointerdown',e=>{e.preventDefault();if(running&&!paused)gestureQ.push(COLORS[k].g)})});
+cv.addEventListener('pointerdown',e=>{if(!running||paused||mode!=='touch'||!S||!S.cur||S.cur.kind!=='bomb')return;const b=S.cur,L=S.fall;
+  if(Math.abs(e.clientX-b.x)<L.w/2+40&&e.clientY>b.y-50&&e.clientY<b.y+L.h+50)gestureQ.push('puff')});
 const KEYG={'1':'blink2','2':'jaw','3':'smile','4':'brow',' ':'puff'};
-addEventListener('keydown',e=>{if(e.key==='ArrowLeft')touch.left=true;if(e.key==='ArrowRight')touch.right=true;if(KEYG[e.key]&&!e.repeat&&running)gestureQ.push(KEYG[e.key])});
-addEventListener('keyup',e=>{if(e.key==='ArrowLeft')touch.left=false;if(e.key==='ArrowRight')touch.right=false});
+addEventListener('keydown',e=>{if(KEYG[e.key]&&!e.repeat&&running&&!paused)gestureQ.push(KEYG[e.key])});
 let noFaceT=0;
 function updateInput(dt){
-  if(mode==='face'){
-    if(stream&&!paused&&!S.ended&&!faceSeen){noFaceT+=dt;if(noFaceT>12)$('bRecalAuto').classList.remove('hide')}else if(faceSeen){noFaceT=0;$('bRecalAuto').classList.add('hide')}
-    if(!faceSeen){mx=0;GE.cur=null;return}
-    faceGestures(dt);mx=GE.cur?0:moveAxis();lvl.move=mx; // brick holds still while a gesture is being held
-  }else mx=(touch.right?1:0)-(touch.left?1:0);
+  if(mode!=='face')return;
+  if(stream&&!paused&&!S.ended&&!faceSeen){noFaceT+=dt;if(noFaceT>12)$('bRecalAuto').classList.remove('hide')}else if(faceSeen){noFaceT=0;$('bRecalAuto').classList.add('hide')}
+  if(!faceSeen){GE.cur=null;return}
+  faceGestures(dt);
 }
 // ---------- Debug HUD ----------
 let hudOn=localStorage.getItem('fb_hud')==='1';
 function drawHud(){
   if(!hudOn)return;const x=8,y0=H*.40,w=Math.min(W*.6,240);
-  ctx.save();ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(x-4,y0-18,w+8,190);
+  ctx.save();ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(x-4,y0-18,w+8,168);
   ctx.font='12px monospace';ctx.fillStyle='#fff';
   ctx.fillText(t('dCam')+': '+camStatus+'  '+(video.videoWidth||0)+'x'+(video.videoHeight||0),x,y0-6);
   ctx.fillText(t('dModel')+': '+modelStatus,x,y0+8);
@@ -264,8 +251,6 @@ function drawHud(){
   rows.forEach(([k,n,f],i)=>{const y=y0+36+i*22,v=lvl[k]||0,tt=th(k),fl=performance.now()-(flash[f]||0)<300;
     ctx.fillStyle=fl?'#ff0':'#fff';ctx.fillText(n,x,y+6);ctx.fillStyle='#333';ctx.fillRect(x+60,y,w-62,12);
     ctx.fillStyle=v>tt?'#0f0':'#29f';ctx.fillRect(x+60,y,(w-62)*Math.min(1,v),12);ctx.fillStyle='#f00';ctx.fillRect(x+60+(w-62)*tt,y-2,2,16)});
-  const y=y0+36+5*22;ctx.fillStyle='#fff';ctx.fillText(t('dMove'),x,y+6);ctx.fillStyle='#333';ctx.fillRect(x+60,y,w-62,12);
-  ctx.fillStyle='#fa0';const mid=x+60+(w-62)/2;ctx.fillRect(Math.min(mid,mid+(lvl.move||0)*(w-62)/2),y,Math.abs(lvl.move||0)*(w-62)/2,12);
   ctx.restore()}
 
 // ---------- Sound: synthesized with Web Audio (no files) ----------
@@ -300,6 +285,8 @@ const sfx={
   unlock:()=>[523,659,784,1047,784,1047].forEach((f,i)=>tone(f,.15,{type:'square',vol:.1,delay:i*.09})),
   level:()=>[392,523,659,784].forEach((f,i)=>tone(f,.16,{type:'square',vol:.12,delay:i*.1})),
   over:()=>[392,330,262,196].forEach((f,i)=>tone(f,.3,{type:'triangle',vol:.22,delay:i*.22})),
+  fly:()=>{tone(500,.18,{type:'sine',vol:.12,slide:2.2});noise(.12,{vol:.06,hp:3000})},
+  quick:()=>tone(1760,.08,{type:'square',vol:.07,delay:.05}),
   blink1:()=>tone(1200,.04,{type:'sine',vol:.06}),
   beep:hi=>tone(hi?1320:880,hi?.25:.08,{type:'sine',vol:.2}),
 };
@@ -314,85 +301,85 @@ function cycleVol(){const i=VOLS.indexOf(SND.vol);SND.vol=VOLS[(i+1)%VOLS.length
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 function mulberry(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let x=Math.imul(a^a>>>15,1|a);x=x+Math.imul(x^x>>>7,61|x)^x;return((x^x>>>14)>>>0)/4294967296}}
 const hashStr=s=>{let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0};
+const MAXROWS=10;
+// layout: 4 columns (one per color) at the bottom, falling zone in the middle above a red deadline
 function layout(){
-  const gy=mode==='touch'?H-Math.max(96,Math.min(W*.15,70)+40):H-100;
-  const rh=Math.max(26,Math.min(46,(gy-200)/11.5));const bw=Math.min(W*.3,rh*2.7);
-  return {groundY:gy,rh,bw,spawnY:Math.max(150,H*.15)}}
+  const gy=mode==='touch'?H-112:H-96;
+  const rh=Math.max(20,Math.min(32,(gy-380)/MAXROWS));
+  const colW=W/4,cw=colW*.84,zoneTop=gy-MAXROWS*rh;
+  const fall={w:Math.min(W*.36,150),h:Math.min(44,rh*1.4)};
+  return {groundY:gy,rh,colW,cw,zoneTop,deadY:zoneTop-12,spawnY:Math.max(150,H*.16),fall}}
+const colX=i=>S.colW*(i+.5);
 function newGame(){
-  S={...layout(),score:0,hearts:5,streak:0,mult:1,stack:[],cur:null,next:null,fx:[],parts:[],level:1,sinks:0,slowT:0,sink:null,shake:0,squash:0,spawnT:.8,locks:0,t:0,ended:false,
-    daily,day:today(),rng:daily?mulberry(hashStr('fb-'+today())):Math.random,idx:0,bannerT:0,banner:'',unlockAt:STYLES.filter(s=>s.need>topScore()).map(s=>s.k),overT:-1};
+  S={...layout(),score:0,hearts:5,streak:0,mult:1,cols:CKEYS.map(()=>[]),sinking:[],cur:null,fly:[],next:null,fx:[],parts:[],level:1,sinks:0,slowT:0,shake:0,spawnT:.8,locks:0,t:0,ended:false,
+    chainC:null,chainN:0,daily,day:today(),rng:daily?mulberry(hashStr('fb-'+today())):Math.random,idx:0,bannerT:0,banner:'',unlockAt:STYLES.filter(s=>s.need>topScore()).map(s=>s.k),overT:-1,quick:0,bursts:0};
   S.next=genBrick()}
-// brick sequence: in daily mode this comes from a date-seeded RNG, so everyone gets the same bricks that day
-function genBrick(){const r=S.rng,i=S.idx++;let kind='normal';const c=CKEYS[Math.floor(r()*4)],sp=r(),side=r()<.5?-1:1,mag=.14+r()*.18;
+// brick sequence: daily mode uses a date-seeded RNG, so everyone gets the same bricks that day
+function genBrick(){const r=S.rng,i=S.idx++;let kind='normal';const c=CKEYS[Math.floor(r()*4)],sp=r();
   if(i>=6){if(sp<.06)kind='rainbow';else if(sp<.12)kind='bomb';else if(sp<.16)kind='golden'}
-  return {c,kind,off:side*mag}}
-const topX=()=>S.stack.length?S.stack[S.stack.length-1].x:W/2;
-const topY=()=>S.groundY-S.stack.length*S.rh;
-// generous early fall time that shrinks 10% per sink, floor 3 s (face mode gets +15%)
-const fallTime=()=>Math.max(3,7.5*Math.pow(.9,S.level-1))*(mode==='face'?1.15:1);
-function spawnBrick(){const b=S.next;S.next=genBrick();const half=S.bw/2+6;
-  S.cur={...b,x:Math.max(half,Math.min(W-half,topX()+b.off*W)),y:S.spawnY,state:'fall',age:0,vx:0,rot:0};
-  S.cur.vy=Math.max(30,topY()-S.rh-S.spawnY)/fallTime()}
+  return {c,kind}}
+// generous early fall time, 8% faster per sink, floor 2.5 s (face mode gets +15%)
+const fallTime=()=>Math.max(2.5,6.5*Math.pow(.92,S.level-1))*(mode==='face'?1.15:1);
+function spawnBrick(){const b=S.next;S.next=genBrick();
+  S.cur={...b,x:W/2,y:S.spawnY,state:'fall',age:0};S.cur.vy=(S.deadY-S.fall.h-S.spawnY)/fallTime()}
 function banner(txt,col='#ffd54a',dur=1.6){S.banner=txt;S.bannerCol=col;S.bannerT=dur}
 function fx(x,y,txt,col='#fff',size=18){S.fx.push({x,y,txt,col,t:1.2,size})}
 function parts(x,y,col,n=16,sp=220){for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=sp*(.3+Math.random());S.parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-80,t:.6+Math.random()*.5,col,s:2+Math.random()*4})}}
-function loseHeart(reason){S.hearts--;S.streak=0;S.mult=1;S.shake=.35;navigator.vibrate&&navigator.vibrate(120);fx(W/2,H*.42,reason,'#ff5252',20);
+function loseHeart(reason){S.hearts--;S.streak=0;S.mult=1;S.chainN=0;S.chainC=null;S.shake=.35;navigator.vibrate&&navigator.vibrate(120);fx(W/2,H*.42,reason,'#ff5252',20);
   if(S.hearts<=0){S.hearts=0;S.overT=.9}}
 function addScore(p,x,y,col){S.score+=p;fx(x,y,'+'+p,col||'#ffd54a',20);checkUnlock()}
 function checkUnlock(){for(const k of [...S.unlockAt]){const st=STYLES.find(s=>s.k===k);if(S.score>=st.need){S.unlockAt=S.unlockAt.filter(x=>x!==k);localStorage.setItem('fb_top',Math.max(topScore(),S.score));sfx.unlock();banner(t('unlocked',{s:t(st.n)}),'#7cf',2.2)}}}
-function handleGesture(g){const b=S.cur;if(!b||b.state!=='fall'||b.age<(mode==='touch'?.15:.35)||S.sink)return;
+const stackTopY=i=>S.groundY-S.cols[i].length*S.rh;
+function shortestCol(){let m=Infinity,c=0;S.cols.forEach((s,i)=>{if(s.length<m){m=s.length;c=i}});return c}
+function handleGesture(g){const b=S.cur;if(!b||b.state!=='fall'||b.age<(mode==='touch'?.15:.35))return;
   if(b.kind==='bomb'){
-    if(g==='puff'){b.state='gone';S.hearts=Math.min(5,S.hearts+1);sfx.defuse();parts(b.x,b.y+S.rh/2,'#ddd',24,160);fx(b.x,b.y,t('defused'),'#7cf',20);S.spawnT=.45}
-    else{b.state='gone';sfx.boom();parts(b.x,b.y+S.rh/2,'#ff9100',40,320);fx(b.x,b.y-20,t('boom'),'#ff9100',24);loseHeart(t('wrongG',{c:'💣',g:t('gPuff')}));S.spawnT=.6}
+    if(g==='puff'){b.state='gone';S.hearts=Math.min(5,S.hearts+1);sfx.defuse();parts(b.x,b.y+S.fall.h/2,'#ddd',24,160);fx(b.x,b.y,t('defused'),'#7cf',20);S.spawnT=.45}
+    else{b.state='gone';boom(b);loseHeart(t('wrongG',{c:'💣',g:t('gPuff')}));S.spawnT=.6}
     return}
   if(g==='puff')return; // cheek puff only matters for bombs
   const ok=b.kind==='rainbow'||G2C[g]===b.c;
-  if(ok){b.state='drop';b.vy=Math.max(b.vy,1600)}
-  else{b.state='shatter';b.st=.5;sfx.wrong();sfx.shatter();parts(b.x,b.y+S.rh/2,COLORS[b.c].hex,26);loseHeart(t('wrongG',{c:t(COLORS[b.c].n),g:t(COLORS[b.c].gn)}));S.spawnT=.7}}
-function land(b){const tx=topX(),dx=b.x-tx;
-  const perfect=Math.abs(dx)<=S.bw*.08;if(perfect)b.x=tx;
-  S.stack.push({c:b.kind==='rainbow'?'rainbow':b.c,x:b.x,kind:b.kind});S.locks++;S.streak++;
+  if(!ok){b.state='shatter';b.st=.5;sfx.wrong();sfx.shatter();parts(b.x,b.y+S.fall.h/2,COLORS[b.c].hex,26);loseHeart(t('wrongG',{c:t(COLORS[b.c].n),g:t(COLORS[b.c].gn)}));S.spawnT=.7;return}
+  // correct: fly to its own color's stack (rainbow -> shortest stack)
+  const ci=b.kind==='rainbow'?shortestCol():CKEYS.indexOf(b.c);
+  const quick=(b.y-S.spawnY)<(S.deadY-S.fall.h-S.spawnY)/3;
+  S.fly.push({c:b.kind==='rainbow'?'rainbow':b.c,kind:b.kind,ci,x0:b.x,y0:b.y,t:0,dur:.38,quick});
+  sfx.fly();S.cur=null;S.spawnT=.55}
+function boom(b){sfx.boom();parts(b.x,b.y+S.fall.h/2,'#ff9100',40,320);fx(b.x,b.y-20,t('boom'),'#ff9100',24)}
+function land(f){const col=S.cols[f.ci],cx=colX(f.ci);col.push({c:f.c,kind:f.kind});S.locks++;S.streak++;
+  const by=stackTopY(f.ci)+S.rh/2;S.squash=.18;S.squashCol=f.ci;
   const nm=Math.min(5,1+Math.floor(S.streak/3));if(nm>S.mult){S.mult=nm;sfx.combo(nm);banner(t('combo',{n:nm}),'#ff6ec7')}
-  sfx.lock(S.streak);const by=topY()+S.rh/2;
-  if(b.kind==='golden'){addScore(100*S.mult,b.x,by-30,'#ffd54a');sfx.golden();parts(b.x,by,'#ffd54a',36,260);banner(t('golden',{n:100*S.mult}),'#ffd54a')}
-  else addScore(10*S.mult,b.x,by-30);
-  if(perfect){S.score+=5;fx(b.x,by-58,t('perfect'),'#fff59d',16);sfx.perfect();for(let i=0;i<16;i++)S.parts.push({x:b.x+(Math.random()-.5)*S.bw,y:by-S.rh/2,vx:(Math.random()-.5)*60,vy:-60-Math.random()*120,t:.9,col:'#fff',s:2,star:1})}
-  else parts(b.x,by-S.rh/2,'rgba(255,255,255,.5)',6,80);
-  S.squash=.18;
-  // color burst: 3 of the same color in a row on top (rainbow = wild)
-  if(S.stack.length>=3){const cs=S.stack.slice(-3).map(r=>r.c).filter(c=>c!=='rainbow');
-    if(cs.length&&cs.every(c=>c===cs[0])){S.stack.splice(-3).forEach((r,i)=>{const y=S.groundY-(S.stack.length+i+1)*S.rh;parts(r.x,y+S.rh/2,COLORS[cs[0]].hex,22,260)});
-      S.score+=50;fx(W/2,H*.38,t('burst'),COLORS[cs[0]].hi,22);S.slowT=3;sfx.burst();S.bursts=(S.bursts||0)+1;checkUnlock()}}
-  if(S.stack.length>=10)startSink();
-  return true}
-function startSink(){if(S.sink)return;S.sink={t:0,dur:.9,dist:(S.stack.length-1)*S.rh};sfx.crunch();S.shake=.5}
-function endSink(){S.stack=S.stack.slice(-1);S.sink=null;S.sinks++;S.level++;sfx.level();banner(t('sinkB',{n:S.level}),'#ffd54a',2);
-  for(let i=0;i<30;i++)S.parts.push({x:Math.random()*W,y:S.groundY,vx:(Math.random()-.5)*200,vy:-Math.random()*200,t:.8,col:'#8d6e63',s:3+Math.random()*3});
-  if(mode==='face'&&S.sinks%3===0)startRest()}
+  sfx.lock(S.streak);parts(cx,by,'rgba(255,255,255,.6)',8,90);
+  if(f.kind==='golden'){addScore(100*S.mult,cx,by-30,'#ffd54a');sfx.golden();parts(cx,by,'#ffd54a',36,260);banner(t('golden',{n:100*S.mult}),'#ffd54a')}
+  else addScore(10*S.mult,cx,by-30);
+  if(f.quick){S.score+=5;S.quick++;fx(cx,by-56,t('quick'),'#fff59d',15);sfx.quick();for(let i=0;i<10;i++)S.parts.push({x:cx+(Math.random()-.5)*S.cw,y:by,vx:(Math.random()-.5)*60,vy:-60-Math.random()*120,t:.9,col:'#fff',s:2,star:1})}
+  // color chain: 3 correct bricks of the same color in a row (rainbow continues any chain)
+  if(f.c==='rainbow')S.chainN++;else if(!S.chainC||S.chainC===f.c){S.chainC=f.c;S.chainN++}else{S.chainC=f.c;S.chainN=1}
+  if(S.chainN>=3){S.chainN=0;S.chainC=null;S.bursts++;const hex=f.c==='rainbow'?'#ffffff':COLORS[f.c].hi;
+    for(let k=0;k<Math.min(3,col.length);k++)parts(cx,stackTopY(f.ci)+(k+.5)*S.rh,hex,20,260);
+    S.score+=50;fx(W/2,H*.38,t('burst'),hex,22);S.slowT=3;sfx.burst();checkUnlock()}
+  if(col.length>=MAXROWS)sinkCol(f.ci)}
+function sinkCol(i){const bricks=S.cols[i];S.cols[i]=[];S.sinking.push({ci:i,bricks,t:0,dur:.9});sfx.crunch();S.shake=.5;
+  S.sinks++;S.level++;S.score+=20;fx(colX(i),S.groundY-40,'+20','#ffd54a',22);
+  setTimeout(()=>{if(!S||S.ended)return;sfx.level();banner(t('sinkB',{c:t(COLORS[CKEYS[i]].n),n:S.level}),'#ffd54a',2);
+    for(let k=0;k<26;k++)S.parts.push({x:colX(i)+(Math.random()-.5)*S.colW,y:S.groundY,vx:(Math.random()-.5)*200,vy:-Math.random()*220,t:.8,col:'#8d6e63',s:3+Math.random()*3})},700);
+  checkUnlock();if(mode==='face'&&S.sinks%3===0)setTimeout(()=>{if(running&&!S.ended)startRest()},1200)}
+const ease=x=>1-Math.pow(1-x,3);
 function update(dt){
-  S.t+=dt;S.bannerT-=dt;S.shake=Math.max(0,S.shake-dt);S.squash=Math.max(0,S.squash-dt);S.slowT=Math.max(0,S.slowT-dt);
+  S.t+=dt;S.bannerT-=dt;S.shake=Math.max(0,S.shake-dt);S.squash=Math.max(0,(S.squash||0)-dt);S.slowT=Math.max(0,S.slowT-dt);
   if(S.overT>0){S.overT-=dt;if(S.overT<=0){gameOver();return}}
   const q=gestureQ;gestureQ=[];if(S.overT<0)for(const g of q)handleGesture(g);
-  if(S.sink){S.sink.t+=dt;if(S.sink.t>=S.sink.dur)endSink()}
+  for(const s of S.sinking)s.t+=dt;S.sinking=S.sinking.filter(s=>s.t<s.dur);
+  for(const f of S.fly){f.t+=dt;if(f.t>=f.dur&&!f.done){f.done=1;land(f)}}S.fly=S.fly.filter(f=>!f.done);
   const slow=S.slowT>0?.5:1,b=S.cur;
-  if(!b||b.state==='gone'){if(!S.sink&&S.overT<0){S.spawnT-=dt;if(S.spawnT<=0)spawnBrick()}}
-  else{b.age+=dt;const half=S.bw/2+6;
-    if(b.state==='fall'){
-      b.x+=mx*dt*W*.55+(mode==='touch'?dragDX:0);b.x=Math.max(half,Math.min(W-half,b.x));
-      b.y+=b.vy*slow*dt;
-      if(b.y+S.rh>=topY()){
-        if(b.kind==='bomb'){b.state='gone';sfx.boom();parts(b.x,b.y+S.rh/2,'#ff9100',40,320);fx(b.x,b.y-20,t('boom'),'#ff9100',24);loseHeart(t('slow'));S.spawnT=.6}
-        else{b.y=topY()-S.rh;b.state='falloff';b.vx=(b.x>=topX()?1:-1)*170;b.vy=60;b.slow=1}}}
-    else if(b.state==='drop'){b.y+=b.vy*dt;
-      if(b.y+S.rh>=topY()&&!b.passed){if(Math.abs(b.x-topX())<S.bw*.6){b.y=topY()-S.rh;land(b);S.cur=null;S.spawnT=.35}else b.passed=1}
-      if(b.passed&&b.y+S.rh>=S.groundY)groundHit(b,t('missed'))}
-    else if(b.state==='falloff'){b.vy+=1400*dt;b.x+=b.vx*dt;b.y+=b.vy*dt;b.rot+=b.vx/200*dt*3;if(b.y+S.rh>=S.groundY)groundHit(b,b.slow?t('slow'):t('missed'))}
+  if(!b||b.state==='gone'){if(S.overT<0){S.spawnT-=dt;if(S.spawnT<=0)spawnBrick()}}
+  else{b.age+=dt;
+    if(b.state==='fall'){b.y+=b.vy*slow*dt;
+      if(b.y+S.fall.h>=S.deadY){if(b.kind==='bomb'){b.state='gone';boom(b);loseHeart(t('slow'))}
+        else{b.state='shatter';b.st=.5;sfx.shatter();parts(b.x,b.y+S.fall.h,COLORS[b.c].hex,26,260);loseHeart(t('slow'))}S.spawnT=.7}}
     else if(b.state==='shatter'){b.st-=dt;if(b.st<=0)b.state='gone'}}
-  dragDX=0;
   for(const f of S.fx){f.t-=dt;f.y-=40*dt}S.fx=S.fx.filter(f=>f.t>0);
   for(const p of S.parts){p.t-=dt;p.vy+=(p.star?40:500)*dt;p.x+=p.vx*dt;p.y+=p.vy*dt}S.parts=S.parts.filter(p=>p.t>0);
 }
-function groundHit(b,reason){b.state='gone';sfx.shatter();parts(b.x,S.groundY-4,COLORS[b.c].hex,26,260);loseHeart(reason);S.spawnT=.6}
 function gameOver(){S.ended=true;running=false;sfx.over();camStop();$('bPause').classList.add('hide');$('touch').classList.add('hide');
   const m=mode,prev=getBest(m),b=Math.max(S.score,prev);localStorage.setItem(BEST_KEYS[m],b);localStorage.setItem('fb_top',Math.max(topScore(),S.score));showBest();
   if(S.daily){const dk='fb_daily_'+S.day+'_'+m;localStorage.setItem(dk,Math.max(+localStorage.getItem(dk)||0,S.score))}
@@ -440,31 +427,41 @@ function heart(x,y,s,on){ctx.save();ctx.fillStyle=on?'#ff1744':'#3b2f4a';ctx.sha
 const GICON={blink2:'👀',jaw:'😮',smile:'😁',brow:'🤨',puff:'😤'};
 const gName=g=>g==='puff'?t('gPuff'):t(COLORS[G2C[g]].gn);
 function draw(){
-  const gy=S.groundY;ctx.save();
+  const gy=S.groundY,rh=S.rh;ctx.save();
   if(S.shake>0)ctx.translate((Math.random()-.5)*S.shake*18,(Math.random()-.5)*S.shake*12);
   const gr=ctx.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#05030c');gr.addColorStop(.7,'#0d0820');gr.addColorStop(1,'#140c04');ctx.fillStyle=gr;ctx.fillRect(-20,-20,W+40,H+40);
-  ctx.strokeStyle='rgba(255,213,74,.05)';ctx.lineWidth=1;for(let x=16;x<W;x+=32){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,gy);ctx.stroke()}
   if(S.slowT>0){ctx.fillStyle='rgba(41,121,255,'+(.1*Math.min(1,S.slowT))+')';ctx.fillRect(-20,-20,W+40,H+40)}
+  // column lanes, each tinted with its color
+  CKEYS.forEach((k,i)=>{const x=S.colW*i,c=COLORS[k];const lg=ctx.createLinearGradient(0,S.zoneTop,0,gy);lg.addColorStop(0,c.hex+'00');lg.addColorStop(1,c.hex+'2a');ctx.fillStyle=lg;ctx.fillRect(x+3,S.zoneTop,S.colW-6,gy-S.zoneTop);
+    ctx.strokeStyle=c.hex+'55';ctx.lineWidth=1.5;ctx.setLineDash([4,6]);ctx.beginPath();ctx.moveTo(x+3,S.zoneTop);ctx.lineTo(x+3,gy);ctx.moveTo(x+S.colW-3,S.zoneTop);ctx.lineTo(x+S.colW-3,gy);ctx.stroke();ctx.setLineDash([])});
+  // red deadline
+  ctx.strokeStyle='rgba(255,82,82,.75)';ctx.lineWidth=2;ctx.setLineDash([10,7]);ctx.beginPath();ctx.moveTo(0,S.deadY);ctx.lineTo(W,S.deadY);ctx.stroke();ctx.setLineDash([]);
+  // ground + labels
   const gg=ctx.createLinearGradient(0,gy,0,H);gg.addColorStop(0,'#3e2723');gg.addColorStop(1,'#120a04');ctx.fillStyle=gg;ctx.fillRect(-20,gy,W+40,H-gy+20);
   ctx.fillStyle='#ffd54a';ctx.shadowColor='#ffd54a';ctx.shadowBlur=10;ctx.fillRect(-20,gy,W+40,3);ctx.shadowBlur=0;
-  if(!S.stack.length){ctx.strokeStyle='#ffd54a';ctx.setLineDash([6,5]);ctx.lineWidth=2;rr(W/2-S.bw/2,gy-S.rh,S.bw,S.rh-2,7);ctx.stroke();ctx.setLineDash([])}
-  // stack (clipped at the ground so sinking rows disappear into it)
-  const so=S.sink?Math.pow(Math.min(1,S.sink.t/S.sink.dur),2)*S.sink.dist:0;
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  CKEYS.forEach((k,i)=>{const c=COLORS[k],cx=colX(i);ctx.fillStyle=c.hex;ctx.shadowColor=c.hex;ctx.shadowBlur=8;ctx.font='bold 12px sans-serif';
+    ctx.fillText((mode==='touch'?'':c.ic+' ')+t(c.n)+' '+S.cols[i].length+'/'+MAXROWS,cx,gy+16);ctx.shadowBlur=0;
+    if(mode!=='touch'){ctx.fillStyle='#ccc';ctx.font='10px sans-serif';ctx.fillText(t(c.gn),cx,gy+32)}});
+  // stacks (clipped at the ground so sinking stacks disappear into it)
   ctx.save();ctx.beginPath();ctx.rect(-20,-20,W+40,gy+20);ctx.clip();
-  S.stack.forEach((r,i)=>{let y=gy-(i+1)*S.rh+so,h=S.rh-2;
-    if(i===S.stack.length-1&&S.squash>0){const k=S.squash/.18;y+=k*4;h-=k*4}
-    drawBrick(r.x,y+1,S.bw,h,r.c,r.kind,style)});
+  for(const s of S.sinking){const so=Math.pow(Math.min(1,s.t/s.dur),2)*(MAXROWS*rh+10);s.bricks.forEach((r,j)=>drawBrick(colX(s.ci),gy-(j+1)*rh+so+1,S.cw,rh-2,r.c,r.kind,style))}
+  S.cols.forEach((col,i)=>col.forEach((r,j)=>{let y=gy-(j+1)*rh,h=rh-2;if(j===col.length-1&&S.squash>0&&S.squashCol===i){const k=S.squash/.18;y+=k*4;h-=k*4}drawBrick(colX(i),y+1,S.cw,h,r.c,r.kind,style)}));
   ctx.restore();
-  if(S.sink){for(let i=0;i<4;i++){ctx.fillStyle='rgba(141,110,99,.7)';ctx.beginPath();ctx.arc(topX()+(Math.random()-.5)*S.bw*1.5,gy+Math.random()*8,3+Math.random()*6,0,7);ctx.fill()}}
-  const b=S.cur;
+  for(const s of S.sinking)for(let k=0;k<3;k++){ctx.fillStyle='rgba(141,110,99,.7)';ctx.beginPath();ctx.arc(colX(s.ci)+(Math.random()-.5)*S.colW,gy+Math.random()*8,3+Math.random()*5,0,7);ctx.fill()}
+  // flying bricks (arc from the drop zone to their stack, shrinking to stack size)
+  for(const f of S.fly){const p=ease(Math.min(1,f.t/f.dur)),tx=colX(f.ci),ty=stackTopY(f.ci)-rh;
+    const x=f.x0+(tx-f.x0)*p,y=f.y0+(ty-f.y0)*p-Math.sin(p*Math.PI)*60,w=S.fall.w+(S.cw-S.fall.w)*p,h=S.fall.h+(rh-2-S.fall.h)*p;
+    ctx.globalAlpha=.25;drawBrick(f.x0+(tx-f.x0)*Math.max(0,p-.15),f.y0+(ty-f.y0)*Math.max(0,p-.15)-Math.sin(Math.max(0,p-.15)*Math.PI)*60,w,h,f.c,f.kind,style);ctx.globalAlpha=1;
+    drawBrick(x,y,w,h,f.c,f.kind,style,{rot:(1-p)*.3*Math.sign(tx-f.x0)})}
+  // falling brick
+  const b=S.cur,FW=S.fall.w,FH=S.fall.h;
   if(b&&b.state!=='gone'){
-    if(b.state==='fall'&&b.kind!=='bomb'){const tx=topX(),ty=topY(),dx=Math.abs(b.x-tx),good=dx<S.bw*.6,perf=dx<=S.bw*.08;
-      ctx.strokeStyle=perf?'#ffd54a':good?'#00e676':'rgba(255,82,82,.75)';ctx.lineWidth=2;ctx.setLineDash([5,6]);rr(b.x-S.bw/2,ty-S.rh,S.bw,S.rh-2,7);ctx.stroke();
-      ctx.beginPath();ctx.moveTo(b.x,b.y+S.rh);ctx.lineTo(b.x,ty-S.rh);ctx.stroke();ctx.setLineDash([])}
-    if(b.state==='shatter'){ctx.save();ctx.translate((Math.random()-.5)*8,0);drawBrick(b.x,b.y,S.bw,S.rh-2,b.c,b.kind,style,{alpha:Math.max(0,b.st*2),icon:1});
-      ctx.strokeStyle='#ff5252';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(b.x-S.bw*.3,b.y);ctx.lineTo(b.x-S.bw*.05,b.y+S.rh*.6);ctx.lineTo(b.x+S.bw*.2,b.y+S.rh*.2);ctx.lineTo(b.x+S.bw*.35,b.y+S.rh);ctx.stroke();ctx.restore()}
-    else drawBrick(b.x,b.y,S.bw,S.rh-2,b.c,b.kind,style,{icon:1,rot:b.rot});
-    if(b.kind==='bomb'&&b.state==='fall'){ctx.fillStyle='#fff';ctx.font='bold 13px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(mode==='touch'?t('tapBomb'):t('puffBomb'),b.x-S.rh*.4,b.y-14)}}
+    if(b.state==='shatter'){ctx.save();ctx.translate((Math.random()-.5)*8,0);drawBrick(b.x,b.y,FW,FH,b.c,b.kind,style,{alpha:Math.max(0,b.st*2),icon:1});
+      ctx.strokeStyle='#ff5252';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(b.x-FW*.3,b.y);ctx.lineTo(b.x-FW*.05,b.y+FH*.6);ctx.lineTo(b.x+FW*.2,b.y+FH*.2);ctx.lineTo(b.x+FW*.35,b.y+FH);ctx.stroke();ctx.restore()}
+    else{const q=(b.y-S.spawnY)<(S.deadY-FH-S.spawnY)/3;if(q&&b.kind!=='bomb'){ctx.strokeStyle='rgba(255,245,157,.5)';ctx.lineWidth=2;rr(b.x-FW/2-5,b.y-5,FW+10,FH+10,10);ctx.stroke()}
+      drawBrick(b.x,b.y,FW,FH,b.c,b.kind,style,{icon:1})}
+    if(b.kind==='bomb'&&b.state==='fall'){ctx.fillStyle='#fff';ctx.font='bold 13px sans-serif';ctx.textAlign='center';ctx.fillText(mode==='touch'?t('tapBomb'):t('puffBomb'),b.x,b.y-22)}}
   ctx.textAlign='center';ctx.textBaseline='middle';
   for(const p of S.parts){ctx.globalAlpha=Math.max(0,Math.min(1,p.t*1.5));ctx.fillStyle=p.col;if(p.star){ctx.font='14px sans-serif';ctx.fillText('✦',p.x,p.y)}else ctx.fillRect(p.x-p.s/2,p.y-p.s/2,p.s,p.s)}ctx.globalAlpha=1;
   for(const f of S.fx){ctx.globalAlpha=Math.max(0,Math.min(1,f.t));ctx.fillStyle=f.col;ctx.font='bold '+f.size+'px sans-serif';ctx.lineWidth=3;ctx.strokeStyle='rgba(0,0,0,.7)';ctx.strokeText(f.txt,f.x,f.y);ctx.fillText(f.txt,f.x,f.y)}ctx.globalAlpha=1;
@@ -473,21 +470,21 @@ function draw(){
   const top=14+(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat'))||0);
   ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#ffd54a';ctx.font='bold 26px sans-serif';ctx.shadowColor='#ffd54a';ctx.shadowBlur=8;ctx.fillText(String(S.score),12,top+10);ctx.shadowBlur=0;
   for(let i=0;i<5;i++)heart(22+i*24,top+28,18,i<S.hearts);
-  ctx.fillStyle='#fff';ctx.font='bold 14px sans-serif';ctx.fillText(t('level')+' '+S.level+' · '+t('row')+' '+Math.min(10,S.stack.length)+'/10',12,top+62);
-  ctx.fillStyle='#333';ctx.fillRect(12,top+74,130,6);ctx.fillStyle='#ffd54a';ctx.fillRect(12,top+74,130*Math.min(1,S.stack.length/10),6);
-  let hy=top+98;
+  ctx.fillStyle='#fff';ctx.font='bold 14px sans-serif';ctx.fillText(t('level')+' '+S.level,12,top+62);
+  let hy=top+86;
   if(S.mult>1){ctx.fillStyle='#ff6ec7';ctx.font='bold 20px sans-serif';ctx.shadowColor='#ff1493';ctx.shadowBlur=10;ctx.fillText('x'+S.mult+' COMBO',12,hy);ctx.shadowBlur=0;hy+=22}
+  if(S.chainN>=1&&S.chainC){ctx.font='12px sans-serif';ctx.fillStyle=COLORS[S.chainC].hex;ctx.fillText('●'.repeat(S.chainN)+'○'.repeat(3-S.chainN),12,hy);hy+=18}
   if(S.daily){ctx.fillStyle='#9cf';ctx.font='12px sans-serif';ctx.fillText('📅 '+S.day,12,hy)}
   if(S.next){const nx=W-196,ny=top+62;ctx.fillStyle='#ccc';ctx.font='12px sans-serif';ctx.textAlign='right';ctx.fillText(t('next'),nx-4,ny+11);drawBrick(nx+30,ny,60,22,S.next.c,S.next.kind,style,{})}
-  if(S.bannerT>0){ctx.textAlign='center';ctx.globalAlpha=Math.min(1,S.bannerT*2);ctx.font='bold 24px sans-serif';ctx.fillStyle=S.bannerCol||'#ffd54a';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=14;
-    ctx.fillText(S.banner,W/2,H*.3);ctx.shadowBlur=0;ctx.globalAlpha=1}
+  if(S.bannerT>0){ctx.textAlign='center';ctx.globalAlpha=Math.min(1,S.bannerT*2);ctx.font='bold 22px sans-serif';ctx.fillStyle=S.bannerCol||'#ffd54a';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=14;
+    ctx.fillText(S.banner,W/2,S.spawnY-18);ctx.shadowBlur=0;ctx.globalAlpha=1}
   // small on-screen indicator of the detected gesture (face mode)
-  if(mode==='face'&&running){const iy=gy+42,now=performance.now();let txt='',prog=0,col='#fff';
+  if(mode==='face'&&running){const iy=gy+62,now=performance.now();let txt='',prog=0,col='#fff';
     if(GE.last&&now-GE.lastT<600){txt=GICON[GE.last]+' ✓ '+gName(GE.last);col='#00e676';prog=1}
     else if(GE.cur){txt=GICON[GE.cur]+' '+gName(GE.cur);prog=Math.min(1,GE.heldT/HOLD[GE.cur]);col='#ffd54a'}
     else if(GE.blinks.length){txt='👀 '+t('gBlink1');prog=.5;col='#82b1ff'}
-    if(txt){ctx.textAlign='center';ctx.font='bold 15px sans-serif';const w=Math.max(150,ctx.measureText(txt).width+30);ctx.fillStyle='rgba(0,0,0,.6)';rr(W/2-w/2,iy-16,w,32,16);ctx.fill();
-      ctx.fillStyle=col;ctx.globalAlpha=.4;rr(W/2-w/2,iy-16,Math.max(32,w*prog),32,16);ctx.fill();ctx.globalAlpha=1;ctx.fillStyle='#fff';ctx.fillText(txt,W/2,iy+1)}
+    if(txt){ctx.textAlign='center';ctx.font='bold 14px sans-serif';const w=Math.max(150,ctx.measureText(txt).width+30);ctx.fillStyle='rgba(0,0,0,.6)';rr(W/2-w/2,iy-14,w,28,14);ctx.fill();
+      ctx.fillStyle=col;ctx.globalAlpha=.4;rr(W/2-w/2,iy-14,Math.max(28,w*prog),28,14);ctx.fill();ctx.globalAlpha=1;ctx.fillStyle='#fff';ctx.fillText(txt,W/2,iy+1)}
     if(!faceSeen){ctx.textAlign='center';ctx.fillStyle='#f88';ctx.font='14px sans-serif';ctx.fillText(t('noFace'),W/2,H*.45)}}
   drawHud()}
 document.documentElement.style.setProperty('--sat','env(safe-area-inset-top)');
@@ -530,9 +527,9 @@ async function sampleLv(ms,fn){const v=[];let y=0,yn=0;const end=performance.now
   v.sort((a,b)=>a-b);return {p90:v.length?v[Math.floor(v.length*.9)]:0,max:v.length?v[v.length-1]:0,yaw:yn?y/yn:0,n:yn}}
 async function sampleBase(ms){const acc={},n={};let y=0,yn=0;const end=performance.now()+ms;while(performance.now()<end){if(faceSeen){for(const k in bs){acc[k]=(acc[k]||0)+bs[k];n[k]=(n[k]||0)+1}y+=yaw;yn++}await wait(40)}
   const o={};for(const k in acc)o[k]=Math.min(.5,acc[k]/n[k]);return {base:o,yaw:yn?y/yn:0,n:yn}} // capped so a held expression can't disable a gesture
-const CAL_KEY='fb_cal_v1';let forceCal=false;
-function saveCal(){try{localStorage.setItem(CAL_KEY,JSON.stringify({v:1,base,yaw0,moveSign,moveRange,TH,sens,t:Date.now()}))}catch(e){}}
-function loadCal(){try{const c=JSON.parse(localStorage.getItem(CAL_KEY)||'null');if(!c||c.v!==1||!c.base)return false;
+const CAL_KEY='fb_cal_v2';let forceCal=false;
+function saveCal(){try{localStorage.setItem(CAL_KEY,JSON.stringify({v:2,base,yaw0,moveSign,moveRange,TH,sens,t:Date.now()}))}catch(e){}}
+function loadCal(){try{const c=JSON.parse(localStorage.getItem(CAL_KEY)||'null');if(!c||c.v!==2||!c.base)return false;
   base=c.base;yaw0=c.yaw0||0;moveSign=c.moveSign||1;moveRange=c.moveRange||.25;TH={...TH_DEF,...(c.TH||{})};if(c.sens)sens=c.sens;$('sens').value=sens;return true}catch(e){return false}}
 // per-user threshold: ~55% of the player's own peak, kept between 60% and 180% of the default
 const fitTH=(k,peak)=>peak<TH_DEF[k]*.6?TH_DEF[k]*.8:Math.max(TH_DEF[k]*.6,Math.min(TH_DEF[k]*1.8,peak*.55));
@@ -541,12 +538,11 @@ async function calibrate(){
   I.textContent='😐';calState={text:'findFace'};T.textContent=t('findFace');
   const t0=performance.now();while(!faceSeen&&performance.now()-t0<8000)await wait(100);
   if(!faceSeen){calState={text:'noFaceCal'};T.textContent=t('noFaceCal');await wait(2500)}
-  const STEP=3000,total=7;let si=0;TH={...TH_DEF};
+  const STEP=3000,total=6;let si=0;TH={...TH_DEF};
   async function stepRun(title,icon,sampler){si++;calState={text:title,step:{i:si,n:total}};T.textContent=t(title);I.textContent=icon;$('cStep').textContent=t('stepOf',calState.step);
     sfx.beep(false);let lastSec=3;const s0=performance.now();const tick=setInterval(()=>{const e=performance.now()-s0;const sec=Math.max(1,Math.ceil((STEP-e)/1000));if(sec<lastSec){lastSec=sec;sfx.beep(false)}$('cBar').style.width=Math.min(100,e/STEP*100)+'%';$('cCount').textContent=sec},50);
     const r=await sampler(STEP);clearInterval(tick);$('cBar').style.width='100%';sfx.beep(true);await wait(350);return r}
   const b=await stepRun('c1','😐',sampleBase);yaw0=b.yaw;base=b.base;
-  const l=await stepRun('c2','👈',ms=>sampleLv(ms,()=>0));const d=l.yaw-yaw0;if(Math.abs(d)>.05){moveSign=-Math.sign(d);moveRange=Math.min(.4,Math.max(.12,Math.abs(d)*.7))}
   const bl=await stepRun('c3','😑',ms=>sampleLv(ms,LV.blink));if(bl.n)TH.blink=fitTH('blink',bl.max);
   for(const [k,c,ic] of [['jaw','c4','😮'],['smile','c5','😁'],['brow','c6','🤨'],['puff','c7','😤']]){const r=await stepRun(c,ic,ms=>sampleLv(ms,LV[k]));if(r.n)TH[k]=fitTH(k,r.p90)}
   $('cCount').textContent='';$('cStep').textContent='';calState={};saveCal();$('calib').classList.add('hide')}
@@ -580,5 +576,5 @@ $('camResume').onclick=()=>camStart();
 $('bPrev').onclick=()=>{prevOn=!prevOn;localStorage.setItem('fb_prev',prevOn?'1':'0');updInd()};
 newGame();draw();requestAnimationFrame(step);
 // test hooks
-window.__fb={get S(){return S},begin,gameOver,gesture:g=>gestureQ.push(g),topX,topY,get running(){return running},faceGestures,GE,setBs:v=>{bs=v;faceSeen=true},setStyle:s=>style=s};
+window.__fb={get S(){return S},begin,gameOver,gesture:g=>gestureQ.push(g),get running(){return running},faceGestures,GE,setBs:v=>{bs=v;faceSeen=true},setStyle:s=>style=s};
 </script></body></html>
