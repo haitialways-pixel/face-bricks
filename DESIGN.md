@@ -1,4 +1,4 @@
-# Face-Action: Falling Bricks — Design Doc (prototype v0.2)
+# Face-Action: Falling Bricks — Design Doc (prototype v0.3)
 
 Second game in the Face-Action family, by Steeve J. A phone-browser PWA (single `index.html`, canvas + JS) played with facial gestures through the front camera, or with touch. Built on the first game's tech: MediaPipe Face Landmarker blendshapes (bundled in `vendor/`, CDN fallback), on-device only, calibration saved locally, debug/sensitivity panel, Web Audio synth sounds, EN/FR localization.
 
@@ -32,7 +32,7 @@ Each falling brick shows its gesture icon. The touch buttons sit in a 4-column g
 - **Color chain:** 3 correct bricks of the same color in a row burst for **+50** and **3 s slow-mo**. Rainbow counts as wild. The HUD shows ●●○ progress in the chain color.
 - **Special bricks** (after brick 6, about 6 % / 6 % / 4 %):
   - 🌈 **Rainbow:** any color gesture works, and it goes to the **shortest stack**.
-  - 💣 **Bomb:** puff your cheeks (touch: tap the bomb) to defuse, **+1 heart** (max 5). Any other gesture, or letting it reach the line, makes it explode (−1 heart).
+  - 💣 **Bomb:** defuse it for **+1 heart** (max 5). Face mode: **shake/turn your head** clearly left or right (primary), or **puff your cheeks / push your lips out** (backup). Touch mode: tap the bomb (bomb + ~40 px hit area) or press the **💣 Defuse** button, which appears only while a bomb is falling. **Color gestures on a bomb are ignored (no penalty)**, so a stray smile or blink can't cost a heart. The only way to lose a heart to a bomb is letting it reach the red line (it explodes).
   - ⭐ **Golden:** shows its color; the right gesture sends it to that color's stack for **100 points** (× combo).
 - **Next brick preview** in the HUD.
 - **Near-miss game over:** "So close! Only N points from your best!" (shown when within 25 % / 60 pts), plus a big **Play again** button.
@@ -42,10 +42,15 @@ Each falling brick shows its gesture icon. The touch buttons sit in a 4-column g
 
 ## Gesture detection
 - Blendshapes are compared against a **calibrated neutral baseline** (capped at 0.5) and normalised: `act = (score − base) / (1 − base)`.
-- Calibration has 6 steps of 3 s each with a countdown and beeps: relax (baseline), blink, mouth open, smile, eyebrow raise, cheek puff. The head-turn step was removed in v0.2. Each step measures the player's own peak and sets a **per-gesture threshold** (~55 % of peak, clamped to 60–180 % of the default). It's saved once (`fb_cal_v2`), and there's a 🎯 Recalibrate button on the start screen and in the 🐞 panel.
+- Calibration has 7 steps of 3 s each with a countdown and beeps: relax (baseline), **turn head left and right** (measures your yaw range for the bomb shake; restored in v0.3), blink, mouth open, smile, eyebrow raise, cheek puff. Each step measures the player's own peak and sets a **per-gesture threshold** (~55 % of peak, clamped to 60–180 % of the default; puff uses ~40 % of peak, clamped to 50–130 %, so it's easier). The saved format stays `fb_cal_v2`: the new `yawR` field is optional, and older calibrations fall back to a default 0.2 rad shake threshold plus the new lower puff default, so nobody is forced to recalibrate.
+- **Bomb defuse detector (v0.3)** is separate from the color-gesture engine and is not blocked by the one-gesture-at-a-time lock, so a held smile doesn't prevent defusing. It's active only while a bomb is falling.
+  - Shake: |yaw − reference| > threshold, held about 0.12 s. The threshold is 50 % of the calibrated turn range, kept between 0.1 and 0.3 rad. The reference yaw slowly follows the player's resting head angle (2.5 s time constant) while no bomb is falling.
+  - Puff: max(cheekPuff, 0.8 × max(mouthPucker, mouthFunnel) when the jaw is closed) above a lowered threshold (default 0.14), held about 0.2 s.
+  - The bomb shows a red hint pill ("Shake head / puff cheeks!" / "Secouez la tête / gonflez les joues !"; touch: "Tap to defuse!" / "Touchez pour désamorcer !") and a green progress ring that fills while the defuse gesture is held.
+- Bomb taps map pointer coordinates through the canvas' real CSS box (`getBoundingClientRect`), so they're correct regardless of devicePixelRatio or the 100dvh vs innerHeight difference on phones.
 - **Hold times** prevent false triggers. **One gesture at a time:** while a gesture is active (with hysteresis, released below 70 % of its threshold), the others are ignored. Blinks are ignored during smiles (eye squint). There's a 0.5 s lockout after each gesture, and gestures in the first 0.35 s of a brick are ignored.
 - A **small on-screen indicator** in the ground strip shows the detected gesture, its hold progress, "blink 1/2", and a ✓ when it fires.
-- 🐞 debug panel: live bars for blink, mouth, smile, brow and puff with threshold markers; FPS; model status; and a sensitivity slider.
+- 🐞 debug panel: live bars for blink, mouth, smile, brow, puff and head shake with threshold markers; FPS; model status; and a sensitivity slider.
 
 ## Privacy and camera
 The camera runs only while actively playing in face mode. It stops on pause, rest, game over, menu, hidden tab, or page hide. There's a red "camera on" badge and a small mirrored preview you can hide (👁). Video is processed on-device and is never recorded or uploaded. No data is collected. Settings live in localStorage under `fb_*` keys; the language choice `fa_lang` is shared with Face-Action. See `privacy.html` (EN + FR).

@@ -82,6 +82,7 @@ small{opacity:.75}
 <button id="bRecalAuto" class="hide" style="position:fixed;left:50%;top:50%;transform:translateX(-50%);z-index:6" data-t="noFaceRecal"></button>
 <div id="camInd" class="hide" style="position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 6px);z-index:6;background:rgba(0,0,0,.6);padding:3px 8px;border-radius:10px;font-size:12px"><span style="color:#f33">●</span> <span data-t="camOn"></span></div>
 <button id="camResume" class="hide" style="position:fixed;left:50%;top:40%;transform:translateX(-50%);z-index:6"><span data-t="camResume"></span></button>
+<button id="bDefuse" class="hide" style="position:fixed;right:10px;top:60%;z-index:6;min-width:0;padding:10px 18px;font-size:18px;background:#ff5252;color:#fff;border:3px solid #fff;box-shadow:0 0 18px #ff5252" data-t="defuseBtn"></button>
 <div id="touch" class="hide">
  <button data-k="blue" style="--c:#2979ff">👀</button><button data-k="pink" style="--c:#ff1493">😮</button><button data-k="yellow" style="--c:#ffd600">😁</button><button data-k="green" style="--c:#00e676">🤨</button>
 </div>
@@ -94,7 +95,7 @@ howTitle:'How to Play',hMove:'<b>4 color stacks</b><br>Bricks fall in the middle
 hBlue:'<b>Blue = double blink</b><br>Blink twice quickly.',hPink:'<b>Hot pink = open mouth</b><br>Open wide and hold a moment.',hYellow:'<b>Yellow = smile</b><br>Big smile, hold a moment.',hGreen:'<b>Green = raise eyebrows</b><br>Lift your eyebrows and hold.',
 hHearts:'<b>10 points</b> per brick sorted. <b>+5</b> if you identify it fast (top third of its fall).<br>A wrong gesture, or a brick reaching the red line, costs a heart. You have 5.',hSink:'<b>10 bricks on a stack</b> and it sinks into the ground: <b>+20</b>. Bricks then fall a bit faster.',
 hHooks:'<b>Combos</b> x2 to x5 for correct bricks in a row · <b>3 of the same color</b> in a row burst for +50 and slow-mo.',
-hSpecial:'<b>🌈 Rainbow</b> takes any gesture and goes to the shortest stack · <b>💣 Bomb</b>: puff your cheeks (touch: tap it) to defuse, +1 ❤️ · <b>⭐ Golden</b> = 100 points.',
+hSpecial:'<b>🌈 Rainbow</b> takes any gesture and goes to the shortest stack · <b>💣 Bomb</b>: shake your head left or right (or puff your cheeks) to defuse, +1 ❤️. Touch: tap it or press 💣 Defuse. Color gestures are ignored on bombs; just don\'t let one reach the line · <b>⭐ Golden</b> = 100 points.',
 hTip:"Keep your face centered and well lit, about an arm's length away. Use <b>🎯</b> to recalibrate and the <b>🐞</b> slider if gestures feel off.",gotIt:'Got it!',
 styleTitle:'Brick styles',styleP:'Reach score milestones to unlock new looks.',done:'Done',sClassic:'Classic',sNeon:'Neon',sCandy:'Candy',sGems:'Gems',needPts:'🔒 {n} pts',unlocked:'🎨 {s} style unlocked!',
 paused:'⏸ Paused',resume:'▶️ Resume',menu:'🏠 Menu',calibrating:'Calibrating…',restT:'😌 Face break',restP:'Relax your face, look into the distance, blink gently.',skip:'Skip',
@@ -104,9 +105,9 @@ needHttps:'<b style="color:#ff6">⚠️ Face controls need HTTPS.</b><br><small>
 blockedHttps:'<b style="color:#f66">Camera blocked: page is not HTTPS ({p}).</b>',noCamApi:'<b style="color:#f66">This browser has no camera API.</b>',startingCam:'<small>Starting camera…</small>',
 loadFail:'<b style="color:#f66">{e}</b><br><small>Check internet / try another browser. Touch mode works.</small>',camErr:'<b style="color:#f66">Camera error: {e}</b>',loadingModel:'Loading face model…',
 findFace:'Finding your face…',noFaceCal:'No face found — hold the phone at eye level in good light. Continuing anyway; open 🐞 to debug.',stepOf:'Step {i} of {n}',
-c1:'Relax your face and look straight at the screen. Hold still.',c2:'Turn your head to YOUR LEFT and hold it there.',c3:'Blink a few times (blue bricks = double blink).',c4:'Open your mouth wide and hold (hot pink bricks).',c5:'Big smile, hold it (yellow bricks).',c6:'Raise your eyebrows and hold (green bricks).',c7:'Puff your cheeks and hold (defuses bombs).',
+c1:'Relax your face and look straight at the screen. Hold still.',c3:'Blink a few times (blue bricks = double blink).',c4:'Open your mouth wide and hold (hot pink bricks).',c5:'Big smile, hold it (yellow bricks).',c6:'Raise your eyebrows and hold (green bricks).',c7:'Puff your cheeks (or push your lips out) and hold: the backup way to defuse bombs.',c2:'Turn your head left, then right (shake = defuse bombs).',
 level:'Level',row:'Row',next:'Next',combo:'COMBO x{n}!',quick:'QUICK +5',burst:'COLOR BURST +50!',sinkB:'⬇️ {c} stack sinks! +20 · Level {n}',defused:'Defused! +1 ❤️',boom:'💥 BOOM!',
-wrongG:'Wrong! {c} = {g}',slow:'Too slow!',golden:'⭐ GOLDEN +{n}',tapBomb:'TAP!',puffBomb:'PUFF!',noFace:'Face not found — hold phone at eye level',
+wrongG:'Wrong! {c} = {g}',slow:'Too slow!',golden:'⭐ GOLDEN +{n}',tapBomb:'Tap to defuse!',puffBomb:'Shake head / puff cheeks!',defuseBtn:'💣 Defuse',gDefuse:'defuse',dShake:'shake',noFace:'Face not found — hold phone at eye level',
 cBlue:'Blue',cPink:'Pink',cYellow:'Yellow',cGreen:'Green',gBlue:'double blink',gPink:'open mouth',gYellow:'smile',gGreen:'raise eyebrows',gPuff:'puff cheeks',gBlink1:'blink 1/2',
 dCam:'cam',dModel:'model',dFace:'face',yes:'YES',no:'NO',dSens:'sens',dBlink:'blink',dMouth:'mouth',dSmile:'smile',dPuff:'puff',dBrow:'brow',dMove:'move'},
 fr:{sub:'Briques en chute',intro:'Empilez des briques lumineuses avec votre visage seulement.<br><small>La caméra reste sur votre appareil ; rien n\'est enregistré ni envoyé.</small>',
@@ -115,7 +116,7 @@ howTitle:'Comment jouer',hMove:'<b>4 piles de couleur</b><br>Les briques tombent
 hBlue:'<b>Bleu = double clignement</b><br>Clignez deux fois rapidement.',hPink:'<b>Rose vif = bouche ouverte</b><br>Ouvrez grand et tenez un instant.',hYellow:'<b>Jaune = sourire</b><br>Grand sourire, tenez un instant.',hGreen:'<b>Vert = sourcils levés</b><br>Levez les sourcils et tenez.',
 hHearts:'<b>10 points</b> par brique triée. <b>+5</b> si vous la reconnaissez vite (premier tiers de sa chute).<br>Un mauvais geste, ou une brique qui atteint la ligne rouge, coûte un cœur. Vous en avez 5.',hSink:'<b>10 briques sur une pile</b> et elle s\'enfonce dans le sol : <b>+20</b>. Les briques tombent ensuite un peu plus vite.',
 hHooks:'<b>Combos</b> x2 à x5 pour des briques justes d\'affilée · <b>3 de même couleur</b> d\'affilée explosent : +50 et ralenti.',
-hSpecial:'<b>🌈 Arc-en-ciel</b> accepte tous les gestes et va sur la pile la plus basse · <b>💣 Bombe</b> : gonflez les joues (tactile : touchez-la) pour la désamorcer, +1 ❤️ · <b>⭐ Dorée</b> = 100 points.',
+hSpecial:'<b>🌈 Arc-en-ciel</b> accepte tous les gestes et va sur la pile la plus basse · <b>💣 Bombe</b> : secouez la tête à gauche ou à droite (ou gonflez les joues) pour la désamorcer, +1 ❤️. Tactile : touchez-la ou appuyez sur 💣 Désamorcer. Les gestes de couleur sont ignorés sur les bombes ; ne la laissez pas atteindre la ligne · <b>⭐ Dorée</b> = 100 points.',
 hTip:'Gardez le visage centré et bien éclairé, à environ une longueur de bras. Utilisez <b>🎯</b> pour recalibrer et le curseur <b>🐞</b> si les gestes répondent mal.',gotIt:'Compris !',
 styleTitle:'Styles de briques',styleP:'Atteignez des paliers de score pour débloquer de nouveaux looks.',done:'OK',sClassic:'Classique',sNeon:'Néon',sCandy:'Bonbon',sGems:'Gemmes',needPts:'🔒 {n} pts',unlocked:'🎨 Style {s} débloqué !',
 paused:'⏸ Pause',resume:'▶️ Reprendre',menu:'🏠 Menu',calibrating:'Calibrage…',restT:'😌 Pause visage',restP:'Détendez votre visage, regardez au loin, clignez doucement.',skip:'Passer',
@@ -125,9 +126,9 @@ needHttps:'<b style="color:#ff6">⚠️ Les commandes faciales nécessitent HTTP
 blockedHttps:'<b style="color:#f66">Caméra bloquée : la page n\'est pas en HTTPS ({p}).</b>',noCamApi:'<b style="color:#f66">Ce navigateur n\'a pas d\'accès caméra.</b>',startingCam:'<small>Démarrage de la caméra…</small>',
 loadFail:'<b style="color:#f66">{e}</b><br><small>Vérifiez votre connexion ou essayez un autre navigateur. Le mode tactile fonctionne.</small>',camErr:'<b style="color:#f66">Erreur caméra : {e}</b>',loadingModel:'Chargement du modèle facial…',
 findFace:'Recherche de votre visage…',noFaceCal:'Aucun visage détecté — tenez le téléphone à hauteur des yeux, bien éclairé. On continue quand même ; ouvrez 🐞 pour diagnostiquer.',stepOf:'Étape {i} sur {n}',
-c1:'Détendez votre visage et regardez l\'écran bien en face. Ne bougez pas.',c2:'Tournez la tête vers VOTRE GAUCHE et restez ainsi.',c3:'Clignez plusieurs fois (briques bleues = double clignement).',c4:'Ouvrez grand la bouche et tenez (briques rose vif).',c5:'Grand sourire, tenez-le (briques jaunes).',c6:'Levez les sourcils et tenez (briques vertes).',c7:'Gonflez les joues et tenez (désamorce les bombes).',
+c1:'Détendez votre visage et regardez l\'écran bien en face. Ne bougez pas.',c3:'Clignez plusieurs fois (briques bleues = double clignement).',c4:'Ouvrez grand la bouche et tenez (briques rose vif).',c5:'Grand sourire, tenez-le (briques jaunes).',c6:'Levez les sourcils et tenez (briques vertes).',c7:'Gonflez les joues (ou avancez les lèvres) et tenez : l\'autre façon de désamorcer les bombes.',c2:'Tournez la tête à gauche, puis à droite (secouer = désamorcer les bombes).',
 level:'Niveau',row:'Rangée',next:'Suivante',combo:'COMBO x{n} !',quick:'RAPIDE +5',burst:'EXPLOSION DE COULEUR +50 !',sinkB:'⬇️ Pile {c} enfoncée ! +20 · Niveau {n}',defused:'Désamorcée ! +1 ❤️',boom:'💥 BOUM !',
-wrongG:'Raté ! {c} = {g}',slow:'Trop lent !',golden:'⭐ DORÉE +{n}',tapBomb:'TOUCHE !',puffBomb:'JOUES !',noFace:'Visage introuvable — tenez le téléphone à hauteur des yeux',
+wrongG:'Raté ! {c} = {g}',slow:'Trop lent !',golden:'⭐ DORÉE +{n}',tapBomb:'Touchez pour désamorcer !',puffBomb:'Secouez la tête / gonflez les joues !',defuseBtn:'💣 Désamorcer',gDefuse:'désamorcer',dShake:'tête',noFace:'Visage introuvable — tenez le téléphone à hauteur des yeux',
 cBlue:'Bleu',cPink:'Rose',cYellow:'Jaune',cGreen:'Vert',gBlue:'double clignement',gPink:'bouche ouverte',gYellow:'sourire',gGreen:'sourcils levés',gPuff:'joues gonflées',gBlink1:'clignement 1/2',
 dCam:'caméra',dModel:'modèle',dFace:'visage',yes:'OUI',no:'NON',dSens:'sens.',dBlink:'cligner',dMouth:'bouche',dSmile:'sourire',dPuff:'joues',dBrow:'sourcils',dMove:'bouger'}};
 const detectLang=()=>{const s=localStorage.getItem('fa_lang');if(s==='en'||s==='fr')return s;const ls=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'en']);return String(ls[0]||'').toLowerCase().startsWith('fr')?'fr':'en'};
@@ -197,10 +198,10 @@ function faceLoop(){if(!faceLoopOn)return;readFace();const n=performance.now();i
 // relative activation 0..1 above the user's own neutral baseline
 const act=n=>{const b=base[n]||0;return Math.max(0,((bs[n]||0)-b)/Math.max(.15,1-b))};
 const LV={blink:()=>(act('eyeBlinkLeft')+act('eyeBlinkRight'))/2,jaw:()=>act('jawOpen'),smile:()=>(act('mouthSmileLeft')+act('mouthSmileRight'))/2,
-  brow:()=>Math.max(act('browInnerUp'),(act('browOuterUpLeft')+act('browOuterUpRight'))/2),puff:()=>act('cheekPuff')};
-const TH_DEF={blink:.35,jaw:.22,smile:.3,brow:.25,puff:.2};let TH={...TH_DEF}; // per-user thresholds, tuned by calibration
-const th=k=>Math.min(.9,TH[k]*sens);
-const HOLD={jaw:.25,smile:.3,brow:.3,puff:.3}; // seconds a gesture must be held before it counts
+  brow:()=>Math.max(act('browInnerUp'),(act('browOuterUpLeft')+act('browOuterUpRight'))/2),puff:()=>Math.max(act('cheekPuff'),.8*Math.max(act('mouthPucker'),act('mouthFunnel'))*(act('jawOpen')<.25?1:0))}; // puff: cheekPuff alone is weak in MediaPipe, so pucker/funnel (lips pushed out, mouth closed) count too
+const TH_DEF={blink:.35,jaw:.22,smile:.3,brow:.25,puff:.14};let TH={...TH_DEF}; // per-user thresholds, tuned by calibration
+const th=k=>k==='shake'?.5:Math.min(.9,TH[k]*sens);
+const HOLD={jaw:.25,smile:.3,brow:.3}; // seconds a gesture must be held before it counts
 const lvl={};let flash={};
 // Gesture engine: one held gesture at a time (others ignored until it's released); double blink = 2 blinks within ~600 ms
 const GE={cur:null,heldT:0,fired:false,lock:0,eyes:false,closedT:0,blinks:[],last:null,lastT:0};
@@ -212,7 +213,7 @@ function faceGestures(dt){
   if(GE.cur){ // hysteresis: released when it drops below 70% of its threshold
     if(lvl[GE.cur]<th(GE.cur)*.7){GE.cur=null;GE.heldT=0;GE.fired=false}
     else{GE.heldT+=dt;if(!GE.fired&&GE.heldT>=HOLD[GE.cur]&&GE.lock<=0){GE.fired=true;emitGesture(GE.cur);GE.lock=.5}}
-  }else{let best=null,br=1;for(const k of ['jaw','smile','brow','puff']){const r=lvl[k]/th(k);if(r>br){br=r;best=k}}
+  }else{let best=null,br=1;for(const k of ['jaw','smile','brow']){const r=lvl[k]/th(k);if(r>br){br=r;best=k}}
     if(best){GE.cur=best;GE.heldT=0;GE.fired=false;GE.blinks=[];GE.eyes=false}}
   // blinks only count while no other gesture is active (big smiles squint the eyes)
   if(!GE.cur&&lvl.smile<th('smile')*.8){
@@ -224,30 +225,44 @@ function faceGestures(dt){
   }else GE.eyes=false;
   if(GE.blinks.length&&now-GE.blinks[0]>700)GE.blinks=[];
 }
+// Bomb defuse detector: independent of the one-gesture-at-a-time lock, active only while a bomb is falling.
+// Primary: head shake/turn past a calibrated yaw threshold (either side). Alternative: cheek puff (lower threshold, short hold).
+let yawR=0,yawRef=0;const DEF={t:0,need:.15,src:null,prog:0};
+const yawTh=()=>Math.max(.1,Math.min(.3,(yawR?yawR*.5:.2)*sens));
+const bombFalling=()=>S&&S.cur&&S.cur.kind==='bomb'&&S.cur.state==='fall';
+function defuseDetect(dt){
+  const dy=Math.abs(yaw-yawRef);lvl.shake=dy/yawTh()*.5;
+  if(!bombFalling()){yawRef+=(yaw-yawRef)*Math.min(1,dt/2.5);DEF.t=0;DEF.prog=0;DEF.src=null;return} // slowly follow the player's resting head angle
+  const shake=dy>yawTh(),puff=lvl.puff>th('puff');
+  if(shake||puff){DEF.src=shake?'shake':'puff';DEF.need=shake?.12:.2;DEF.t+=dt}else DEF.t=Math.max(0,DEF.t-dt*2);
+  DEF.prog=Math.min(1,DEF.t/DEF.need);
+  if(DEF.prog>=1&&S.cur.age>.2){DEF.t=0;DEF.prog=0;emitGesture('defuse')}}
 // ---------- Touch / keyboard ----------
 document.querySelectorAll('#touch button').forEach(b=>{const k=b.dataset.k;
   b.addEventListener('pointerdown',e=>{e.preventDefault();if(running&&!paused)gestureQ.push(COLORS[k].g)})});
-cv.addEventListener('pointerdown',e=>{if(!running||paused||mode!=='touch'||!S||!S.cur||S.cur.kind!=='bomb')return;const b=S.cur,L=S.fall;
-  if(Math.abs(e.clientX-b.x)<L.w/2+40&&e.clientY>b.y-50&&e.clientY<b.y+L.h+50)gestureQ.push('puff')});
-const KEYG={'1':'blink2','2':'jaw','3':'smile','4':'brow',' ':'puff'};
+// tap the bomb: map client coords to game coords via the canvas' real CSS box (handles DPR and dvh vs innerHeight)
+cv.addEventListener('pointerdown',e=>{if(!running||paused||!bombFalling())return;const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*W/r.width,y=(e.clientY-r.top)*H/r.height;
+  const b=S.cur,rad=S.fall.h*.62+40,cy=b.y+S.fall.h/2;if(Math.abs(x-b.x)<rad&&Math.abs(y-cy)<rad){e.preventDefault();gestureQ.push('defuse')}});
+$('bDefuse').addEventListener('pointerdown',e=>{e.preventDefault();if(running&&!paused)gestureQ.push('defuse')});
+const KEYG={'1':'blink2','2':'jaw','3':'smile','4':'brow',' ':'defuse','d':'defuse'};
 addEventListener('keydown',e=>{if(KEYG[e.key]&&!e.repeat&&running&&!paused)gestureQ.push(KEYG[e.key])});
 let noFaceT=0;
 function updateInput(dt){
   if(mode!=='face')return;
   if(stream&&!paused&&!S.ended&&!faceSeen){noFaceT+=dt;if(noFaceT>12)$('bRecalAuto').classList.remove('hide')}else if(faceSeen){noFaceT=0;$('bRecalAuto').classList.add('hide')}
   if(!faceSeen){GE.cur=null;return}
-  faceGestures(dt);
+  faceGestures(dt);defuseDetect(dt);
 }
 // ---------- Debug HUD ----------
 let hudOn=localStorage.getItem('fb_hud')==='1';
 function drawHud(){
   if(!hudOn)return;const x=8,y0=H*.40,w=Math.min(W*.6,240);
-  ctx.save();ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(x-4,y0-18,w+8,168);
+  ctx.save();ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(x-4,y0-18,w+8,190);
   ctx.font='12px monospace';ctx.fillStyle='#fff';
   ctx.fillText(t('dCam')+': '+camStatus+'  '+(video.videoWidth||0)+'x'+(video.videoHeight||0),x,y0-6);
   ctx.fillText(t('dModel')+': '+modelStatus,x,y0+8);
   ctx.fillStyle=faceSeen?'#0f0':'#f44';ctx.fillText(t('dFace')+': '+(faceSeen?t('yes'):t('no'))+'  '+faceFps+' fps  '+t('dSens')+' '+sens.toFixed(2),x,y0+22);
-  const rows=[['blink',t('dBlink'),'blink2'],['jaw',t('dMouth'),'jaw'],['smile',t('dSmile'),'smile'],['brow',t('dBrow'),'brow'],['puff',t('dPuff'),'puff']];
+  const rows=[['blink',t('dBlink'),'blink2'],['jaw',t('dMouth'),'jaw'],['smile',t('dSmile'),'smile'],['brow',t('dBrow'),'brow'],['puff',t('dPuff'),'defuse'],['shake',t('dShake'),'defuse']];
   rows.forEach(([k,n,f],i)=>{const y=y0+36+i*22,v=lvl[k]||0,tt=th(k),fl=performance.now()-(flash[f]||0)<300;
     ctx.fillStyle=fl?'#ff0':'#fff';ctx.fillText(n,x,y+6);ctx.fillStyle='#333';ctx.fillRect(x+60,y,w-62,12);
     ctx.fillStyle=v>tt?'#0f0':'#29f';ctx.fillRect(x+60,y,(w-62)*Math.min(1,v),12);ctx.fillStyle='#f00';ctx.fillRect(x+60+(w-62)*tt,y-2,2,16)});
@@ -331,12 +346,11 @@ function addScore(p,x,y,col){S.score+=p;fx(x,y,'+'+p,col||'#ffd54a',20);checkUnl
 function checkUnlock(){for(const k of [...S.unlockAt]){const st=STYLES.find(s=>s.k===k);if(S.score>=st.need){S.unlockAt=S.unlockAt.filter(x=>x!==k);localStorage.setItem('fb_top',Math.max(topScore(),S.score));sfx.unlock();banner(t('unlocked',{s:t(st.n)}),'#7cf',2.2)}}}
 const stackTopY=i=>S.groundY-S.cols[i].length*S.rh;
 function shortestCol(){let m=Infinity,c=0;S.cols.forEach((s,i)=>{if(s.length<m){m=s.length;c=i}});return c}
-function handleGesture(g){const b=S.cur;if(!b||b.state!=='fall'||b.age<(mode==='touch'?.15:.35))return;
-  if(b.kind==='bomb'){
-    if(g==='puff'){b.state='gone';S.hearts=Math.min(5,S.hearts+1);sfx.defuse();parts(b.x,b.y+S.fall.h/2,'#ddd',24,160);fx(b.x,b.y,t('defused'),'#7cf',20);S.spawnT=.45}
-    else{b.state='gone';boom(b);loseHeart(t('wrongG',{c:'💣',g:t('gPuff')}));S.spawnT=.6}
+function handleGesture(g){const b=S.cur;if(!b||b.state!=='fall')return;if(b.kind!=='bomb'&&b.age<(mode==='touch'?.15:.35))return;
+  if(b.kind==='bomb'){ // only the defuse gesture matters; color gestures on a bomb are ignored (no penalty)
+    if(g==='defuse'&&b.age>=(mode==='touch'?0:.2)){b.state='gone';S.hearts=Math.min(5,S.hearts+1);sfx.defuse();parts(b.x,b.y+S.fall.h/2,'#ddd',24,160);fx(b.x,b.y,t('defused'),'#7cf',20);S.spawnT=.45}
     return}
-  if(g==='puff')return; // cheek puff only matters for bombs
+  if(g==='defuse')return; // defuse only matters for bombs
   const ok=b.kind==='rainbow'||G2C[g]===b.c;
   if(!ok){b.state='shatter';b.st=.5;sfx.wrong();sfx.shatter();parts(b.x,b.y+S.fall.h/2,COLORS[b.c].hex,26);loseHeart(t('wrongG',{c:t(COLORS[b.c].n),g:t(COLORS[b.c].gn)}));S.spawnT=.7;return}
   // correct: fly to its own color's stack (rainbow -> shortest stack)
@@ -424,8 +438,8 @@ function drawBrick(cx,y,w,h,c,kind,st,opt={}){
   ctx.restore()}
 function heart(x,y,s,on){ctx.save();ctx.fillStyle=on?'#ff1744':'#3b2f4a';ctx.shadowColor='#ff1744';ctx.shadowBlur=on?8:0;ctx.beginPath();
   ctx.moveTo(x,y+s*.3);ctx.bezierCurveTo(x,y,x-s*.5,y,x-s*.5,y+s*.3);ctx.bezierCurveTo(x-s*.5,y+s*.6,x,y+s*.8,x,y+s);ctx.bezierCurveTo(x,y+s*.8,x+s*.5,y+s*.6,x+s*.5,y+s*.3);ctx.bezierCurveTo(x+s*.5,y,x,y,x,y+s*.3);ctx.fill();ctx.restore()}
-const GICON={blink2:'👀',jaw:'😮',smile:'😁',brow:'🤨',puff:'😤'};
-const gName=g=>g==='puff'?t('gPuff'):t(COLORS[G2C[g]].gn);
+const GICON={blink2:'👀',jaw:'😮',smile:'😁',brow:'🤨',defuse:'💣'};
+const gName=g=>g==='defuse'?t('gDefuse'):t(COLORS[G2C[g]].gn);
 function draw(){
   const gy=S.groundY,rh=S.rh;ctx.save();
   if(S.shake>0)ctx.translate((Math.random()-.5)*S.shake*18,(Math.random()-.5)*S.shake*12);
@@ -461,7 +475,13 @@ function draw(){
       ctx.strokeStyle='#ff5252';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(b.x-FW*.3,b.y);ctx.lineTo(b.x-FW*.05,b.y+FH*.6);ctx.lineTo(b.x+FW*.2,b.y+FH*.2);ctx.lineTo(b.x+FW*.35,b.y+FH);ctx.stroke();ctx.restore()}
     else{const q=(b.y-S.spawnY)<(S.deadY-FH-S.spawnY)/3;if(q&&b.kind!=='bomb'){ctx.strokeStyle='rgba(255,245,157,.5)';ctx.lineWidth=2;rr(b.x-FW/2-5,b.y-5,FW+10,FH+10,10);ctx.stroke()}
       drawBrick(b.x,b.y,FW,FH,b.c,b.kind,style,{icon:1})}
-    if(b.kind==='bomb'&&b.state==='fall'){ctx.fillStyle='#fff';ctx.font='bold 13px sans-serif';ctx.textAlign='center';ctx.fillText(mode==='touch'?t('tapBomb'):t('puffBomb'),b.x,b.y-22)}}
+    if(b.kind==='bomb'&&b.state==='fall'){const cy=b.y+FH/2,R=FH*.62+10;
+      // hint pill above the bomb
+      const hint=mode==='touch'?t('tapBomb'):t('puffBomb');ctx.font='bold 15px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';const hw=ctx.measureText(hint).width+24;
+      ctx.fillStyle='rgba(255,82,82,.9)';rr(b.x-hw/2,b.y-46,hw,26,13);ctx.fill();ctx.fillStyle='#fff';ctx.fillText(hint,b.x,b.y-33);
+      // progress ring while the defuse gesture is held (face mode)
+      ctx.lineWidth=4;ctx.strokeStyle='rgba(255,255,255,.18)';ctx.beginPath();ctx.arc(b.x,cy,R,0,7);ctx.stroke();
+      if(mode==='face'&&DEF.prog>0){ctx.strokeStyle='#00e676';ctx.shadowColor='#00e676';ctx.shadowBlur=10;ctx.beginPath();ctx.arc(b.x,cy,R,-Math.PI/2,-Math.PI/2+DEF.prog*Math.PI*2);ctx.stroke();ctx.shadowBlur=0}}}
   ctx.textAlign='center';ctx.textBaseline='middle';
   for(const p of S.parts){ctx.globalAlpha=Math.max(0,Math.min(1,p.t*1.5));ctx.fillStyle=p.col;if(p.star){ctx.font='14px sans-serif';ctx.fillText('✦',p.x,p.y)}else ctx.fillRect(p.x-p.s/2,p.y-p.s/2,p.s,p.s)}ctx.globalAlpha=1;
   for(const f of S.fx){ctx.globalAlpha=Math.max(0,Math.min(1,f.t));ctx.fillStyle=f.col;ctx.font='bold '+f.size+'px sans-serif';ctx.lineWidth=3;ctx.strokeStyle='rgba(0,0,0,.7)';ctx.strokeText(f.txt,f.x,f.y);ctx.fillText(f.txt,f.x,f.y)}ctx.globalAlpha=1;
@@ -481,6 +501,7 @@ function draw(){
   // small on-screen indicator of the detected gesture (face mode)
   if(mode==='face'&&running){const iy=gy+62,now=performance.now();let txt='',prog=0,col='#fff';
     if(GE.last&&now-GE.lastT<600){txt=GICON[GE.last]+' ✓ '+gName(GE.last);col='#00e676';prog=1}
+    else if(DEF.prog>0&&bombFalling()){txt=(DEF.src==='shake'?'↔️ ':'😤 ')+t('gDefuse');prog=DEF.prog;col='#00e676'}
     else if(GE.cur){txt=GICON[GE.cur]+' '+gName(GE.cur);prog=Math.min(1,GE.heldT/HOLD[GE.cur]);col='#ffd54a'}
     else if(GE.blinks.length){txt='👀 '+t('gBlink1');prog=.5;col='#82b1ff'}
     if(txt){ctx.textAlign='center';ctx.font='bold 14px sans-serif';const w=Math.max(150,ctx.measureText(txt).width+30);ctx.fillStyle='rgba(0,0,0,.6)';rr(W/2-w/2,iy-14,w,28,14);ctx.fill();
@@ -488,7 +509,8 @@ function draw(){
     if(!faceSeen){ctx.textAlign='center';ctx.fillStyle='#f88';ctx.font='14px sans-serif';ctx.fillText(t('noFace'),W/2,H*.45)}}
   drawHud()}
 document.documentElement.style.setProperty('--sat','env(safe-area-inset-top)');
-function step(now){requestAnimationFrame(step);const dt=Math.min(.05,(now-last)/1000);last=now;
+let defBtnOn=false;function syncDefuseBtn(){const on=running&&mode==='touch'&&!paused&&bombFalling();if(on!==defBtnOn){defBtnOn=on;if(on)$('bDefuse').style.top=Math.round(S.deadY-58)+'px';$('bDefuse').classList.toggle('hide',!on)}}
+function step(now){requestAnimationFrame(step);syncDefuseBtn();const dt=Math.min(.05,(now-last)/1000);last=now;
   if(!running)return;updateInput(dt);if(!paused&&!S.ended)update(dt);if(running)draw()}
 
 // ---------- Styles screen ----------
@@ -528,9 +550,9 @@ async function sampleLv(ms,fn){const v=[];let y=0,yn=0;const end=performance.now
 async function sampleBase(ms){const acc={},n={};let y=0,yn=0;const end=performance.now()+ms;while(performance.now()<end){if(faceSeen){for(const k in bs){acc[k]=(acc[k]||0)+bs[k];n[k]=(n[k]||0)+1}y+=yaw;yn++}await wait(40)}
   const o={};for(const k in acc)o[k]=Math.min(.5,acc[k]/n[k]);return {base:o,yaw:yn?y/yn:0,n:yn}} // capped so a held expression can't disable a gesture
 const CAL_KEY='fb_cal_v2';let forceCal=false;
-function saveCal(){try{localStorage.setItem(CAL_KEY,JSON.stringify({v:2,base,yaw0,moveSign,moveRange,TH,sens,t:Date.now()}))}catch(e){}}
+function saveCal(){try{localStorage.setItem(CAL_KEY,JSON.stringify({v:2,base,yaw0,yawR,TH,sens,t:Date.now()}))}catch(e){}}
 function loadCal(){try{const c=JSON.parse(localStorage.getItem(CAL_KEY)||'null');if(!c||c.v!==2||!c.base)return false;
-  base=c.base;yaw0=c.yaw0||0;moveSign=c.moveSign||1;moveRange=c.moveRange||.25;TH={...TH_DEF,...(c.TH||{})};if(c.sens)sens=c.sens;$('sens').value=sens;return true}catch(e){return false}}
+  base=c.base;yaw0=c.yaw0||0;yawR=c.yawR||0;yawRef=yaw0;TH={...TH_DEF,...(c.TH||{})};if(!c.yawR&&TH.puff>TH_DEF.puff)TH.puff=TH_DEF.puff;if(c.sens)sens=c.sens;$('sens').value=sens;return true}catch(e){return false}}
 // per-user threshold: ~55% of the player's own peak, kept between 60% and 180% of the default
 const fitTH=(k,peak)=>peak<TH_DEF[k]*.6?TH_DEF[k]*.8:Math.max(TH_DEF[k]*.6,Math.min(TH_DEF[k]*1.8,peak*.55));
 async function calibrate(){
@@ -538,16 +560,17 @@ async function calibrate(){
   I.textContent='😐';calState={text:'findFace'};T.textContent=t('findFace');
   const t0=performance.now();while(!faceSeen&&performance.now()-t0<8000)await wait(100);
   if(!faceSeen){calState={text:'noFaceCal'};T.textContent=t('noFaceCal');await wait(2500)}
-  const STEP=3000,total=6;let si=0;TH={...TH_DEF};
+  const STEP=3000,total=7;let si=0;TH={...TH_DEF};
   async function stepRun(title,icon,sampler){si++;calState={text:title,step:{i:si,n:total}};T.textContent=t(title);I.textContent=icon;$('cStep').textContent=t('stepOf',calState.step);
     sfx.beep(false);let lastSec=3;const s0=performance.now();const tick=setInterval(()=>{const e=performance.now()-s0;const sec=Math.max(1,Math.ceil((STEP-e)/1000));if(sec<lastSec){lastSec=sec;sfx.beep(false)}$('cBar').style.width=Math.min(100,e/STEP*100)+'%';$('cCount').textContent=sec},50);
     const r=await sampler(STEP);clearInterval(tick);$('cBar').style.width='100%';sfx.beep(true);await wait(350);return r}
   const b=await stepRun('c1','😐',sampleBase);yaw0=b.yaw;base=b.base;
+  const hd=await stepRun('c2','↔️',ms=>sampleLv(ms,()=>Math.abs(yaw-yaw0)));if(hd.n&&hd.p90>.05)yawR=hd.p90;yawRef=yaw0;
   const bl=await stepRun('c3','😑',ms=>sampleLv(ms,LV.blink));if(bl.n)TH.blink=fitTH('blink',bl.max);
-  for(const [k,c,ic] of [['jaw','c4','😮'],['smile','c5','😁'],['brow','c6','🤨'],['puff','c7','😤']]){const r=await stepRun(c,ic,ms=>sampleLv(ms,LV[k]));if(r.n)TH[k]=fitTH(k,r.p90)}
+  for(const [k,c,ic] of [['jaw','c4','😮'],['smile','c5','😁'],['brow','c6','🤨'],['puff','c7','😤']]){const r=await stepRun(c,ic,ms=>sampleLv(ms,LV[k]));if(r.n)TH[k]=k==='puff'?(r.p90<TH_DEF.puff*.6?TH_DEF.puff*.8:Math.max(TH_DEF.puff*.5,Math.min(TH_DEF.puff*1.3,r.p90*.4))):fitTH(k,r.p90)}
   $('cCount').textContent='';$('cStep').textContent='';calState={};saveCal();$('calib').classList.add('hide')}
 function begin(again){$('start').classList.add('hide');$('bPause').classList.remove('hide');$('touch').classList.toggle('hide',mode!=='touch');
-  newGame();gestureQ=[];GE.cur=null;GE.blinks=[];running=true;paused=false;last=performance.now();if(again)camResume()}
+  newGame();gestureQ=[];GE.cur=null;GE.blinks=[];DEF.t=0;DEF.prog=0;yawRef=yaw0;running=true;paused=false;last=performance.now();if(again)camResume()}
 $('bFace').onclick=startFace;
 const HOW_KEY='fb_howto_v1';
 function showHow(){$('howto').classList.remove('hide');$('howto').scrollTop=0}
@@ -576,5 +599,5 @@ $('camResume').onclick=()=>camStart();
 $('bPrev').onclick=()=>{prevOn=!prevOn;localStorage.setItem('fb_prev',prevOn?'1':'0');updInd()};
 newGame();draw();requestAnimationFrame(step);
 // test hooks
-window.__fb={get S(){return S},begin,gameOver,gesture:g=>gestureQ.push(g),get running(){return running},faceGestures,GE,setBs:v=>{bs=v;faceSeen=true},setStyle:s=>style=s};
+window.__fb={get S(){return S},begin,gameOver,gesture:g=>gestureQ.push(g),get running(){return running},faceGestures,defuseDetect,GE,DEF,setBs:v=>{bs=v;faceSeen=true},setYaw:v=>{yaw=v},setMode:m=>{mode=m},get yawRef(){return yawRef},setStyle:s=>style=s};
 </script></body></html>
