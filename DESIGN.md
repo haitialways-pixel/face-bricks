@@ -1,4 +1,4 @@
-# Face-Action: Falling Bricks — Design Doc (prototype v0.4)
+# Face-Action: Falling Bricks — Design Doc (prototype v0.5)
 
 Second game in the Face-Action family, by Steeve J. A phone-browser PWA (single `index.html`, canvas + JS) played with facial gestures through the front camera, or with touch. Built on the first game's tech: MediaPipe Face Landmarker blendshapes (bundled in `vendor/`, CDN fallback), on-device only, calibration saved locally, debug/sensitivity panel, Web Audio synth sounds, EN/FR localization.
 
@@ -40,6 +40,14 @@ Each falling brick shows its gesture icon. The touch buttons sit in a 4-column g
 - Bonuses unchanged: color chain +50, stack sink +20.
 - **Unlockable brick styles**, saved locally, unlocked by your best score ever: Classic (0), Neon (250), Candy (600), Gems (1200). These milestones are unchanged in v0.4: an average catch at about 25–35 % of the fall pays about 13–15 per brick, close to the old 10 (+5 quick). Pick one from 🎨 Styles.
 - **Separate best scores** for Face and Touch modes.
+
+### Celebration moments (v0.5)
+- **Hype banners at combo milestones:** ×2 "NICE!", ×3 "ON FIRE! 🔥", ×4 "UNSTOPPABLE!", ×5 "LEGENDARY!" (FR: BIEN JOUÉ ! / EN FEU ! 🔥 / IMPARABLE ! / LÉGENDAIRE !). Each one is a big pop-in banner (~0.9 s) with a colored screen flash and a rising sound sting. It sits **below the red line over the stacks**, so it never covers the falling brick or its value badge. Banners are throttled (at most one per 1.1 s; the record banner overrides).
+- **PERFECT!** (PARFAIT !) pops over the stack when a brick is caught at full value (20, golden 100). Its flash and sound are throttled to once per second.
+- **Stack sink celebration:** confetti in the stack's color, 12 coins flying into the score (score pulses), a triumphant chord, "+20" and "STACK CLEARED!" (PILE COMPLÈTE !) over the column, and a light screen shake.
+- **Personal-best moment:** the first time in a run the score passes the stored best for the current mode (only if that best is > 0), falling **freezes for ~1 s** (the brick's value timer freezes too, so it isn't unfair), with fireworks, a gold flash and border, the "NEW RECORD!" (NOUVEAU RECORD !) banner, and a fanfare.
+- **Share card:** on game over with a new record, a 1080×1350 card is drawn on a canvas (game name, record, score, mode, level, bricks, local date, haitialways-pixel.github.io/face-bricks). "📤 Share my record" uses the phone's share sheet (navigator.share with the image) or falls back to downloading `face-bricks-record.png`. Everything is generated on the device; nothing is uploaded.
+- All sounds respect mute/volume. Particles are capped at 260 for phone performance.
 
 ## Gesture detection
 - Blendshapes are compared against a **calibrated neutral baseline** (capped at 0.5) and normalised: `act = (score − base) / (1 − base)`.
