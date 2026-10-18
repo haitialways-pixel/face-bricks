@@ -23,13 +23,13 @@ html,body{margin:0;height:100%;background:#05030c;color:#fff;font-family:system-
 button{font-size:18px;padding:14px 22px;border:0;border-radius:14px;background:#ffd54a;color:#2a1600;font-weight:700;min-width:220px;font-family:inherit}
 button.sec{background:#3b2f63;color:#fff}
 button.big{font-size:24px;padding:18px 30px;min-width:260px;box-shadow:0 0 24px #ffd54a88}
-.mini{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:360px}
-.mini button{min-width:0;font-size:14px;padding:9px 12px;border-radius:12px}
+.mini{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:420px}
+.mini button{min-width:0;font-size:14px;padding:9px 10px;border-radius:12px}
 .mini button.on{background:#ffd54a;color:#2a1600}
 h1{margin:0;font-size:34px;color:#ffd54a;text-shadow:0 0 18px #ffd54a88;line-height:1.1}
 h1 small{display:block;font-size:22px;color:#fff;text-shadow:0 0 12px #ff1493;opacity:1;margin-top:4px}
-#howto,#styles{justify-content:flex-start;overflow-y:auto;background:#05030c;z-index:8;padding:calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px);gap:8px}
-#howto h2,#styles h2{margin:4px 0;color:#ffd54a;font-size:24px}
+#howto,#styles,#settings,#missions{justify-content:flex-start;overflow-y:auto;background:#05030c;z-index:8;padding:calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px);gap:8px}
+#howto h2,#styles h2,#settings h2,#missions h2,#styles h3{margin:4px 0;color:#ffd54a;font-size:24px}
 .hrow{display:flex;align-items:center;gap:12px;width:100%;max-width:440px;text-align:left;background:#1a1430;border:2px solid #ffd54a55;border-radius:12px;padding:7px 10px;box-sizing:border-box;flex:none}
 .hrow .ic{font-size:30px;width:44px;text-align:center;flex:none}.hrow b{color:#ffd54a;font-size:16px}.hrow div{font-size:14px;line-height:1.3;color:#fff}
 .sw{width:44px;height:26px;border-radius:6px;flex:none;border:2px solid #fff;box-shadow:0 0 10px var(--c);background:var(--c);box-sizing:border-box}
@@ -41,18 +41,47 @@ h1 small{display:block;font-size:22px;color:#fff;text-shadow:0 0 12px #ff1493;op
 .stylegrid button.sel{border-color:#ffd54a;box-shadow:0 0 14px #ffd54a88}
 .stylegrid button:disabled{opacity:.45}
 .stylegrid canvas{width:140px;height:60px}
+.play{width:min(84vw,330px);min-width:0;font-size:22px;padding:16px 10px;border-radius:18px;color:#fff;font-weight:800;border:2px solid rgba(255,255,255,.35);text-shadow:0 1px 3px rgba(0,0,0,.55)}
+.pTouch{background:linear-gradient(135deg,#ff1493,#ffb300);box-shadow:0 0 22px rgba(255,20,147,.5)}
+.pFace{background:linear-gradient(135deg,#00e5ff,#2962ff);box-shadow:0 0 22px rgba(0,176,255,.5)}
+.daily{width:min(84vw,330px);min-width:0;background:linear-gradient(135deg,#2a1d4a,#1a1430);border:2px solid #ffd54a77;color:#fff;border-radius:16px;padding:10px 14px;display:flex;flex-direction:column;gap:3px;text-align:left;font-weight:600}
+.daily.on{border-color:#ffd54a;box-shadow:0 0 20px #ffd54aaa;background:linear-gradient(135deg,#4a3410,#2a1d0a)}
+.daily .dTop{display:flex;justify-content:space-between;align-items:center;font-size:17px;color:#ffd54a;gap:8px}
+.daily .dSub{font-size:14px;color:#fff;opacity:.92}
+.pill{font-size:12px;background:#ffd54a;color:#2a1600;border-radius:10px;padding:2px 8px;white-space:nowrap}
+.daily:not(.on) .pill{background:#3b2f63;color:#fff}
+.chap{min-width:0;font-size:14px;padding:7px 14px;background:#12301f;color:#b9f6ca;border:1px solid #00e67666;border-radius:12px}
+.tog{min-width:64px;padding:8px 10px;font-size:14px;flex:none}.tog.off{background:#3b2f63;color:#fff}
+.mrow .bar{height:8px;background:#333;border-radius:4px;overflow:hidden;margin-top:4px}.mrow .bar i{display:block;height:100%;background:#00e676}
+.badge{background:#1a1430;border:2px solid #ffd54a33;border-radius:12px;padding:8px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:13px;text-align:center}
+.badge .bi{font-size:30px}.badge.lock .bi{filter:grayscale(1);opacity:.35}.badge.got{border-color:#ffd54a;box-shadow:0 0 10px #ffd54a55}.badge b{color:#ffd54a}
+#touch button{position:relative}.pat{position:absolute;right:4px;top:2px;font-style:normal;font-size:15px;color:#fff;text-shadow:0 0 2px #000,0 0 3px #000}
+body.nocb .pat{display:none}
+#oMeta{font-size:15px;line-height:1.45;margin:0;max-width:360px}
 small{opacity:.75}
 </style></head><body>
 <canvas id="game"></canvas>
 <video id="cam" playsinline muted autoplay class="hide"></video>
 <div id="start" class="ov">
   <h1>🧱 Face-Action<small data-t="sub"></small></h1>
-  <p data-h="intro" style="max-width:360px;margin:4px 0"></p>
-  <button id="bFace" class="big" data-t="playFace"></button>
-  <button id="bTouch" class="sec" data-t="playTouch"></button>
-  <div class="mini"><button id="bDaily" class="sec"></button><button id="bStyle" class="sec" data-t="styleBtn"></button><button id="bHow" class="sec" data-t="howBtn"></button><button id="bRecalStart" class="sec" data-t="recalFace"></button></div>
-  <p id="best" style="margin:4px 0"></p><p style="margin:0"><a href="privacy.html" style="color:#9cf;font-size:13px" data-t="privacy"></a> · <a href="#" id="bLang" style="color:#9cf;font-size:13px"></a><br><small style="opacity:.6;font-size:11px" data-t="copy"></small></p><p id="msg" style="margin:0"><small></small></p>
+  <p data-h="intro" style="max-width:360px;margin:0;font-size:15px"></p>
+  <button id="bTouch" class="play pTouch" data-t="playTouch"></button>
+  <button id="bFace" class="play pFace" data-t="playFace"></button>
+  <button id="bDaily" class="daily"><span class="dTop" id="dTop"></span><span class="dSub" id="dSub"></span></button>
+  <button id="bChapter" class="chap"></button>
+  <div class="mini"><button id="bStyle" class="sec" data-t="collectBtn"></button><button id="bSet" class="sec" data-t="setBtn"></button><button id="bHow" class="sec" data-t="howBtn"></button></div>
+  <p id="best" style="margin:0;font-size:14px"></p><p style="margin:0"><a href="privacy.html" style="color:#9cf;font-size:13px" data-t="privacy"></a> · <a href="#" id="bLang" style="color:#9cf;font-size:13px"></a><br><small style="opacity:.6;font-size:11px" data-t="copy"></small></p><p id="msg" style="margin:0"><small></small></p>
 </div>
+<div id="camEx" class="ov hide" style="z-index:9"><div style="font-size:56px">📷</div><h2 data-t="camExT" style="margin:0;color:#7df"></h2>
+  <div class="hrow"><span class="ic">😀</span><div data-t="camEx1"></div></div><div class="hrow"><span class="ic">🔒</span><div data-t="camEx2"></div></div><div class="hrow"><span class="ic">👆</span><div data-t="camEx3"></div></div>
+  <button id="bCamGo" class="play pFace" data-t="camExGo"></button><button id="bCamBack" class="sec" data-t="back"></button></div>
+<div id="settings" class="ov hide"><h2 data-t="setTitle"></h2>
+  <div class="hrow"><span class="ic">🔷</span><div><b data-t="cbL"></b><br><span data-t="cbD"></span></div><button id="tCb" class="tog"></button></div>
+  <div class="hrow"><span class="ic">🐢</span><div><b data-t="relaxL"></b><br><span data-t="relaxD"></span></div><button id="tRelax" class="tog"></button></div>
+  <button id="bRecalStart" class="sec" data-t="recalFace"></button><button id="bSetOk" data-t="done"></button></div>
+<div id="missions" class="ov hide"><h2 id="mTitle"></h2><p data-t="chapP" style="margin:0;font-size:14px;max-width:400px"></p><div id="mList" style="display:flex;flex-direction:column;gap:8px;width:100%;align-items:center"></div><p id="mTotal" style="margin:0;font-size:13px;opacity:.75"></p><button id="bMisOk" data-t="done"></button></div>
+<div id="cont" class="ov hide" style="z-index:7"><div style="font-size:60px">💔</div><h2 data-t="contT" style="margin:0;font-size:32px;color:#ff6ec7"></h2><p data-t="contP" style="margin:0;font-size:17px;max-width:320px"></p><p id="contScore" style="margin:0;font-size:20px;color:#ffd54a;font-weight:700"></p><button id="bContYes" class="play pTouch" data-t="contYes"></button><button id="bContNo" class="sec" data-t="contNo"></button></div>
+<div id="ad" class="ov hide" style="z-index:9;background:#000"><small style="opacity:.6">TODO: AdMob rewarded ad</small><h2 data-t="adPh" style="margin:0"></h2><p data-t="adP" style="margin:0;opacity:.7"></p><div id="adN" style="font-size:72px;font-weight:800;color:#ffd54a"></div></div>
 <div id="howto" class="ov hide">
  <h2 data-t="howTitle"></h2>
  <div class="hrow"><span class="ic">🧱</span><div data-h="hMove"></div></div>
@@ -64,16 +93,17 @@ small{opacity:.75}
  <div class="hrow"><span class="ic">⬇️</span><div data-h="hSink"></div></div>
  <div class="hrow"><span class="ic">🔥</span><div data-h="hHooks"></div></div>
  <div class="hrow"><span class="ic">🌈</span><div data-h="hSpecial"></div></div>
+ <div class="hrow"><span class="ic">📅</span><div data-h="hProg"></div></div>
  <div class="hrow"><span class="ic">💡</span><div data-h="hTip"></div></div>
  <button id="bHowOk" data-t="gotIt" style="flex:none"></button>
  <small style="opacity:.6;font-size:11px" data-t="copy"></small>
 </div>
-<div id="styles" class="ov hide"><h2 data-t="styleTitle"></h2><p data-t="styleP" style="margin:0;font-size:14px"></p><div class="stylegrid" id="styleGrid"></div><button id="bStyleOk" data-t="done"></button></div>
+<div id="styles" class="ov hide"><h2 data-t="collTitle"></h2><p id="collStreak" style="margin:0;font-size:14px"></p><h3 data-t="styleTitle" style="font-size:18px"></h3><p data-t="styleP" style="margin:0;font-size:13px"></p><div class="stylegrid" id="styleGrid"></div><h3 data-t="badgesH" style="font-size:18px"></h3><div class="stylegrid" id="badgeGrid"></div><button id="bStyleOk" data-t="done" style="flex:none"></button></div>
 <div id="pause" class="ov hide"><h2 data-t="paused"></h2><button id="bResume" data-t="resume"></button><button id="bHowP" class="sec" data-t="howBtn"></button><button id="bQuit" class="sec" data-t="menu"></button></div>
 <button id="bPause" class="hide" style="position:fixed;right:152px;top:calc(env(safe-area-inset-top) + 8px);min-width:0;padding:6px 10px;font-size:16px;z-index:6">⏸</button>
-<div id="calib" class="ov hide"><h2 id="cTitle" data-t="calibrating"></h2><p id="cText" style="max-width:340px"></p><div style="font-size:64px" id="cIcon">😐</div><div style="width:70%;height:12px;background:#333;border-radius:6px;overflow:hidden"><div id="cBar" style="height:100%;width:0;background:#ffd54a"></div></div><div id="cCount" style="font-size:28px;font-weight:700"></div><small id="cStep"></small></div>
+<div id="calib" class="ov hide"><h2 id="cTitle" data-t="calibrating"></h2><p id="cText" style="max-width:340px"></p><div style="font-size:64px" id="cIcon">😐</div><div style="width:70%;height:12px;background:#333;border-radius:6px;overflow:hidden"><div id="cBar" style="height:100%;width:0;background:#ffd54a"></div></div><div id="cCount" style="font-size:28px;font-weight:700"></div><small id="cStep"></small><p id="cLight" class="hide" data-t="dark" style="margin:0;background:#5d4037;border:2px solid #ffb300;border-radius:12px;padding:8px 12px;max-width:340px;font-weight:700"></p></div>
 <div id="rest" class="ov hide"><h2 data-t="restT"></h2><p data-t="restP"></p><p id="restT" style="font-size:48px"></p><button id="bSkip" class="sec" data-t="skip"></button></div>
-<div id="over" class="ov hide"><h2 data-t="over" style="font-size:30px;color:#ffd54a;margin:0"></h2><p id="oScore" style="font-size:18px;line-height:1.5;margin:0"></p><p id="oHook" style="font-size:20px;font-weight:700;color:#ff6ec7;margin:0"></p><img id="oCard" class="hide" alt="" style="max-height:30vh;max-width:60vw;border-radius:12px;border:2px solid #ffd54a;box-shadow:0 0 20px #ffd54a66"><button id="bShare" class="sec hide" data-t="share" style="background:#ff1493"></button><small id="oShareMsg"></small><button id="bAgain" class="big" data-t="again"></button><button id="bMenu" class="sec" data-t="menu"></button></div>
+<div id="over" class="ov hide"><h2 data-t="over" style="font-size:30px;color:#ffd54a;margin:0"></h2><p id="oScore" style="font-size:18px;line-height:1.5;margin:0"></p><p id="oHook" style="font-size:20px;font-weight:700;color:#ff6ec7;margin:0"></p><p id="oMeta"></p><img id="oCard" class="hide" alt="" style="max-height:30vh;max-width:60vw;border-radius:12px;border:2px solid #ffd54a;box-shadow:0 0 20px #ffd54a66"><button id="bShare" class="sec hide" data-t="share" style="background:#ff1493"></button><small id="oShareMsg"></small><button id="bAgain" class="big" data-t="again"></button><button id="bMenu" class="sec" data-t="menu"></button></div>
 <button id="bHud" style="position:fixed;right:8px;top:calc(env(safe-area-inset-top) + 8px);min-width:0;padding:6px 10px;font-size:16px;z-index:6">🐞</button>
 <div id="sensBox" class="hide" style="position:fixed;left:8px;right:8px;top:calc(env(safe-area-inset-top) + 150px);z-index:6;background:rgba(0,0,0,.7);padding:6px;border-radius:8px;font-size:13px"><span data-t="sensL"></span> <input id="sens" type="range" min="0.4" max="1.6" step="0.05" style="width:100%"> <button id="bRecal" class="sec" style="min-width:0;font-size:13px;padding:6px 10px" data-t="recal"></button></div>
 <button id="bVol" style="position:fixed;right:104px;top:calc(env(safe-area-inset-top) + 8px);min-width:0;padding:6px 10px;font-size:16px;z-index:6" data-ti="sound">🔊</button>
@@ -83,7 +113,7 @@ small{opacity:.75}
 <div id="camInd" class="hide" style="position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 6px);z-index:6;background:rgba(0,0,0,.6);padding:3px 8px;border-radius:10px;font-size:12px"><span style="color:#f33">●</span> <span data-t="camOn"></span></div>
 <button id="camResume" class="hide" style="position:fixed;left:50%;top:40%;transform:translateX(-50%);z-index:6"><span data-t="camResume"></span></button>
 <div id="touch" class="hide">
- <button data-k="blue" style="--c:#2979ff">👀</button><button data-k="pink" style="--c:#ff1493">😮</button><button data-k="yellow" style="--c:#ffd600">😁</button><button data-k="green" style="--c:#00e676">🤨</button>
+ <button data-k="blue" style="--c:#2979ff">👀<i class="pat">●</i></button><button data-k="pink" style="--c:#ff1493">😮<i class="pat">▲</i></button><button data-k="yellow" style="--c:#ffd600">😁<i class="pat">■</i></button><button data-k="green" style="--c:#00e676">🤨<i class="pat">✚</i></button>
 </div>
 <script type="module">
 const $=id=>document.getElementById(id);
@@ -143,7 +173,42 @@ function applyLang(){document.documentElement.lang=LANG;
   if(msgState)$('msg').innerHTML=t(msgState[0],msgState[1]);
   if(overState)renderOver();
   if(calState.text)$('cText').textContent=t(calState.text);if(calState.step)$('cStep').textContent=t('stepOf',calState.step);
-  showBest();syncDaily();if(!$('styles').classList.contains('hide'))buildStyles()}
+  showBest();syncDaily();buildSettings();if(!$('styles').classList.contains('hide')){buildStyles();buildBadges()}if(!$('missions').classList.contains('hide'))buildMissions();if(S&&S.offer)$('contScore').textContent=t('contScore',{s:S.score})}
+
+// ---------- v0.6 strings ----------
+Object.assign(L.en,{intro:'Sort glowing bricks onto their color stacks. Tap to play, or go hands-free with your face!',
+dailyT:'📅 Daily Challenge · {d}',dailyBest:'Best today: <b>{b}</b>',dailyNone:'Not played yet today',dailyOnP:'✓ ON',dailyOffP:'Tap to select',dailyHint:'✓ Selected: choose Touch or Face above',
+streakN:'🔥 {n} day{s}',streakKeep:'🔥 {n} day{s}: play today to keep it!',streak0:'Play daily to start a 🔥 streak',
+streakRew:'🔥 {n}-day streak!',rewBoost:'⭐ Golden boost next game',rewStyle:'🎨 {s} style unlocked',streakUp:'🔥 Daily streak: {n} day{s}',
+chapBtn:'📖 Chapter {n} · {d}/3 missions',chapTitle:'📖 Chapter {n}',chapP:'Complete all 3 missions to reach the next chapter. Reward: ⭐ golden boost next game.',
+mSink:'Clear {n} stack{s}',mBomb:'Defuse {n} bomb{s}',mCombo:'Reach x{n} combo in one game',mScore:'Score {n} in one game',mPerfect:'{n} perfect catch{es}',mChain:'{n} color burst{s}',mGolden:'Catch {n} golden brick{s}',mBricks:'Stack {n} bricks',
+mDone:'✅ Mission complete: {m}',chapDone:'CHAPTER {n} COMPLETE!',chapRewOver:'📖 Chapter {n} complete! ⭐ Golden boost next game',chapTotal:'Chapters completed: {n}',boostOn:'⭐ Golden boost: more golden bricks!',
+collectBtn:'🏆 Collection',collTitle:'🏆 Collection',badgesH:'🏅 Badges',styleP:'Unlock with score milestones or daily streaks.',needStreak:'or 🔥 {n} days',bestStreak:'🔥 Best daily streak: {n} day{s}',
+b_first:'First Sink',d_first:'Clear your first stack',b_bomb:'Bomb Squad',d_bomb:'Defuse 10 bombs',b_speed:'Speed Demon',d_speed:'20 full-value catches',b_rainbow:'Rainbow Master',d_rainbow:'Catch 15 rainbow bricks',
+b_s3:'On a Roll',d_s3:'3-day daily streak',b_s7:'Week Warrior',d_s7:'7-day daily streak',b_s14:'Two-Week Titan',d_s14:'14-day daily streak',b_s30:'Monthly Legend',d_s30:'30-day daily streak',badgeGot:'🏅 Badge: {b}!',
+setBtn:'⚙️ Settings',setTitle:'⚙️ Settings',cbL:'Colorblind patterns',cbD:'Adds a shape to each color: ● blue, ▲ pink, ■ yellow, ✚ green.',relaxL:'Relaxed speed',relaxD:'Bricks fall slower and speed up gently.',on:'ON',off:'OFF',
+contT:'Continue?',contP:'Watch a short ad for +1 ❤️ and keep going. Once per game.',contScore:'Score so far: {s}',contYes:'▶️ Watch ad (+1 ❤️)',contNo:'No thanks',adPh:'Ad placeholder',adP:'A rewarded ad will play here.',contGo:'+1 ❤️ KEEP GOING!',
+camExT:'Face mode',camEx1:'Uses your front camera to read your expressions (blink, mouth, smile, eyebrows).',camEx2:'Video stays on this phone. Nothing is recorded or uploaded.',camEx3:'You can switch back to Touch any time.',camExGo:'📷 Turn on camera',back:'⬅️ Back',
+dark:'💡 It\'s too dark here: find better light (face a window or a lamp).',relaxHud:'🐢 Relaxed',colon:': ',
+hProg:'<b>📅 Daily challenge</b>: the same bricks for everyone today. Play it every day for a 🔥 streak and rewards · <b>📖 Chapters</b>: 3 quick missions each · <b>🏆 Collection</b>: styles and badges · ⚙️ colorblind patterns and relaxed speed.'});
+Object.assign(L.fr,{intro:'Triez les briques lumineuses sur leur pile de couleur. Jouez au doigt, ou sans les mains avec votre visage !',
+dailyT:'📅 Défi du jour · {d}',dailyBest:'Record du jour : <b>{b}</b>',dailyNone:'Pas encore joué aujourd\'hui',dailyOnP:'✓ ACTIF',dailyOffP:'Touchez pour choisir',dailyHint:'✓ Choisi : jouez en tactile ou avec le visage',
+streakN:'🔥 {n} jour{s}',streakKeep:'🔥 {n} jour{s} : jouez aujourd\'hui pour la garder !',streak0:'Jouez chaque jour pour lancer une série 🔥',
+streakRew:'🔥 Série de {n} jours !',rewBoost:'⭐ Bonus doré à la prochaine partie',rewStyle:'🎨 Style {s} débloqué',streakUp:'🔥 Série quotidienne : {n} jour{s}',
+chapBtn:'📖 Chapitre {n} · {d}/3 missions',chapTitle:'📖 Chapitre {n}',chapP:'Réussissez les 3 missions pour passer au chapitre suivant. Récompense : ⭐ bonus doré à la prochaine partie.',
+mSink:'Videz {n} pile{s}',mBomb:'Désamorcez {n} bombe{s}',mCombo:'Atteignez un combo x{n} en une partie',mScore:'Marquez {n} en une partie',mPerfect:'{n} prise{s} parfaite{s}',mChain:'{n} explosion{s} de couleur',mGolden:'Attrapez {n} brique{s} dorée{s}',mBricks:'Empilez {n} briques',
+mDone:'✅ Mission réussie : {m}',chapDone:'CHAPITRE {n} TERMINÉ !',chapRewOver:'📖 Chapitre {n} terminé ! ⭐ Bonus doré à la prochaine partie',chapTotal:'Chapitres terminés : {n}',boostOn:'⭐ Bonus doré : plus de briques dorées !',
+collectBtn:'🏆 Collection',collTitle:'🏆 Collection',badgesH:'🏅 Badges',styleP:'Débloquez-les avec des paliers de score ou des séries quotidiennes.',needStreak:'ou 🔥 {n} jours',bestStreak:'🔥 Meilleure série : {n} jour{s}',
+b_first:'Première pile',d_first:'Videz votre première pile',b_bomb:'Escouade anti-bombe',d_bomb:'Désamorcez 10 bombes',b_speed:'Démon de la vitesse',d_speed:'20 prises à pleine valeur',b_rainbow:'Maître arc-en-ciel',d_rainbow:'Attrapez 15 briques arc-en-ciel',
+b_s3:'Sur la lancée',d_s3:'Série de 3 jours',b_s7:'Guerrier de la semaine',d_s7:'Série de 7 jours',b_s14:'Titan des deux semaines',d_s14:'Série de 14 jours',b_s30:'Légende du mois',d_s30:'Série de 30 jours',badgeGot:'🏅 Badge : {b} !',
+setBtn:'⚙️ Réglages',setTitle:'⚙️ Réglages',cbL:'Motifs daltoniens',cbD:'Ajoute une forme à chaque couleur : ● bleu, ▲ rose, ■ jaune, ✚ vert.',relaxL:'Vitesse détente',relaxD:'Les briques tombent moins vite et accélèrent doucement.',on:'OUI',off:'NON',
+contT:'Continuer ?',contP:'Regardez une courte pub pour +1 ❤️ et continuez. Une fois par partie.',contScore:'Score actuel : {s}',contYes:'▶️ Voir la pub (+1 ❤️)',contNo:'Non merci',adPh:'Emplacement publicitaire',adP:'Une pub récompensée sera diffusée ici.',contGo:'+1 ❤️ ON CONTINUE !',
+camExT:'Mode visage',camEx1:'Utilise la caméra avant pour lire vos expressions (clignement, bouche, sourire, sourcils).',camEx2:'La vidéo reste sur ce téléphone. Rien n\'est enregistré ni envoyé.',camEx3:'Vous pouvez revenir au tactile à tout moment.',camExGo:'📷 Activer la caméra',back:'⬅️ Retour',
+dark:'💡 Il fait trop sombre : trouvez un meilleur éclairage (face à une fenêtre ou une lampe).',relaxHud:'🐢 Détente',colon:' : ',
+hProg:'<b>📅 Défi du jour</b> : les mêmes briques pour tout le monde aujourd\'hui. Jouez chaque jour pour une série 🔥 et des récompenses · <b>📖 Chapitres</b> : 3 missions rapides chacun · <b>🏆 Collection</b> : styles et badges · ⚙️ motifs daltoniens et vitesse détente.'});
+L.en.hSink='<b>10 bricks on a stack</b> and it sinks into the ground: <b>+20</b>. Bricks speed up as the game goes on (games last about 1–3 minutes).';
+L.fr.hSink='<b>10 briques sur une pile</b> et elle s\'enfonce dans le sol : <b>+20</b>. Les briques accélèrent au fil de la partie (environ 1 à 3 minutes).';
+const tp=(k,n,v={})=>t(k,{n,s:n>1?'s':'',es:n>1?'es':'',...v});
 const cv=$('game'),video=$('cam');let ctx=cv.getContext('2d');
 let W,H,DPR;function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);if(S&&!running){Object.assign(S,layout())}}addEventListener('resize',resize);
 const BEST_KEYS={face:'fb_best_face',touch:'fb_best_touch'};const getBest=m=>+localStorage.getItem(BEST_KEYS[m])||0;
@@ -152,14 +217,12 @@ function showBest(){$('best').innerHTML=t('faceBest')+': <b>'+getBest('face')+'<
 const COLORS={blue:{hex:'#2979ff',hi:'#82b1ff',g:'blink2',n:'cBlue',gn:'gBlue',ic:'👀'},pink:{hex:'#ff1493',hi:'#ff80c8',g:'jaw',n:'cPink',gn:'gPink',ic:'😮'},
   yellow:{hex:'#ffd600',hi:'#fff59d',g:'smile',n:'cYellow',gn:'gYellow',ic:'😁'},green:{hex:'#00e676',hi:'#b9f6ca',g:'brow',n:'cGreen',gn:'gGreen',ic:'🤨'}};
 const CKEYS=['blue','pink','yellow','green'];const G2C={blink2:'blue',jaw:'pink',smile:'yellow',brow:'green'};
-const STYLES=[{k:'classic',n:'sClassic',need:0},{k:'neon',n:'sNeon',need:250},{k:'candy',n:'sCandy',need:600},{k:'gems',n:'sGems',need:1200}];
+const STYLES=[{k:'classic',n:'sClassic',need:0},{k:'neon',n:'sNeon',need:1500},{k:'candy',n:'sCandy',need:4000},{k:'gems',n:'sGems',need:8000}];
 const topScore=()=>Math.max(+localStorage.getItem('fb_top')||0,getBest('face'),getBest('touch'));
-let style=localStorage.getItem('fb_style')||'classic';if(!STYLES.some(s=>s.k===style&&topScore()>=s.need))style='classic';
+let style=localStorage.getItem('fb_style')||'classic';if(!STYLES.some(s=>s.k===style&&(topScore()>=s.need||JSON.parse(localStorage.getItem('fb_unlocks')||'[]').includes(s.k))))style='classic';
+let FAKE_DAY=null; // test hook: pretend today is another date
 let daily=false;
-function syncDaily(){$('bDaily').textContent=daily?t('dailyOn'):t('dailyOff');$('bDaily').classList.toggle('on',daily)}
-$('bDaily').onclick=()=>{daily=!daily;syncDaily()};
 let S=null,paused=false,running=false,last=performance.now();
-resize();applyLang();
 $('bLang').onclick=e=>{e.preventDefault();LANG=LANG==='fr'?'en':'fr';localStorage.setItem('fa_lang',LANG);applyLang()};
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 
@@ -315,7 +378,7 @@ const VOLS=[0.7,0.3,0];function volIcon(){return SND.vol===0?'🔇':SND.vol<0.5?
 function cycleVol(){const i=VOLS.indexOf(SND.vol);SND.vol=VOLS[(i+1)%VOLS.length];localStorage.setItem('fb_vol',SND.vol);if(SND.master)SND.master.gain.value=SND.vol;$('bVol').textContent=volIcon()}
 
 // ---------- Game ----------
-const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const today=()=>{if(FAKE_DAY)return FAKE_DAY;const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 function mulberry(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let x=Math.imul(a^a>>>15,1|a);x=x+Math.imul(x^x>>>7,61|x)^x;return((x^x>>>14)>>>0)/4294967296}}
 const hashStr=s=>{let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0};
 const MAXROWS=10;
@@ -329,14 +392,16 @@ function layout(){
 const colX=i=>S.colW*(i+.5);
 function newGame(){
   S={...layout(),score:0,hearts:5,streak:0,mult:1,cols:CKEYS.map(()=>[]),sinking:[],cur:null,fly:[],next:null,fx:[],parts:[],level:1,sinks:0,slowT:0,shake:0,spawnT:.8,locks:0,t:0,ended:false,
-    chainC:null,chainN:0,daily,day:today(),rng:daily?mulberry(hashStr('fb-'+today())):Math.random,idx:0,bannerT:0,banner:'',unlockAt:STYLES.filter(s=>s.need>topScore()).map(s=>s.k),overT:-1,bursts:0,earned:[],hype:null,hypeLast:-9,flash:null,coins:[],colLabels:[],prevBest:getBest(mode),recordHit:false,freezeT:0,fireQ:[],scorePulse:0,perfects:0};
+    chainC:null,chainN:0,daily,day:today(),rng:daily?mulberry(hashStr('fb-'+today())):Math.random,idx:0,bannerT:0,banner:'',unlockAt:STYLES.filter(s=>!styleOK(s)).map(s=>s.k),overT:-1,bursts:0,earned:[],hype:null,hypeLast:-9,flash:null,coins:[],colLabels:[],prevBest:getBest(mode),recordHit:false,freezeT:0,fireQ:[],scorePulse:0,perfects:0,contUsed:false,offer:false,boost:false,newBadges:[],chapDone:[],relax:OPT.relax};
   S.next=genBrick()}
 // brick sequence: daily mode uses a date-seeded RNG, so everyone gets the same bricks that day
 function genBrick(){const r=S.rng,i=S.idx++;let kind='normal';const c=CKEYS[Math.floor(r()*4)],sp=r();
-  if(i>=6){if(sp<.06)kind='rainbow';else if(sp<.12)kind='bomb';else if(sp<.16)kind='golden'}
+  if(i>=6){if(sp<.06)kind='rainbow';else if(sp<.12)kind='bomb';else if(sp<(S.boost?.27:.16))kind='golden'}
+  else if(S.boost&&i>=2&&sp>.82)kind='golden'; // golden boost (chapter/streak reward)
   return {c,kind}}
-// generous early fall time, 8% faster per sink, floor 2.5 s (face mode gets +15%)
-const fallTime=()=>Math.max(2.5,6.5*Math.pow(.92,S.level-1))*(mode==='face'?1.15:1);
+// time-based ramp for 1-3 min games: fall time halves every 50 s of play (4.6 s -> floor 0.7 s), plus 4% per sink.
+// Relaxed speed: starts at 6.5 s, halves every 100 s, floor 1.0 s. Face mode: x1.35 on top.
+const fallTime=()=>{const r=S.relax,f=Math.max(r?1:.7,(r?6.5:4.6)*Math.pow(.5,S.t/(r?100:50))*Math.pow(.96,S.level-1));return f*(mode==='face'?1.35:1)};
 function spawnBrick(){const b=S.next;S.next=genBrick();
   S.cur={...b,x:W/2,y:S.spawnY,state:'fall',age:0};S.cur.vy=(S.deadY-S.fall.h-S.spawnY)/fallTime()}
 function banner(txt,col='#ffd54a',dur=1.6){S.banner=txt;S.bannerCol=col;S.bannerT=dur}
@@ -350,12 +415,12 @@ const fallProgress=b=>Math.max(0,Math.min(1,(b.y-S.spawnY)/(S.deadY-S.fall.h-S.s
 const brickValue=b=>Math.max(0,Math.round((b.kind==='golden'?100:20)*(1-fallProgress(b))));
 // gold -> white -> grey as the value drains
 function valCol(p){const L=(a,b,k)=>Math.round(a+(b-a)*k);let c;if(p<.5){const k=p/.5;c=[L(255,255,k),L(213,255,k),L(74,255,k)]}else{const k=(p-.5)/.5;c=[L(255,120,k),L(255,120,k),L(255,120,k)]}return 'rgb('+c+')'}
-function checkUnlock(){checkRecord();for(const k of [...S.unlockAt]){const st=STYLES.find(s=>s.k===k);if(S.score>=st.need){S.unlockAt=S.unlockAt.filter(x=>x!==k);localStorage.setItem('fb_top',Math.max(topScore(),S.score));sfx.unlock();banner(t('unlocked',{s:t(st.n)}),'#7cf',2.2)}}}
+function checkUnlock(){checkRecord();ev('score',S.score);for(const k of [...S.unlockAt]){const st=STYLES.find(s=>s.k===k);if(S.score>=st.need){S.unlockAt=S.unlockAt.filter(x=>x!==k);localStorage.setItem('fb_top',Math.max(topScore(),S.score));sfx.unlock();banner(t('unlocked',{s:t(st.n)}),'#7cf',2.2)}}}
 const stackTopY=i=>S.groundY-S.cols[i].length*S.rh;
 function shortestCol(){let m=Infinity,c=0;S.cols.forEach((s,i)=>{if(s.length<m){m=s.length;c=i}});return c}
 function handleGesture(g){const b=S.cur;if(!b||b.state!=='fall')return;if(b.kind!=='bomb'&&b.age<(mode==='touch'?.15:.35))return;
   if(b.kind==='bomb'){ // only the defuse gesture matters; color gestures on a bomb are ignored (no penalty)
-    if(g==='defuse'&&b.age>=(mode==='touch'?0:.2)){b.state='gone';S.hearts=Math.min(5,S.hearts+1);sfx.defuse();parts(b.x,b.y+S.fall.h/2,'#ddd',24,160);fx(b.x,b.y,t('defused'),'#7cf',20);S.spawnT=.45}
+    if(g==='defuse'&&b.age>=(mode==='touch'?0:.2)){b.state='gone';S.hearts=Math.min(5,S.hearts+1);sfx.defuse();parts(b.x,b.y+S.fall.h/2,'#ddd',24,160);fx(b.x,b.y,t('defused'),'#7cf',20);S.spawnT=.45;ev('bomb')}
     return}
   if(g==='defuse')return; // defuse only matters for bombs
   const ok=b.kind==='rainbow'||G2C[g]===b.c;
@@ -368,7 +433,7 @@ function handleGesture(g){const b=S.cur;if(!b||b.state!=='fall')return;if(b.kind
 function boom(b){sfx.boom();parts(b.x,b.y+S.fall.h/2,'#ff9100',40,320);fx(b.x,b.y-20,t('boom'),'#ff9100',24)}
 function land(f){const col=S.cols[f.ci],cx=colX(f.ci);col.push({c:f.c,kind:f.kind});S.locks++;S.streak++;
   const by=stackTopY(f.ci)+S.rh/2;S.squash=.18;S.squashCol=f.ci;
-  const nm=Math.min(5,1+Math.floor(S.streak/3));if(nm>S.mult){S.mult=nm;hypeCombo(nm)}
+  const nm=Math.min(5,1+Math.floor(S.streak/3));if(nm>S.mult){S.mult=nm;hypeCombo(nm);ev('combo',nm)}ev('bricks');if(f.kind==='rainbow')ev('rainbow');if(f.kind==='golden')ev('golden');
   sfx.lock(S.streak);parts(cx,by,'rgba(255,255,255,.6)',8,90);
   const pts=f.val*S.mult,lbl='+'+pts+(S.mult>1?' x'+S.mult:'');S.earned.push(f.val);
   if(f.kind==='golden'){addScore(pts,cx,by-30,'#ffd54a',lbl);sfx.golden();parts(cx,by,'#ffd54a',36,260);banner(t('golden',{n:pts}),'#ffd54a')}
@@ -379,18 +444,19 @@ function land(f){const col=S.cols[f.ci],cx=colX(f.ci);col.push({c:f.c,kind:f.kin
   if(f.c==='rainbow')S.chainN++;else if(!S.chainC||S.chainC===f.c){S.chainC=f.c;S.chainN++}else{S.chainC=f.c;S.chainN=1}
   if(S.chainN>=3){S.chainN=0;S.chainC=null;S.bursts++;const hex=f.c==='rainbow'?'#ffffff':COLORS[f.c].hi;
     for(let k=0;k<Math.min(3,col.length);k++)parts(cx,stackTopY(f.ci)+(k+.5)*S.rh,hex,20,260);
-    S.score+=50;fx(W/2,H*.38,t('burst'),hex,22);S.slowT=3;sfx.burst();checkUnlock()}
+    S.score+=50;fx(W/2,H*.38,t('burst'),hex,22);S.slowT=3;sfx.burst();ev('chain');checkUnlock()}
   if(col.length>=MAXROWS)sinkCol(f.ci)}
 function sinkCol(i){const bricks=S.cols[i];S.cols[i]=[];S.sinking.push({ci:i,bricks,t:0,dur:.9});sfx.crunch();S.shake=.3;
-  S.sinks++;S.level++;S.score+=20;fx(colX(i),S.groundY-60,'+20','#ffd54a',26);sinkCelebrate(i);
+  S.sinks++;S.level++;S.score+=20;ev('sink');fx(colX(i),S.groundY-60,'+20','#ffd54a',26);sinkCelebrate(i);
   setTimeout(()=>{if(!S||S.ended)return;sfx.level();banner(t('sinkB',{c:t(COLORS[CKEYS[i]].n),n:S.level}),'#ffd54a',2);
     for(let k=0;k<26;k++)S.parts.push({x:colX(i)+(Math.random()-.5)*S.colW,y:S.groundY,vx:(Math.random()-.5)*200,vy:-Math.random()*220,t:.8,col:'#8d6e63',s:3+Math.random()*3})},700);
   checkUnlock();if(mode==='face'&&S.sinks%3===0)setTimeout(()=>{if(running&&!S.ended)startRest()},1200)}
 const ease=x=>1-Math.pow(1-x,3);
 function update(dt){
+  if(S.offer)return; // waiting on the Continue? offer
   celebUpdate(dt);const frozen=S.freezeT>0;
   S.t+=dt;S.bannerT-=dt;S.shake=Math.max(0,S.shake-dt);S.squash=Math.max(0,(S.squash||0)-dt);S.slowT=Math.max(0,S.slowT-dt);
-  if(S.overT>0){S.overT-=dt;if(S.overT<=0){gameOver();return}}
+  if(S.overT>0){S.overT-=dt;if(S.overT<=0){endOrOffer();return}}
   const q=gestureQ;gestureQ=[];if(S.overT<0)for(const g of q)handleGesture(g);
   for(const s of S.sinking)s.t+=dt;S.sinking=S.sinking.filter(s=>s.t<s.dur);
   for(const f of S.fly){f.t+=dt;if(f.t>=f.dur&&!f.done){f.done=1;land(f)}}S.fly=S.fly.filter(f=>!f.done);
@@ -408,15 +474,20 @@ function update(dt){
 }
 function gameOver(){S.ended=true;running=false;sfx.over();camStop();$('bPause').classList.add('hide');$('touch').classList.add('hide');
   const m=mode,prev=getBest(m),b=Math.max(S.score,prev);localStorage.setItem(BEST_KEYS[m],b);localStorage.setItem('fb_top',Math.max(topScore(),S.score));showBest();
-  if(S.daily){const dk='fb_daily_'+S.day+'_'+m;localStorage.setItem(dk,Math.max(+localStorage.getItem(dk)||0,S.score))}
-  overState={m,s:S.score,g:S.level,r:S.locks,nb:S.score>prev&&S.score>0,b,prev,daily:S.daily?S.day:null,date:new Date()};renderOver();$('over').classList.remove('hide');draw()}
+  let streak=null;if(S.daily){const dk='fb_daily_'+S.day+'_'+m;localStorage.setItem(dk,Math.max(+localStorage.getItem(dk)||0,S.score));streak=recordDaily()}
+  STATS.games++;LS.set('fb_stats',STATS);checkBadges(false);
+  overState={m,s:S.score,g:S.level,r:S.locks,nb:S.score>prev&&S.score>0,b,prev,daily:S.daily?S.day:null,date:new Date(),streak,badges:[...S.newBadges],chapDone:[...S.chapDone],secs:Math.round(S.t)};renderOver();$('over').classList.remove('hide');draw()}
 function renderOver(){const o=overState,lbl=t(o.m+'L');
   $('oScore').innerHTML=(o.daily?t('dailyL',{d:o.daily})+'<br>':'')+t('overLine',{m:lbl,s:o.s,g:o.g,r:o.r})+'<br>'+(o.nb?t('newBest',{m:lbl}):t('bestIs',{m:lbl,b:o.b}));
   const gap=o.prev-o.s;$('oHook').innerHTML=!o.nb&&gap>0&&gap<=Math.max(60,o.prev*.25)?t('near',{n:gap}):'';
+  const meta=[];if(o.streak&&!o.streak.same){meta.push(tp('streakUp',o.streak.n));if(o.streak.milestone)meta.push(t('streakRew',{n:o.streak.n})+' '+t('rewBoost')+(o.streak.style?' · '+t('rewStyle',{s:t(STYLES.find(x=>x.k===o.streak.style).n)}):''))}
+  for(const c of o.chapDone)meta.push(t('chapRewOver',{n:c}));for(const b of o.badges)meta.push(t('badgeGot',{b:t('b_'+b)}));
+  const ms=chapterMissions(PROG.ch);meta.push('<a href="#" id="oChap" style="color:#b9f6ca">'+t('chapTitle',{n:PROG.ch})+t('colon')+ms.map((x,i)=>(PROG.p[i]>=x[1]?'✅ ':'⬜ ')+mText(x[0],x[1])+(PROG.p[i]<x[1]&&x[1]>1&&MT[x[0]].cum?' ('+PROG.p[i]+'/'+x[1]+')':'')).join('<br>')+'</a>');
+  $('oMeta').innerHTML=meta.join('<br>');$('oChap').onclick=e=>{e.preventDefault();buildMissions();$('missions').classList.remove('hide')};
   $('oShareMsg').textContent='';if(o.nb)showCard(o);else{$('oCard').classList.add('hide');$('bShare').classList.add('hide')}}
 $('bAgain').onclick=()=>{$('over').classList.add('hide');overState=null;begin(true)};
 $('bMenu').onclick=()=>{$('over').classList.add('hide');overState=null;toMenu()};
-function toMenu(){running=false;paused=false;camStop();['pause','bPause','touch'].forEach(i=>$(i).classList.add('hide'));$('start').classList.remove('hide');showBest();newGame();draw()}
+function toMenu(){running=false;paused=false;camStop();['pause','bPause','touch'].forEach(i=>$(i).classList.add('hide'));$('start').classList.remove('hide');showBest();syncDaily();newGame();draw()}
 
 // ---------- Gratification: hype banners, stack-sink party, personal best ----------
 const MAXPARTS=260;
@@ -425,7 +496,7 @@ const HYPECOL={2:'#7cf',3:'#ff9100',4:'#ff1493',5:'#ffd54a'};
 function hype(txt,col,{dur=.9,force=false,size=40}={}){if(!force&&S.t-S.hypeLast<1.1)return false;S.hypeLast=S.t;S.hype={txt,col,t:0,dur,size};return true}
 function screenFlash(col,dur=.3,a=.35){S.flash={col,t:dur,dur,a}}
 function hypeCombo(n){if(hype(t('hype'+n),HYPECOL[n],{size:n>=5?44:40})){screenFlash(HYPECOL[n],.3,.28);sfx.sting(n);navigator.vibrate&&navigator.vibrate(30)}else sfx.combo(n)}
-function perfectPop(x,y){S.perfects++;fx(Math.max(80,Math.min(W-80,x)),y-64,t('perfect'),'#fff59d',22);if(S.t-(S.perfLast??-9)>1){S.perfLast=S.t;screenFlash("#ffffff",.18,.18);sfx.perfect()}}
+function perfectPop(x,y){S.perfects++;ev('perfect');fx(Math.max(80,Math.min(W-80,x)),y-64,t('perfect'),'#fff59d',22);if(S.t-(S.perfLast??-9)>1){S.perfLast=S.t;screenFlash("#ffffff",.18,.18);sfx.perfect()}}
 function confetti(x,y,col,n){const cols=[col,'#ffffff',col,'#ffd54a'];for(let i=0;i<n;i++){const a=-Math.PI/2+(Math.random()-.5)*1.6,v=320+Math.random()*380;
   S.parts.push({x:x+(Math.random()-.5)*30,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,t:1.2+Math.random()*.6,col:cols[i%4],s:5+Math.random()*4,conf:1,rot:Math.random()*6,vr:(Math.random()-.5)*14})}}
 function sinkCelebrate(i){const c=COLORS[CKEYS[i]],x=colX(i);
@@ -520,6 +591,7 @@ function drawBrick(cx,y,w,h,c,kind,st,opt={}){
     else{ctx.fillStyle=rb?'rgba(255,255,255,.4)':hi;ctx.globalAlpha=A*.75;rr(x+8,y+4,w-16,h*.22,4);ctx.fill();ctx.globalAlpha=A;ctx.fillStyle='rgba(0,0,0,.18)';ctx.fillRect(x,y+h*.78,w,h*.22)}
     ctx.restore();rr(x,y,w,h,r);ctx.lineWidth=2.5;ctx.strokeStyle='rgba(255,255,255,.95)';ctx.stroke()}
   if(gold&&col){ctx.lineWidth=4;ctx.strokeStyle=col.hex;rr(x+5,y+5,w-10,h-10,4);ctx.stroke()}
+  if(OPT.cb&&col&&!opt.noPat){const s=Math.min(h*.5,18),dk=st!=='neon'&&(c==='yellow'||c==='green');if(opt.icon)[-1,1].forEach(d=>drawPat(c,cx+d*w*.35,y+h/2,s,dk));else drawPat(c,cx,y+h/2,s,dk)}
   if(opt.icon){ctx.font=Math.round(h*.55)+'px '+EMOJI_FONT;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#000';
     if(rb)ctx.fillText('🌈',cx,y+h/2+1);else if(gold){ctx.fillText('⭐',cx-h*.45,y+h/2+1);ctx.fillText(col.ic,cx+h*.45,y+h/2+1)}else ctx.fillText(col.ic,cx,y+h/2+1)}
   ctx.restore()}
@@ -584,13 +656,13 @@ function draw(){
   const top=14+(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat'))||0);
   ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#ffd54a';ctx.font='bold '+Math.round(26*(1+S.scorePulse*.8))+'px sans-serif';ctx.shadowColor='#ffd54a';ctx.shadowBlur=8+S.scorePulse*40;ctx.fillText(String(S.score),12,top+10);ctx.shadowBlur=0;
   for(let i=0;i<5;i++)heart(22+i*24,top+28,18,i<S.hearts);
-  ctx.fillStyle='#fff';ctx.font='bold 14px sans-serif';ctx.fillText(t('level')+' '+S.level,12,top+62);
+  ctx.fillStyle='#fff';ctx.font='bold 14px sans-serif';ctx.fillText(t('level')+' '+S.level+(S.relax?'  '+t('relaxHud'):'')+(S.boost?'  ⭐':''),12,top+62);
   let hy=top+86;
   if(S.mult>1){ctx.fillStyle='#ff6ec7';ctx.font='bold 20px sans-serif';ctx.shadowColor='#ff1493';ctx.shadowBlur=10;ctx.fillText('x'+S.mult+' COMBO',12,hy);ctx.shadowBlur=0;hy+=22}
   if(S.chainN>=1&&S.chainC){ctx.font='12px sans-serif';ctx.fillStyle=COLORS[S.chainC].hex;ctx.fillText('●'.repeat(S.chainN)+'○'.repeat(3-S.chainN),12,hy);hy+=18}
   if(S.daily){ctx.fillStyle='#9cf';ctx.font='12px sans-serif';ctx.fillText('📅 '+S.day,12,hy)}
   if(S.next){const nx=W-196,ny=top+62;ctx.fillStyle='#ccc';ctx.font='12px sans-serif';ctx.textAlign='right';ctx.fillText(t('next'),nx-4,ny+11);drawBrick(nx+30,ny,60,22,S.next.c,S.next.kind,style,{})}
-  if(S.bannerT>0){ctx.textAlign='center';ctx.globalAlpha=Math.min(1,S.bannerT*2);ctx.font='bold 22px sans-serif';ctx.fillStyle=S.bannerCol||'#ffd54a';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=14;
+  if(S.bannerT>0){ctx.textAlign='center';ctx.globalAlpha=Math.min(1,S.bannerT*2);let bf=22;ctx.font='bold 22px sans-serif';while(bf>12&&ctx.measureText(S.banner).width>W-24){bf--;ctx.font='bold '+bf+'px sans-serif'}ctx.fillStyle=S.bannerCol||'#ffd54a';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=14;
     ctx.fillText(S.banner,W/2,S.spawnY-18);ctx.shadowBlur=0;ctx.globalAlpha=1}
   drawCelebrations();
   // small on-screen indicator of the detected gesture (face mode)
@@ -610,13 +682,104 @@ function step(now){requestAnimationFrame(step);const dt=Math.min(.05,(now-last)/
 // ---------- Styles screen ----------
 function buildStyles(){const g=$('styleGrid');g.innerHTML='';const ts=topScore();
   for(const s of STYLES){const bt=document.createElement('button'),c=document.createElement('canvas');c.width=280;c.height=120;bt.appendChild(c);
-    const lb=document.createElement('span');lb.textContent=ts>=s.need?t(s.n):t(s.n)+' '+t('needPts',{n:s.need});bt.appendChild(lb);
-    bt.disabled=ts<s.need;if(style===s.k)bt.classList.add('sel');bt.onclick=()=>{style=s.k;localStorage.setItem('fb_style',style);buildStyles()};g.appendChild(bt);
+    const lb=document.createElement('span');const ok=styleOK(s),sk=Object.keys(STREAK_REW).find(n=>STREAK_REW[n]===s.k);lb.textContent=ok?t(s.n):t(s.n)+' '+t('needPts',{n:s.need})+(sk?' '+t('needStreak',{n:sk}):'');bt.appendChild(lb);
+    bt.disabled=!ok;if(style===s.k)bt.classList.add('sel');bt.onclick=()=>{style=s.k;localStorage.setItem('fb_style',style);buildStyles()};g.appendChild(bt);
     const c2=c.getContext('2d');c2.scale(2,2);const o=ctx;ctx=c2;
     try{drawBrick(38,8,62,22,'blue','normal',s.k);drawBrick(102,8,62,22,'pink','normal',s.k);drawBrick(38,34,62,22,'yellow','normal',s.k);drawBrick(102,34,62,22,'green','normal',s.k)}finally{ctx=o}}}
-$('bStyle').onclick=()=>{buildStyles();$('styles').classList.remove('hide')};$('bStyleOk').onclick=()=>$('styles').classList.add('hide');
+$('bStyle').onclick=()=>{buildStyles();buildBadges();$('styles').classList.remove('hide');$('styles').scrollTop=0};$('bStyleOk').onclick=()=>$('styles').classList.add('hide');
+
+// ---------- Meta: settings, daily streak, chapters & missions, badges, continue offer ----------
+const LS={get:(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+// settings (colorblind patterns default ON)
+let OPT=Object.assign({cb:true,relax:false},LS.get('fb_opts',{}));
+function buildSettings(){for(const [id,k] of [['tCb','cb'],['tRelax','relax']]){const b=$(id);b.textContent=OPT[k]?t('on'):t('off');b.classList.toggle('off',!OPT[k])}document.body.classList.toggle('nocb',!OPT.cb)}
+function setOpt(k,v){OPT[k]=v;LS.set('fb_opts',OPT);buildSettings()}
+$('tCb').onclick=()=>setOpt('cb',!OPT.cb);$('tRelax').onclick=()=>setOpt('relax',!OPT.relax);
+$('bSet').onclick=()=>{buildSettings();$('settings').classList.remove('hide')};$('bSetOk').onclick=()=>$('settings').classList.add('hide');
+// colorblind shapes: ● blue, ▲ pink, ■ yellow, ✚ green
+function drawPat(c,x,y,s,dark){ctx.save();ctx.beginPath();
+  if(c==='blue')ctx.arc(x,y,s*.48,0,7);
+  else if(c==='pink'){ctx.moveTo(x,y-s*.55);ctx.lineTo(x+s*.58,y+s*.45);ctx.lineTo(x-s*.58,y+s*.45);ctx.closePath()}
+  else if(c==='yellow')ctx.rect(x-s*.42,y-s*.42,s*.84,s*.84);
+  else{const a=s*.17,b=s*.52;[[-a,-b],[a,-b],[a,-a],[b,-a],[b,a],[a,a],[a,b],[-a,b],[-a,a],[-b,a],[-b,-a],[-a,-a]].forEach(([dx,dy],i)=>i?ctx.lineTo(x+dx,y+dy):ctx.moveTo(x+dx,y+dy));ctx.closePath()}
+  ctx.lineWidth=Math.max(1.2,s*.13);ctx.fillStyle=dark?'rgba(20,10,0,.72)':'rgba(255,255,255,.95)';ctx.strokeStyle=dark?'rgba(255,255,255,.85)':'rgba(0,0,0,.55)';ctx.stroke();ctx.fill();ctx.restore()}
+// ----- dates & daily streak -----
+const dayNum=s=>{const [y,m,d]=s.split('-').map(Number);return Math.round(Date.UTC(y,m-1,d)/864e5)};
+function streakInfo(){const s=LS.get('fb_streak',{});if(!s.last)return {n:0,state:'none'};const d=dayNum(today())-dayNum(s.last);
+  return d<=0?{n:s.n,state:'today'}:d===1?{n:s.n,state:'keep'}:{n:0,state:'broken'}}
+const STREAK_REW={3:null,7:'neon',14:'candy',30:'gems'}; // every milestone also gives a golden boost
+const styleOK=s=>topScore()>=s.need||LS.get('fb_unlocks',[]).includes(s.k);
+const getBoost=()=>+localStorage.getItem('fb_boost')||0,addBoost=n=>localStorage.setItem('fb_boost',Math.max(0,getBoost()+n));
+// called when a daily-challenge game ends; returns what happened for the game-over screen
+function recordDaily(){const s=LS.get('fb_streak',{n:0,best:0}),td=today();if(s.last===td)return {n:s.n,same:true};
+  const d=s.last?dayNum(td)-dayNum(s.last):99;s.n=d===1?s.n+1:1;s.last=td;s.best=Math.max(s.best||0,s.n);LS.set('fb_streak',s);
+  const r={n:s.n};if(s.n in STREAK_REW||(s.n>30&&s.n%30===0)){r.milestone=true;addBoost(1);const st=STREAK_REW[s.n];
+    if(st){const u=LS.get('fb_unlocks',[]);const already=styleOK(STYLES.find(x=>x.k===st));if(!u.includes(st))u.push(st);LS.set('fb_unlocks',u);if(!already)r.style=st}}
+  return r}
+function syncDaily(){const d=today(),b=Math.max(+localStorage.getItem('fb_daily_'+d+'_touch')||0,+localStorage.getItem('fb_daily_'+d+'_face')||0),si=streakInfo();
+  const ds=new Date(d+'T12:00:00').toLocaleDateString(LANG==='fr'?'fr-FR':'en-US',{weekday:'short',month:'short',day:'numeric'});
+  $('dTop').innerHTML='<span>'+t('dailyT',{d:ds})+'</span><span class="pill">'+(daily?t('dailyOnP'):t('dailyOffP'))+'</span>';
+  $('dSub').innerHTML=(daily?t('dailyHint')+'<br>':'')+(b?t('dailyBest',{b}):t('dailyNone'))+' · '+(si.state==='today'?tp('streakN',si.n):si.state==='keep'?tp('streakKeep',si.n):t('streak0'));
+  $('bDaily').classList.toggle('on',daily);syncChapter()}
+$('bDaily').onclick=()=>{daily=!daily;syncDaily()};
+// ----- chapters & missions -----
+const MT={sink:{k:'mSink',cum:1},bomb:{k:'mBomb',cum:1},combo:{k:'mCombo',cum:0},score:{k:'mScore',cum:0},perfect:{k:'mPerfect',cum:1},chain:{k:'mChain',cum:1},golden:{k:'mGolden',cum:1},bricks:{k:'mBricks',cum:1}};
+function chapterMissions(ch){
+  if(ch===1)return [['sink',1],['bomb',1],['combo',3]];
+  if(ch===2)return [['sink',3],['bomb',2],['combo',4]];
+  const r=mulberry(ch*7919+13),pool=['sink','bomb','combo','score','perfect','chain','golden','bricks'],out=[];
+  while(out.length<3){const k=pool[Math.floor(r()*pool.length)];if(!out.some(o=>o[0]===k))out.push([k,{sink:2+Math.floor(ch/2),bomb:1+Math.floor(ch/2),combo:Math.min(5,3+Math.floor(ch/3)),score:1500+ch*500,perfect:3+ch,chain:1+Math.floor(ch/2),golden:1+Math.floor(ch/3),bricks:30+ch*10}[k]])}
+  return out}
+let PROG=Object.assign({ch:1,p:[0,0,0]},LS.get('fb_prog',{}));
+const mText=(ty,n)=>tp(MT[ty].k,n);
+function syncChapter(){const ms=chapterMissions(PROG.ch),d=ms.filter((m,i)=>PROG.p[i]>=m[1]).length;$('bChapter').textContent=t('chapBtn',{n:PROG.ch,d})+' '+ms.map((m,i)=>PROG.p[i]>=m[1]?'✅':'⬜').join('')}
+function buildMissions(){const ms=chapterMissions(PROG.ch);$('mTitle').textContent=t('chapTitle',{n:PROG.ch});
+  $('mList').innerHTML=ms.map(([ty,n],i)=>{const v=Math.min(n,PROG.p[i]),ok=v>=n;return '<div class="hrow mrow"><span class="ic">'+(ok?'✅':{sink:'⬇️',bomb:'💣',combo:'🔥',score:'🎯',perfect:'⚡',chain:'💥',golden:'⭐',bricks:'🧱'}[ty])+'</span><div style="flex:1"><b>'+mText(ty,n)+'</b> <span style="float:right">'+v+'/'+n+'</span><div class="bar"><i style="width:'+(v/n*100)+'%"></i></div></div></div>'}).join('');
+  $('mTotal').textContent=t('chapTotal',{n:PROG.ch-1})}
+$('bChapter').onclick=()=>{buildMissions();$('missions').classList.remove('hide')};$('bMisOk').onclick=()=>$('missions').classList.add('hide');
+// ----- lifetime stats & badges -----
+let STATS=Object.assign({sinks:0,bombs:0,perfects:0,rainbows:0,goldens:0,bricks:0,games:0},LS.get('fb_stats',{}));
+const BADGES=[{k:'first',ic:'⬇️',st:'sinks',n:1},{k:'bomb',ic:'💣',st:'bombs',n:10},{k:'speed',ic:'⚡',st:'perfects',n:20},{k:'rainbow',ic:'🌈',st:'rainbows',n:15},
+  {k:'s3',ic:'🔥',st:'streak',n:3},{k:'s7',ic:'📅',st:'streak',n:7},{k:'s14',ic:'💪',st:'streak',n:14},{k:'s30',ic:'👑',st:'streak',n:30}];
+const badgeVal=b=>b.st==='streak'?(LS.get('fb_streak',{}).best||0):STATS[b.st]||0;
+let BGOT=LS.get('fb_badges',[]);
+function checkBadges(live){const nb=[];for(const b of BADGES)if(!BGOT.includes(b.k)&&badgeVal(b)>=b.n){BGOT.push(b.k);nb.push(b.k);
+    if(live&&S&&running&&!S.ended){banner(t('badgeGot',{b:t('b_'+b.k)}),'#ffd54a',2.4);sfx.unlock()}}
+  if(nb.length){LS.set('fb_badges',BGOT);if(S)(S.newBadges=S.newBadges||[]).push(...nb)}return nb}
+function buildBadges(){$('badgeGrid').innerHTML=BADGES.map(b=>{const got=BGOT.includes(b.k),v=Math.min(b.n,badgeVal(b));return '<div class="badge '+(got?'got':'lock')+'"><span class="bi">'+b.ic+'</span><b>'+t('b_'+b.k)+'</b><span>'+t('d_'+b.k)+'</span><small>'+(got?'✅':'🔒 '+v+'/'+b.n)+'</small></div>'}).join('');
+  const bs=LS.get('fb_streak',{}).best||0;$('collStreak').textContent=tp('bestStreak',bs)}
+// one entry point for game events: lifetime stats, badges and chapter missions
+const STATK={sink:'sinks',bomb:'bombs',perfect:'perfects',rainbow:'rainbows',golden:'goldens',bricks:'bricks'};
+function ev(type,val=1){if(STATK[type]){STATS[STATK[type]]=(STATS[STATK[type]]||0)+val;LS.set('fb_stats',STATS);checkBadges(true)}
+  const ms=chapterMissions(PROG.ch);let ch=false;
+  ms.forEach(([ty,n],i)=>{if(ty!==type||PROG.p[i]>=n)return;PROG.p[i]=Math.min(n,MT[ty].cum?PROG.p[i]+val:Math.max(PROG.p[i],val));ch=true;
+    if(PROG.p[i]>=n&&S&&running){banner(t('mDone',{m:mText(ty,n)}),'#00e676',2.2);sfx.unlock()}});
+  if(!ch)return;
+  if(ms.every((m,i)=>PROG.p[i]>=m[1])){const done=PROG.ch;PROG={ch:done+1,p:[0,0,0]};addBoost(1);if(S){(S.chapDone=S.chapDone||[]).push(done);if(running&&!S.ended){hype(t('chapDone',{n:done}),'#00e676',{dur:1.5,force:true,size:30});screenFlash('#00e676',.4,.3);sfx.fanfare()}}}
+  LS.set('fb_prog',PROG)}
+// ----- "Continue?" offer: once per game, rewarded ad for +1 heart -----
+// TODO(AdMob): replace the body of showRewardedAd() with the real rewarded-ad call (e.g. Capacitor AdMob plugin:
+// load + show a RewardedAd, resolve(true) only on the "reward earned" callback, resolve(false) on dismiss/failure).
+// Placeholder for now: a 3-second "Ad placeholder" countdown that always grants the reward.
+function showRewardedAd(){return new Promise(res=>{const o=$('ad');o.classList.remove('hide');let n=3;$('adN').textContent=n;
+  const iv=setInterval(()=>{n--;$('adN').textContent=n;if(n<=0){clearInterval(iv);o.classList.add('hide');res(true)}},1000)})}
+function endOrOffer(){if(!S.contUsed&&S.score>0){S.contUsed=true;S.offer=true;camStop();$('touch').classList.add('hide');$('bPause').classList.add('hide');$('contScore').textContent=t('contScore',{s:S.score});$('cont').classList.remove('hide');draw()}else gameOver()}
+function continueGame(){S.offer=false;gestureQ=[];S.hearts=1;S.overT=-1;S.cur=null;S.spawnT=1.4;S.streak=0;S.mult=1;paused=false;last=performance.now();
+  $('touch').classList.toggle('hide',mode!=='touch');$('bPause').classList.remove('hide');hype(t('contGo'),'#ff6ec7',{force:true,size:32,dur:1.2});sfx.defuse();camResume()}
+$('bContNo').onclick=()=>{$('cont').classList.add('hide');S.offer=false;gameOver()};
+$('bContYes').onclick=async()=>{$('cont').classList.add('hide');const ok=await showRewardedAd();if(ok)continueGame();else{S.offer=false;gameOver()}};
+// ----- camera explainer before the permission prompt (camera is never requested at app open) -----
+function askFace(){if(localStorage.getItem('fb_cam_ok')==='1')startFace();else $('camEx').classList.remove('hide')}
+$('bCamGo').onclick=()=>{$('camEx').classList.add('hide');startFace()};$('bCamBack').onclick=()=>$('camEx').classList.add('hide');
+// ----- calibration light check: average brightness of a tiny downscaled video frame -----
+const lightC=document.createElement('canvas');lightC.width=32;lightC.height=24;const lightG=lightC.getContext('2d',{willReadFrequently:true});
+const DARK_LUMA=60;let lightI=null,lightLv=-1;
+function luma(src){try{if(src.tagName==='VIDEO'&&src.readyState<2)return -1;lightG.clearRect(0,0,32,24);lightG.drawImage(src,0,0,32,24);const d=lightG.getImageData(0,0,32,24).data;let s=0;for(let i=0;i<d.length;i+=4)s+=.299*d[i]+.587*d[i+1]+.114*d[i+2];return s/(d.length/4)}catch(e){return -1}}
+function lightWatch(on,src=video){clearInterval(lightI);$('cLight').classList.add('hide');if(!on)return;let lows=0;
+  lightI=setInterval(()=>{const l=luma(src);lightLv=l;if(l<0)return;lows=l<DARK_LUMA?Math.min(3,lows+1):Math.max(0,lows-1);$('cLight').classList.toggle('hide',lows<2)},400)}
 
 // ---------- Start / calibration / camera lifecycle ----------
+resize();applyLang();
 const SECURE=window.isSecureContext&&location.protocol!=='file:';
 if(!SECURE)setMsg('needHttps',{p:location.protocol});
 async function startFace(){
@@ -633,7 +796,7 @@ async function camStart(first){if(stream)return true;
   try{camStatus='requesting';stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}},audio:false});
     video.muted=true;video.setAttribute('playsinline','');video.srcObject=stream;video.classList.remove('hide');await video.play();
     if(video.readyState<2)await new Promise(r=>video.addEventListener('loadeddata',r,{once:true}));
-    camStatus='playing';camWanted=true;lastVT=-1;if(landmarker&&!faceLoopOn){faceLoopOn=true;faceLoop()}updInd();return true}
+    camStatus='playing';camWanted=true;localStorage.setItem('fb_cam_ok','1');lastVT=-1;if(landmarker&&!faceLoopOn){faceLoopOn=true;faceLoop()}updInd();return true}
   catch(e){stream=null;camStatus='error '+e.name;if(first)setMsg('camErr',{e:e.name+' '+(e.message||'')});updInd();return false}}
 function camStop(){faceLoopOn=false;faceSeen=false;bs={};if(stream){stream.getTracks().forEach(x=>x.stop());stream=null}
   video.srcObject=null;video.classList.add('hide');if(camStatus==='playing')camStatus='stopped';updInd()}
@@ -650,7 +813,7 @@ function loadCal(){try{const c=JSON.parse(localStorage.getItem(CAL_KEY)||'null')
 // per-user threshold: ~55% of the player's own peak, kept between 60% and 180% of the default
 const fitTH=(k,peak)=>peak<TH_DEF[k]*.6?TH_DEF[k]*.8:Math.max(TH_DEF[k]*.6,Math.min(TH_DEF[k]*1.8,peak*.55));
 async function calibrate(){
-  $('calib').classList.remove('hide');const T=$('cText'),I=$('cIcon');
+  $('calib').classList.remove('hide');lightWatch(true);const T=$('cText'),I=$('cIcon');
   I.textContent='😐';calState={text:'findFace'};T.textContent=t('findFace');
   const t0=performance.now();while(!faceSeen&&performance.now()-t0<8000)await wait(100);
   if(!faceSeen){calState={text:'noFaceCal'};T.textContent=t('noFaceCal');await wait(2500)}
@@ -662,10 +825,11 @@ async function calibrate(){
   const hd=await stepRun('c2','↔️',ms=>sampleLv(ms,()=>Math.abs(yaw-yaw0)));if(hd.n&&hd.p90>.05)yawR=hd.p90;yawRef=yaw0;
   const bl=await stepRun('c3','😑',ms=>sampleLv(ms,LV.blink));if(bl.n)TH.blink=fitTH('blink',bl.max);
   for(const [k,c,ic] of [['jaw','c4','😮'],['smile','c5','😁'],['brow','c6','🤨'],['puff','c7','😤']]){const r=await stepRun(c,ic,ms=>sampleLv(ms,LV[k]));if(r.n)TH[k]=k==='puff'?(r.p90<TH_DEF.puff*.6?TH_DEF.puff*.8:Math.max(TH_DEF.puff*.5,Math.min(TH_DEF.puff*1.3,r.p90*.4))):fitTH(k,r.p90)}
-  $('cCount').textContent='';$('cStep').textContent='';calState={};saveCal();$('calib').classList.add('hide')}
+  $('cCount').textContent='';$('cStep').textContent='';calState={};saveCal();lightWatch(false);$('calib').classList.add('hide')}
 function begin(again){$('start').classList.add('hide');$('bPause').classList.remove('hide');$('touch').classList.toggle('hide',mode!=='touch');
-  newGame();gestureQ=[];GE.cur=null;GE.blinks=[];DEF.t=0;DEF.prog=0;yawRef=yaw0;running=true;paused=false;last=performance.now();if(again)camResume()}
-$('bFace').onclick=startFace;
+  newGame();if(!daily&&getBoost()>0){S.boost=true;addBoost(-1);S.next=genBrick();banner(t('boostOn'),'#ffd54a',2.2)}
+  gestureQ=[];GE.cur=null;GE.blinks=[];DEF.t=0;DEF.prog=0;yawRef=yaw0;running=true;paused=false;last=performance.now();if(again)camResume()}
+$('bFace').onclick=askFace;
 const HOW_KEY='fb_howto_v1';
 function showHow(){$('howto').classList.remove('hide');$('howto').scrollTop=0}
 $('bHow').onclick=showHow;$('bHowP').onclick=showHow;
@@ -683,15 +847,15 @@ $('bVol').textContent=volIcon();$('bVol').onclick=e=>{e.stopPropagation();cycleV
 const sl=$('sens');sl.value=sens;sl.oninput=()=>{sens=+sl.value;localStorage.setItem('fb_sens',sens);if(localStorage.getItem(CAL_KEY))saveCal()};
 function syncHud(){$('sensBox').classList.toggle('hide',!hudOn)}syncHud();
 $('bHud').onclick=()=>{hudOn=!hudOn;localStorage.setItem('fb_hud',hudOn?'1':'0');syncHud()};
-$('bRecalStart').onclick=()=>{forceCal=true;startFace()};
+$('bRecalStart').onclick=()=>{$('settings').classList.add('hide');forceCal=true;askFace()};
 $('bRecalAuto').onclick=async()=>{$('bRecalAuto').classList.add('hide');noFaceT=0;paused=true;await calibrate();paused=false;last=performance.now()};
 $('bRecal').onclick=async()=>{if(mode!=='face'||!stream)return;paused=true;await calibrate();paused=false;last=performance.now()};
 $('bTouch').onclick=()=>{mode='touch';begin(false)};
-document.addEventListener('visibilitychange',()=>{if(document.hidden){camStop();if(running)paused=true}else{if($('rest').classList.contains('hide')&&$('calib').classList.contains('hide')&&$('pause').classList.contains('hide'))paused=false;last=performance.now();camResume()}updInd()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){camStop();if(running)paused=true}else{if($('rest').classList.contains('hide')&&$('calib').classList.contains('hide')&&$('pause').classList.contains('hide')&&!(S&&S.offer))paused=false;last=performance.now();camResume()}updInd()});
 addEventListener('pagehide',camStop);addEventListener('pageshow',e=>{if(e.persisted)camResume()});
 $('camResume').onclick=()=>camStart();
 $('bPrev').onclick=()=>{prevOn=!prevOn;localStorage.setItem('fb_prev',prevOn?'1':'0');updInd()};
 newGame();draw();requestAnimationFrame(step);
 // test hooks
-window.__fb={get S(){return S},begin,gameOver,gesture:g=>gestureQ.push(g),get running(){return running},faceGestures,defuseDetect,GE,DEF,setBs:v=>{bs=v;faceSeen=true},setYaw:v=>{yaw=v},setMode:m=>{mode=m},get yawRef(){return yawRef},setStyle:s=>style=s};
+window.__fb={get S(){return S},begin,gameOver,gesture:g=>gestureQ.push(g),get running(){return running},faceGestures,defuseDetect,GE,DEF,setBs:v=>{bs=v;faceSeen=true},setYaw:v=>{yaw=v},setMode:m=>{mode=m},update:dt=>update(dt),handleGesture:g=>handleGesture(g),setDay:d=>{FAKE_DAY=d;syncDaily()},recordDaily,syncDaily,get PROG(){return PROG},ev,get STATS(){return STATS},get BGOT(){return BGOT},showRewardedAd,lightWatch,luma,fallTime:()=>fallTime(),get OPT(){return OPT},endOrOffer,get yawRef(){return yawRef},setStyle:s=>style=s};
 </script></body></html>

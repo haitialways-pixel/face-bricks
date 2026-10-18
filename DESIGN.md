@@ -1,4 +1,4 @@
-# Face-Action: Falling Bricks — Design Doc (prototype v0.5)
+# Face-Action: Falling Bricks — Design Doc (prototype v0.6)
 
 Second game in the Face-Action family, by Steeve J. A phone-browser PWA (single `index.html`, canvas + JS) played with facial gestures through the front camera, or with touch. Built on the first game's tech: MediaPipe Face Landmarker blendshapes (bundled in `vendor/`, CDN fallback), on-device only, calibration saved locally, debug/sensitivity panel, Web Audio synth sounds, EN/FR localization.
 
@@ -24,7 +24,8 @@ Each falling brick shows its gesture icon. The touch buttons sit in a 4-column g
 - **Decaying value (v0.4, replaces the flat 10 pts and the quick +5):** each brick is worth `round(20 × (1 − progress))`, where progress goes from 0 at spawn to 1 at the red line (whole numbers, min 0). A live value badge next to the falling brick counts down and shifts gold → white → grey, with a thin drain bar under the brick (and ×N beside it when a combo is active). The popup shows what you earned, e.g. `+17` or `+34 x2`. Catching a brick at 18+ (golden 90+) adds a sparkle.
 - **Lose a heart** for a wrong gesture (the brick cracks and shatters) or a brick reaching the red line unidentified ("Too slow!"). **5 hearts**; game over at 0. Single natural blinks are ignored, and cheek puff on a normal brick is ignored.
 - **Each stack sinks on its own** when it reaches 10 bricks: crunch sound, dust, screen shake, **+20**, and the level goes up.
-- **Difficulty curve:** fall time starts at a generous 6.5 s (+15 % in face mode) and gets 8 % shorter per sink, with a 2.5 s floor. The first 6 bricks are never special.
+- **Difficulty curve (v0.6, tuned for 1–3 minute games):** fall time = `max(floor, start × 0.5^(t / half) × 0.96^(level−1))`, where t is seconds of play (pauses and offers excluded). Normal: start 4.6 s, half 50 s, floor 0.7 s. **Relaxed speed** (⚙️): start 6.5 s, half 100 s, floor 1.0 s. Face mode multiplies by ×1.35. Hearts stay at 5. The first 6 bricks are never special.
+  - Simulated single-life games (30 runs each, a bot with log-normal reaction time and some wrong taps): casual touch player (0.95 s reaction, 5 % wrong) median **1:44** (p10–p90 1:33–1:52); typical (0.8 s, 3 %) **1:51** (1:44–2:00); skilled (0.62 s, 2 %) **2:07** (1:57–2:17); typical face player (1.25 s, 5 %) **1:49**; typical in Relaxed **3:41**, slow player (1.2 s) in Relaxed **3:12**. The old curve (6.5 s, −8 % per sink, 2.5 s floor) let a decent player go on almost indefinitely.
 - In face mode a 15 s face-rest break is offered every 3 sinks (skippable, camera off).
 
 ## Gratification and hooks
@@ -36,9 +37,10 @@ Each falling brick shows its gesture icon. The touch buttons sit in a 4-column g
   - ⭐ **Golden:** shows its color; the right gesture sends it to that color's stack. Its value starts at **100** and decays the same way to 0 (× combo), so a quick catch is a big reward.
 - **Next brick preview** in the HUD.
 - **Near-miss game over:** "So close! Only N points from your best!" (shown when within 25 % / 60 pts), plus a big **Play again** button.
-- **Daily challenge** (📅 toggle): the brick sequence comes from an RNG seeded by the local date, so everyone gets the same bricks that day. The daily best is saved per day and mode.
+- **Daily challenge (front and center since v0.6):** a highlighted card on the start screen shows today's date, your best today and your 🔥 streak; tap it to select (glows gold, "✓ ON") then pick Touch or Face. The brick sequence comes from an RNG seeded by the local date, so everyone gets the same bricks that day; golden boosts never apply to the daily, so it stays fair. The daily best is saved per day and mode.
+- **Daily streak:** finishing a daily-challenge game on consecutive local days grows the streak (`fb_streak` = {last, n, best}); a missed day resets it to 1 on the next daily game; replaying the same day doesn't count twice. Day math uses UTC day numbers of the local date, so DST and month ends are safe. Milestones: **3 days** ⭐ golden boost; **7** Neon style + boost; **14** Candy + boost; **30** Gems + boost (then a boost every 30 days). Streak badges at 3/7/14/30.
 - Bonuses unchanged: color chain +50, stack sink +20.
-- **Unlockable brick styles**, saved locally, unlocked by your best score ever: Classic (0), Neon (250), Candy (600), Gems (1200). These milestones are unchanged in v0.4: an average catch at about 25–35 % of the fall pays about 13–15 per brick, close to the old 10 (+5 quick). Pick one from 🎨 Styles.
+- **Unlockable brick styles**, saved locally: Classic (0), Neon (**1500** pts or 🔥 7 days), Candy (**4000** or 🔥 14), Gems (**8000** or 🔥 30). Milestones were raised in v0.6 because the shorter, faster games score higher (a typical simulated game scores ~3,900 with combos); the old 250/600/1200 would all unlock in the first game. Pick one in 🏆 Collection.
 - **Separate best scores** for Face and Touch modes.
 
 ### Celebration moments (v0.5)
@@ -64,8 +66,22 @@ Each falling brick shows its gesture icon. The touch buttons sit in a 4-column g
 ## Privacy and camera
 The camera runs only while actively playing in face mode. It stops on pause, rest, game over, menu, hidden tab, or page hide. There's a red "camera on" badge and a small mirrored preview you can hide (👁). Video is processed on-device and is never recorded or uploaded. No data is collected. Settings live in localStorage under `fb_*` keys; the language choice `fa_lang` is shared with Face-Action. See `privacy.html` (EN + FR).
 
-## Start screen (kept uncluttered)
-Title, a one-line pitch, a big **Play with Face** button, **Play with Touch**, and one row of small chips (📅 Daily, 🎨 Styles, ❓ How to Play, 🎯 Recalibrate). Below that: the two best scores, privacy · 🌐 language, and © 2026 Steeve J.
+## Start screen (kept uncluttered, touch first since v0.6)
+Title and a one-line pitch, then **👆 Play with Touch** (first, hot-pink → gold gradient) and **😀 Play with Face** directly below with the same size, shape and style (cyan → blue). Then the 📅 **Daily Challenge card**, a small 📖 **Chapter** chip (n/3 missions ✅⬜⬜), and one row: 🏆 Collection · ⚙️ Settings · ❓ How to Play. Below: the two best scores, privacy · 🌐 language, © 2026 Steeve J. 🎯 Recalibrate moved into ⚙️ Settings.
+- **Camera:** never requested at app open. Tapping Face first shows a short explainer (uses the front camera; video stays on this phone, nothing recorded or uploaded; you can switch back to Touch) with **📷 Turn on camera** / ⬅️ Back; only then does the browser permission prompt appear. After the first successful grant (`fb_cam_ok`) the explainer is skipped.
 
-## Not yet
+## Progression (v0.6)
+- **Chapters:** 3 quick missions per chapter, shown via the 📖 chip and on the game-over screen; progress is saved locally (`fb_prog`). Chapter 1: clear 1 stack, defuse 1 bomb, reach ×3 combo. Chapter 2: clear 3 stacks, defuse 2 bombs, reach ×4 combo. From chapter 3, missions are picked deterministically from a pool (stacks, bombs, combo, score in one game, perfect catches, color bursts, golden bricks, bricks stacked), with targets growing per chapter. Counting missions accumulate across games; "in one game" missions (combo, score) need a single game. A completed mission shows a banner; completing all 3 plays "CHAPTER N COMPLETE!" and gives a **⭐ golden boost** for the next (non-daily) game (golden-brick chance 4 % → 15 %, and goldens may appear from brick 3).
+- **🏆 Collection:** brick styles (select or see how to unlock) and 8 badges with progress: First Sink, Bomb Squad (10 bombs), Speed Demon (20 full-value catches), Rainbow Master (15 rainbow bricks), and streak badges On a Roll (3), Week Warrior (7), Two-Week Titan (14), Monthly Legend (30). Lifetime stats in `fb_stats`, badges in `fb_badges`.
+
+## Continue? offer (v0.6)
+When the last heart is lost, once per game: "Continue? Watch a short ad for +1 ❤️ and keep going" with **▶️ Watch ad (+1 ❤️)** and **No thanks** (straight to game over). The game is frozen behind it (camera off in face mode). `showRewardedAd()` is a clearly marked **TODO(AdMob)** placeholder: a 3-second "Ad placeholder" countdown that always grants the reward; swap in the real rewarded ad (e.g. Capacitor AdMob plugin) and resolve true only on "reward earned". On continue: 1 heart, combo reset, the brick in play is cleared, a "+1 ❤️ KEEP GOING!" banner. Allowed in the daily too (it's a personal best). No interstitials.
+
+## Accessibility (v0.6)
+- **Colorblind patterns** (⚙️, default ON): every color also has a shape: ● blue, ▲ pink, ■ yellow, ✚ green. Shapes are drawn on stack bricks, both sides of the falling brick, the Next preview, the touch buttons and the style previews; stack labels also name the color.
+- **Relaxed speed** (⚙️): slower start and a gentler ramp (see Difficulty curve). Shown as 🐢 in the HUD. Bests are shared with normal speed.
+- **Calibration light check:** every 0.4 s the video frame is downscaled to 32×24 and its average luma measured; below 60/255 for 2 checks in a row, a "💡 It's too dark here: find better light" tip appears (and hides when the light improves). Frames are only read in memory, never stored.
+
+## Not yet / roadmap
+- **Later (from the market research):** weekly events or seasons with themed bricks (holidays, Carnival/Kanaval), a cheap Season Pass, an opt-in on-device share clip / selfie reaction replay, Spanish and Portuguese localization, the real AdMob rewarded ad behind `showRewardedAd()`, and per-gesture sensitivity sliders.
 Android/Play build, online leaderboard (Play Games Services), more special bricks (ice, chain), haptics tuning, and per-gesture sensitivity sliders.
