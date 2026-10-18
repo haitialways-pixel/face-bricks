@@ -85,3 +85,12 @@ When the last heart is lost, once per game: "Continue? Watch a short ad for +1 �
 ## Not yet / roadmap
 - **Later (from the market research):** weekly events or seasons with themed bricks (holidays, Carnival/Kanaval), a cheap Season Pass, an opt-in on-device share clip / selfie reaction replay, Spanish and Portuguese localization, the real AdMob rewarded ad behind `showRewardedAd()`, and per-gesture sensitivity sliders.
 Android/Play build, online leaderboard (Play Games Services), more special bricks (ice, chain), haptics tuning, and per-gesture sensitivity sliders.
+
+## Start-screen identity (Oct 18 2026)
+The start screen must not look like Face-Action Treasure Hunt's, even as a thumbnail. Falling Bricks uses a bright arcade/puzzle look:
+- **Background:** a vivid navy → electric-violet → purple gradient with a slowly scrolling grid. Up to 16 glossy bricks in the 4 game colors fall in the background, with four colored stacks along the bottom (hidden on short screens).
+- **Title:** a white "FACE-ACTION" pill, then the subtitle built from chunky colored brick letters (the English or French subtitle is rebuilt when the language changes; screen readers get the plain text).
+- **Buttons:** bubbly 3D pills in hot pink (Touch) and electric green (Face). The daily card is white, the chapter chip yellow, and the secondary buttons are translucent white pills. No gold or fantasy styling.
+- **Icon:** colored glossy brick stacks on the violet gradient, with no gold border.
+- **Performance:** the canvas animates only while the start screen is visible. With prefers-reduced-motion it draws one static frame.
+- **Theme color:** `#3a1bd6`.

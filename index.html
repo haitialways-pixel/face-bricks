@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#05030c">
+<meta name="theme-color" content="#3a1bd6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -59,11 +59,44 @@ h1 small{display:block;font-size:22px;color:#fff;text-shadow:0 0 12px #ff1493;op
 body.nocb .pat{display:none}
 #oMeta{font-size:15px;line-height:1.45;margin:0;max-width:360px}
 small{opacity:.75}
+/* ===== Falling Bricks start-screen identity: vivid arcade gradient, brick-letter title, bubbly buttons ===== */
+#start.thFB{background:linear-gradient(165deg,#0a1a6b 0%,#3a1bd6 52%,#a21bff 100%);overflow-y:auto;justify-content:safe center;gap:12px;font-family:'Baloo 2','Fredoka','Nunito','Arial Rounded MT Bold','Trebuchet MS',system-ui,sans-serif}
+#startBg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+#start.thFB>*:not(canvas){position:relative;z-index:1}
+.thFB h1{text-shadow:none;display:flex;flex-direction:column;align-items:center;gap:8px}
+.thFB .fbBrand{display:inline-block;background:#fff;color:#2a12a8;font-weight:900;font-size:17px;letter-spacing:1px;padding:4px 14px;border-radius:999px;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.thFB .fbWord{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 14px;max-width:min(92vw,400px)}
+.thFB .fbWord .wd{display:flex;gap:3px}
+.thFB .fbWord b{display:inline-flex;align-items:center;justify-content:center;width:38px;height:44px;border-radius:9px;font-size:30px;font-weight:900;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.35);border:3px solid rgba(255,255,255,.9);background-image:linear-gradient(180deg,rgba(255,255,255,.45) 0 22%,rgba(255,255,255,0) 23%);box-shadow:0 5px 0 rgba(0,0,0,.28)}
+.thFB .fbWord b:nth-child(4n+1){background-color:#2979ff;transform:rotate(-4deg)}
+.thFB .fbWord b:nth-child(4n+2){background-color:#ff1493;transform:translateY(3px) rotate(3deg)}
+.thFB .fbWord b:nth-child(4n+3){background-color:#ffd600;color:#3a2a00;text-shadow:0 1px 0 rgba(255,255,255,.5);transform:rotate(-2deg)}
+.thFB .fbWord b:nth-child(4n){background-color:#00e676;color:#00331a;text-shadow:0 1px 0 rgba(255,255,255,.4);transform:translateY(2px) rotate(4deg)}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.thFB [data-h="intro"]{color:#fff;font-weight:700}
+.thFB [data-h="intro"] small{color:#e2dcff;font-weight:600}
+.thFB .play{border:0;border-radius:999px;font-weight:900;font-size:23px;letter-spacing:.3px;transition:transform .08s,box-shadow .08s;background-image:none}
+.thFB .play:active{transform:translateY(4px)}
+.thFB .pTouch{background:linear-gradient(180deg,#ff7ccf 0%,#ff1493 55%,#e0007a 100%);box-shadow:0 7px 0 #9c0055,0 12px 26px rgba(0,0,0,.35),inset 0 3px 0 rgba(255,255,255,.45)}
+.thFB .pFace{background:linear-gradient(180deg,#7dffb8 0%,#00e676 55%,#00c853 100%);color:#003b1e;text-shadow:0 1px 0 rgba(255,255,255,.5);box-shadow:0 7px 0 #00843a,0 12px 26px rgba(0,0,0,.35),inset 0 3px 0 rgba(255,255,255,.5)}
+.thFB .pTouch:active{box-shadow:0 3px 0 #9c0055}.thFB .pFace:active{box-shadow:0 3px 0 #00843a}
+.thFB .daily{background:#fff;border:0;border-radius:22px;box-shadow:0 6px 0 rgba(20,0,80,.35);color:#1d1060}
+.thFB .daily .dTop{color:#3a1bd6;font-weight:900}
+.thFB .daily .dSub{color:#3b3566;opacity:1}
+.thFB .daily.on{background:#fff6b8;border:3px solid #ffd600;box-shadow:0 6px 0 #c9a800}
+.thFB .daily.on .dTop{color:#7a4a00}
+.thFB .daily:not(.on) .pill{background:#ece6ff;color:#3a1bd6}
+.thFB .chap{background:#ffd600;color:#3a2a00;border:0;border-radius:999px;font-weight:900;box-shadow:0 4px 0 #b39500}
+.thFB .mini button{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:999px;font-weight:800}
+.thFB a{color:#fff!important;font-weight:700}
+.thFB #best{color:#fff;font-weight:700}
+@media (max-height:720px){#start.thFB{gap:8px;padding-top:58px;padding-bottom:14px}.thFB .fbWord b{width:32px;height:38px;font-size:25px}.thFB .play{padding:12px 10px;font-size:20px}.thFB .daily{padding:8px 12px}}
 </style></head><body>
 <canvas id="game"></canvas>
 <video id="cam" playsinline muted autoplay class="hide"></video>
-<div id="start" class="ov">
-  <h1>🧱 Face-Action<small data-t="sub"></small></h1>
+<div id="start" class="ov thFB">
+  <canvas id="startBg" aria-hidden="true"></canvas>
+  <h1><span class="fbBrand">FACE-ACTION</span><span class="fbWord" id="fbWord" aria-hidden="true"></span><small data-t="sub" class="sr" id="fbSub"></small></h1>
   <p data-h="intro" style="max-width:360px;margin:0;font-size:15px"></p>
   <button id="bTouch" class="play pTouch" data-t="playTouch"></button>
   <button id="bFace" class="play pFace" data-t="playFace"></button>
@@ -72,6 +105,34 @@ small{opacity:.75}
   <div class="mini"><button id="bStyle" class="sec" data-t="collectBtn"></button><button id="bSet" class="sec" data-t="setBtn"></button><button id="bHow" class="sec" data-t="howBtn"></button></div>
   <p id="best" style="margin:0;font-size:14px"></p><p style="margin:0"><a href="privacy.html" style="color:#9cf;font-size:13px" data-t="privacy"></a> · <a href="#" id="bLang" style="color:#9cf;font-size:13px"></a><br><small style="opacity:.6;font-size:11px" data-t="copy"></small></p><p id="msg" style="margin:0"><small></small></p>
 </div>
+<script>/* start-screen background: animates only while #start is visible; one static frame with prefers-reduced-motion */
+(()=>{const st=document.getElementById('start'),cv=document.getElementById('startBg');if(!st||!cv)return;const g=cv.getContext('2d');
+const RM=matchMedia('(prefers-reduced-motion: reduce)');let W=0,H=0,D=1,raf=0,last=0,T=0;const R=Math.random;
+const COLS=['#2979ff','#ff1493','#ffd600','#00e676'],bricks=[],MAXB=16;let stacks=[];
+const brick=a=>{const s=.7+R()*.6;return{x:R()*W,y:a?R()*H:-40,w:44*s,h:20*s,c:COLS[R()*4|0],vy:40+R()*55,r:(R()-.5)*.6,vr:(R()-.5)*.8,o:.35+R()*.3}};
+const count=()=>bricks.length;
+function init(){bricks.length=0;for(let i=0;i<MAXB;i++)bricks.push(brick(1));stacks=COLS.map((c,i)=>({c,n:2+((i*5+2)%3)}))}
+function step(dt){for(const b of bricks){b.y+=b.vy*dt;b.r+=b.vr*dt;if(b.y>H+40)Object.assign(b,brick(0))}}
+function rr(x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()}
+function glossy(x,y,w,h,c,o){g.globalAlpha=o;g.fillStyle=c;rr(x,y,w,h,h*.3);g.fill();g.lineWidth=2;g.strokeStyle='rgba(255,255,255,.85)';g.stroke();g.fillStyle='rgba(255,255,255,.45)';rr(x+w*.1,y+h*.14,w*.8,h*.24,h*.12);g.fill();g.globalAlpha=1}
+function draw(){g.clearRect(0,0,W,H);
+ g.strokeStyle='rgba(255,255,255,.06)';g.lineWidth=1;const gs=32;g.beginPath();for(let x=(T*6)%gs;x<W;x+=gs){g.moveTo(x,0);g.lineTo(x,H)}for(let y=(T*12)%gs;y<H;y+=gs){g.moveTo(0,y);g.lineTo(W,y)}g.stroke();
+ for(const b of bricks){g.save();g.translate(b.x,b.y);g.rotate(b.r);glossy(-b.w/2,-b.h/2,b.w,b.h,b.c,b.o);g.restore()}
+ const cw=W/4,bw=Math.min(56,cw*.55),bh=bw*.36;if(H>=700)stacks.forEach((s,i)=>{const x=cw*i+cw/2-bw/2;for(let k=0;k<s.n;k++){const bob=k===s.n-1?Math.sin(T*2+i)*1.5:0;glossy(x+(k%2?3:-3),H-6-(k+1)*(bh+4)+bob,bw,bh,s.c,.3)}})}
+
+function size(){D=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*D|0;cv.height=H*D|0;g.setTransform(D,0,0,D,0,0);init()}
+function frame(ts){raf=0;if(st.classList.contains('hide')||document.hidden)return;const dt=Math.min(.05,(ts-(last||ts))/1000);last=ts;T+=dt;step(dt);draw();raf=requestAnimationFrame(frame)}
+function kick(){if(st.classList.contains('hide'))return;if(RM.matches){draw();return}if(!raf){last=0;raf=requestAnimationFrame(frame)}}
+new MutationObserver(kick).observe(st,{attributes:true,attributeFilter:['class']});document.addEventListener('visibilitychange',kick);
+addEventListener('resize',()=>{size();draw()});RM.addEventListener&&RM.addEventListener('change',kick);size();draw();kick();
+window.__startBg={get running(){return !!raf},get count(){return typeof count==='function'?count():0}};})();
+</script>
+<script>/* brick-letter title, rebuilt whenever the (translated) subtitle text changes */
+(()=>{const src=document.getElementById('fbSub'),out=document.getElementById('fbWord');if(!src||!out)return;
+const build=()=>{const txt=(src.textContent||'').trim().toUpperCase();if(out.dataset.t===txt)return;out.dataset.t=txt;out.textContent='';
+ for(const w of txt.split(/\s+/)){if(!w)continue;const d=document.createElement('span');d.className='wd';for(const ch of w){const b=document.createElement('b');b.textContent=ch;d.appendChild(b)}out.appendChild(d)}};
+new MutationObserver(build).observe(src,{childList:true,characterData:true,subtree:true});build();})();
+</script>
 <div id="camEx" class="ov hide" style="z-index:9"><div style="font-size:56px">📷</div><h2 data-t="camExT" style="margin:0;color:#7df"></h2>
   <div class="hrow"><span class="ic">😀</span><div data-t="camEx1"></div></div><div class="hrow"><span class="ic">🔒</span><div data-t="camEx2"></div></div><div class="hrow"><span class="ic">👆</span><div data-t="camEx3"></div></div>
   <button id="bCamGo" class="play pFace" data-t="camExGo"></button><button id="bCamBack" class="sec" data-t="back"></button></div>
