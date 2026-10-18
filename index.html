@@ -846,10 +846,12 @@ if(!SECURE)setMsg('needHttps',{p:location.protocol});
 async function startFace(){
   if(!SECURE){setMsg('blockedHttps',{p:location.protocol});return}
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){setMsg('noCamApi');return}
-  setMsg('startingCam');if(!await camStart(true))return;
+  setMsg('startingCam');const gen=window.__faceGen=(window.__faceGen||0)+1; // bumped by Home/back/Touch to cancel a pending face start
+  if(!await camStart(true))return;if(gen!==window.__faceGen){camStop();return}
   try{const iv=setInterval(()=>{msgState=null;$('msg').innerHTML='<small>'+t('loadingModel')+' ('+modelStatus+')</small>'},200);try{await initFace()}finally{clearInterval(iv)}}
   catch(e){setMsg('loadFail',{e:e.message});camStop();return}
-  setMsg(null);mode='face';faceLoopOn=true;faceLoop();$('start').classList.add('hide');if(forceCal||!loadCal())await calibrate();forceCal=false;begin(false)}
+  if(gen!==window.__faceGen){camStop();setMsg(null);return}
+  setMsg(null);mode='face';faceLoopOn=true;faceLoop();$('start').classList.add('hide');if(forceCal||!loadCal()){try{await calibrate()}catch(e){if(e==='cancel'){lightWatch(false);return}throw e}}if(gen!==window.__faceGen)return;forceCal=false;begin(false)}
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 let stream=null,camWanted=false,prevOn=localStorage.getItem('fb_prev')!=='0';
 function updInd(){video.classList.toggle('off',!prevOn);$('bPrev').classList.toggle('hide',!stream);$('camNote').classList.toggle('hide',!stream||!prevOn);$('camInd').classList.toggle('hide',!stream);$('camResume').classList.toggle('hide',!(camWanted&&!stream&&mode==='face'&&running&&S&&!S.ended&&!paused))}
@@ -873,15 +875,15 @@ function loadCal(){try{const c=JSON.parse(localStorage.getItem(CAL_KEY)||'null')
   base=c.base;yaw0=c.yaw0||0;yawR=c.yawR||0;yawRef=yaw0;TH={...TH_DEF,...(c.TH||{})};if(!c.yawR&&TH.puff>TH_DEF.puff)TH.puff=TH_DEF.puff;if(c.sens)sens=c.sens;$('sens').value=sens;return true}catch(e){return false}}
 // per-user threshold: ~55% of the player's own peak, kept between 60% and 180% of the default
 const fitTH=(k,peak)=>peak<TH_DEF[k]*.6?TH_DEF[k]*.8:Math.max(TH_DEF[k]*.6,Math.min(TH_DEF[k]*1.8,peak*.55));
-async function calibrate(){
+async function calibrate(){const cg=window.__faceGen;const chk=()=>{if(cg!==window.__faceGen)throw 'cancel'}; // Home/back during calibration aborts it
   $('calib').classList.remove('hide');lightWatch(true);const T=$('cText'),I=$('cIcon');
   I.textContent='😐';calState={text:'findFace'};T.textContent=t('findFace');
-  const t0=performance.now();while(!faceSeen&&performance.now()-t0<8000)await wait(100);
+  const t0=performance.now();while(!faceSeen&&performance.now()-t0<8000)await wait(100);chk();
   if(!faceSeen){calState={text:'noFaceCal'};T.textContent=t('noFaceCal');await wait(2500)}
   const STEP=3000,total=7;let si=0;TH={...TH_DEF};
-  async function stepRun(title,icon,sampler){si++;calState={text:title,step:{i:si,n:total}};T.textContent=t(title);I.textContent=icon;$('cStep').textContent=t('stepOf',calState.step);
-    sfx.beep(false);let lastSec=3;const s0=performance.now();const tick=setInterval(()=>{const e=performance.now()-s0;const sec=Math.max(1,Math.ceil((STEP-e)/1000));if(sec<lastSec){lastSec=sec;sfx.beep(false)}$('cBar').style.width=Math.min(100,e/STEP*100)+'%';$('cCount').textContent=sec},50);
-    const r=await sampler(STEP);clearInterval(tick);$('cBar').style.width='100%';sfx.beep(true);await wait(350);return r}
+  async function stepRun(title,icon,sampler){chk();si++;calState={text:title,step:{i:si,n:total}};T.textContent=t(title);I.textContent=icon;$('cStep').textContent=t('stepOf',calState.step);
+    sfx.beep(false);let lastSec=3;const s0=performance.now();const tick=setInterval(()=>{if(cg!==window.__faceGen){clearInterval(tick);return}const e=performance.now()-s0;const sec=Math.max(1,Math.ceil((STEP-e)/1000));if(sec<lastSec){lastSec=sec;sfx.beep(false)}$('cBar').style.width=Math.min(100,e/STEP*100)+'%';$('cCount').textContent=sec},50);
+    const r=await sampler(STEP);clearInterval(tick);chk();$('cBar').style.width='100%';sfx.beep(true);await wait(350);return r}
   const b=await stepRun('c1','😐',sampleBase);yaw0=b.yaw;base=b.base;
   const hd=await stepRun('c2','↔️',ms=>sampleLv(ms,()=>Math.abs(yaw-yaw0)));if(hd.n&&hd.p90>.05)yawR=hd.p90;yawRef=yaw0;
   const bl=await stepRun('c3','😑',ms=>sampleLv(ms,LV.blink));if(bl.n)TH.blink=fitTH('blink',bl.max);
@@ -919,4 +921,46 @@ $('bPrev').onclick=()=>{prevOn=!prevOn;localStorage.setItem('fb_prev',prevOn?'1'
 newGame();draw();requestAnimationFrame(step);
 // test hooks
 window.__fb={get S(){return S},begin,gameOver,gesture:g=>gestureQ.push(g),get running(){return running},faceGestures,defuseDetect,GE,DEF,setBs:v=>{bs=v;faceSeen=true},setYaw:v=>{yaw=v},setMode:m=>{mode=m},update:dt=>update(dt),handleGesture:g=>handleGesture(g),setDay:d=>{FAKE_DAY=d;syncDaily()},recordDaily,syncDaily,get PROG(){return PROG},ev,get STATS(){return STATS},get BGOT(){return BGOT},showRewardedAd,lightWatch,luma,fallTime:()=>fallTime(),get OPT(){return OPT},endOrOffer,get yawRef(){return yawRef},setStyle:s=>style=s};
+
+
+// ===== Navigation: 🏠 Home in the top bar, quit confirmation, ← Back on overlays, Android hardware back (Oct 18 2026) =====
+Object.assign(L.en,{home:'Home',quitT:'Quit to menu?',quitP:"Your score won't be saved.",quitYes:'🏠 Yes, quit',quitNo:'▶️ No, keep playing',quitNoP:'↩️ No, go back',navBack:'← Back'});
+Object.assign(L.fr,{home:'Accueil',quitT:'Retourner au menu ?',quitP:'Votre score ne sera pas enregistré.',quitYes:'🏠 Oui, quitter',quitNo:'▶️ Non, continuer',quitNoP:'↩️ Non, revenir',navBack:'← Retour'});
+(()=>{const st=document.createElement('style');st.textContent='.navBack{position:fixed;left:8px;top:calc(env(safe-area-inset-top) + 8px);min-width:0!important;width:auto!important;padding:7px 14px!important;font-size:15px!important;z-index:7;border-radius:999px!important}#quitAsk{z-index:10}';document.head.appendChild(st);
+ const h=document.createElement('button');h.id='bHome';h.className='hide';h.dataset.ti='home';h.textContent='🏠';h.setAttribute('aria-label','Home');
+ h.style.cssText='position:fixed;right:200px;top:calc(env(safe-area-inset-top) + 8px);min-width:0;padding:6px 10px;font-size:16px;z-index:6';document.body.appendChild(h);
+ const q=document.createElement('div');q.id='quitAsk';q.className='ov hide';q.innerHTML='<div style="font-size:52px">🏠</div><h2 data-t="quitT" style="margin:0"></h2><p data-t="quitP" style="margin:0;font-size:17px"></p><button id="bQuitYes" class="play pTouch" data-t="quitYes"></button><button id="bQuitNo" class="sec" data-t="quitNo"></button>';document.body.appendChild(q);
+ for(const id of ['howto','styles','settings','missions']){const o=$(id);if(!o)continue;const b=document.createElement('button');b.className='sec navBack';b.dataset.t='navBack';b.dataset.for=id;o.insertBefore(b,o.firstChild)}
+ new MutationObserver(()=>h.classList.toggle('hide',$('bPause').classList.contains('hide'))).observe($('bPause'),{attributes:true,attributeFilter:['class']});
+})();
+const vis=id=>{const e=$(id);return !!e&&!e.classList.contains('hide')};
+function closeOv(id){({howto:'bHowOk',styles:'bStyleOk',settings:'bSetOk',missions:'bMisOk',camEx:'bCamBack'})[id]&&$(({howto:'bHowOk',styles:'bStyleOk',settings:'bSetOk',missions:'bMisOk',camEx:'bCamBack'})[id]).click()}
+document.querySelectorAll('.navBack').forEach(b=>b.onclick=()=>closeOv(b.dataset.for));
+// leave whatever is happening and show the start screen; toMenu() stops the loop and the camera
+function cancelFace(){window.__faceGen=(window.__faceGen||0)+1}
+function goHome(){cancelFace();try{clearInterval(restI)}catch(e){}document.querySelectorAll('.ov').forEach(o=>{if(o.id!=='start')o.classList.add('hide')});try{overState=null}catch(e){}toMenu();camStop();try{setMsg(null)}catch(e){}}
+// tapping Touch while the face model is still loading cancels the face start and turns the camera off
+$('bTouch').addEventListener('click',()=>{if(stream||window.__faceGen){cancelFace();camStop()}},true);
+let askFrom=null;
+function askQuit(from){if(running&&S&&!S.ended&&!paused)doPause();if(!running||!S||S.ended){goHome();return}askFrom=from;$('bQuitNo').textContent=t(from==='pause'?'quitNoP':'quitNo');$('quitAsk').classList.remove('hide')}
+$('bHome').onclick=()=>askQuit('home');
+$('bQuit').onclick=()=>askQuit('pause');
+$('bQuitYes').onclick=goHome;
+$('bQuitNo').onclick=()=>{$('quitAsk').classList.add('hide');if(askFrom==='home')$('bResume').click();askFrom=null};
+// hardware/system back: returns true when handled, false at the start screen (caller exits the app)
+function navBack(){if(vis('ad'))return true;
+ if(vis('quitAsk')){$('bQuitNo').click();return true}
+ for(const id of ['camEx','howto','styles','settings','missions'])if(vis(id)){closeOv(id);return true}
+ if(vis('cont')){$('bContNo').click();return true}
+ if(vis('over')){$('bMenu').click();return true}
+ if(vis('calib')||vis('rest')){goHome();return true}
+ if(vis('pause')){askQuit('pause');return true}
+ if(running&&S&&!S.ended){doPause();return true}
+ if(vis('start')&&stream){goHome();return true} // face start still loading: cancel it, camera off
+ return false}
+{const CapApp=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.App;
+ if(CapApp&&CapApp.addListener)CapApp.addListener('backButton',()=>{if(!navBack())CapApp.exitApp()})}
+addEventListener('keydown',e=>{if(e.key==='Escape')navBack()});
+window.__nav={navBack,goHome,askQuit,vis};
+applyLang();
 </script></body></html>

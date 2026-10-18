@@ -94,3 +94,10 @@ The start screen must not look like Face-Action Treasure Hunt's, even as a thumb
 - **Icon:** colored glossy brick stacks on the violet gradient, with no gold border.
 - **Performance:** the canvas animates only while the start screen is visible. With prefers-reduced-motion it draws one static frame.
 - **Theme color:** `#3a1bd6`.
+
+## Navigation (Oct 18 2026)
+Same as Face-Action Treasure Hunt:
+- **🏠 Home** in the top bar during play: pause, then "Quit to menu? Your score won't be saved." Yes/No. The pause menu's 🏠 Menu asks the same.
+- **← Back** on How to Play, Collection, Settings and missions. Game over has 🏠 Menu.
+- **Hardware back** (Capacitor App plugin `backButton`, if the game is ever wrapped as an app) or Escape on the web: pause, then quit dialog, then close overlays; exits the app from the start screen.
+- **Camera:** always off on the start screen. A pending face start (camera start-up, model loading, calibration) is cancelled by Home, back or Touch.
