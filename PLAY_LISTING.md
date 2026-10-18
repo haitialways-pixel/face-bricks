@@ -9,7 +9,7 @@
 | **App or game** | Game |
 | **Category** | Puzzle (backup: Casual) |
 | **Free or paid** | Free |
-| **Contains ads** | **No** (see the note under "Ads" below) |
+| **Contains ads** | **No** (the "Continue?" offer is free; see "Ads" below) |
 | **In-app purchases** | No |
 | **Privacy policy URL** | https://haitialways-pixel.github.io/face-bricks/privacy.html |
 | **Contact email** | faceaction.support@gmail.com |
@@ -168,10 +168,9 @@ Never say or imply: "improves appearance", "anti-aging", "tones/firms your face"
 - `android.permission.CAMERA`: optional, for face controls; requested only after the player picks "Play with Face" and reads an explainer. Camera hardware is marked `required=false`.
 - `android.permission.INTERNET`: Capacitor default; gameplay does not need it.
 
-## Ads: the "Continue?" offer
-When the last heart is lost, a "Continue?" screen offers "Watch ad (+1 ❤️)" once per game. In this release `showRewardedAd()` is a **placeholder**: it shows a 3-second countdown, not a real ad, and contacts no ad network (there is no ad SDK in the app). That's why "Contains ads: No" is accurate and the privacy policy says so.
-**Before submitting**, consider renaming that button to a free continue (e.g. "▶️ Continue (+1 ❤️)") so reviewers don't see "Watch ad" in an app declared ad-free.
-**Before adding AdMob later**, you must: switch "Contains ads" to Yes; update Data safety (AdMob collects device identifiers and diagnostics); update the privacy policy; add consent (UMP) where required; and re-check target-audience answers.
+## Ads: none (free "Continue?")
+When the last heart is lost, a "Continue?" screen offers **▶️ Continue (+1 ❤️)** (FR: ▶️ Continuer (+1 ❤️)) once per game, or **No thanks**. It is free: no ad, no countdown, and no ad SDK in the app. "Contains ads: No" is accurate.
+The code keeps a `showRewardedAd()` hook (marked `TODO(AdMob)`) that currently resolves immediately. **Before adding AdMob later**, you must: switch "Contains ads" to Yes; update Data safety (AdMob collects device identifiers and diagnostics); update the privacy policy and the Continue wording; add consent (UMP) where required; and re-check target-audience answers.
 
 ## Release checklist
 1. Create the app in Play Console: name "Face-Action: Falling Bricks", Game, Free.

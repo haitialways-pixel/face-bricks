@@ -142,7 +142,6 @@ new MutationObserver(build).observe(src,{childList:true,characterData:true,subtr
   <button id="bRecalStart" class="sec" data-t="recalFace"></button><button id="bSetOk" data-t="done"></button></div>
 <div id="missions" class="ov hide"><h2 id="mTitle"></h2><p data-t="chapP" style="margin:0;font-size:14px;max-width:400px"></p><div id="mList" style="display:flex;flex-direction:column;gap:8px;width:100%;align-items:center"></div><p id="mTotal" style="margin:0;font-size:13px;opacity:.75"></p><button id="bMisOk" data-t="done"></button></div>
 <div id="cont" class="ov hide" style="z-index:7"><div style="font-size:60px">💔</div><h2 data-t="contT" style="margin:0;font-size:32px;color:#ff6ec7"></h2><p data-t="contP" style="margin:0;font-size:17px;max-width:320px"></p><p id="contScore" style="margin:0;font-size:20px;color:#ffd54a;font-weight:700"></p><button id="bContYes" class="play pTouch" data-t="contYes"></button><button id="bContNo" class="sec" data-t="contNo"></button></div>
-<div id="ad" class="ov hide" style="z-index:9;background:#000"><!-- TODO(AdMob): real rewarded ad goes here; showRewardedAd() is a placeholder countdown --><h2 data-t="adPh" style="margin:0"></h2><p data-t="adP" style="margin:0;opacity:.7"></p><div id="adN" style="font-size:72px;font-weight:800;color:#ffd54a"></div></div>
 <div id="howto" class="ov hide">
  <h2 data-t="howTitle"></h2>
  <div class="hrow"><span class="ic">🧱</span><div data-h="hMove"></div></div>
@@ -248,7 +247,7 @@ collectBtn:'🏆 Collection',collTitle:'🏆 Collection',badgesH:'🏅 Badges',s
 b_first:'First Sink',d_first:'Clear your first stack',b_bomb:'Bomb Squad',d_bomb:'Defuse 10 bombs',b_speed:'Speed Demon',d_speed:'20 full-value catches',b_rainbow:'Rainbow Master',d_rainbow:'Catch 15 rainbow bricks',
 b_s3:'On a Roll',d_s3:'3-day daily streak',b_s7:'Week Warrior',d_s7:'7-day daily streak',b_s14:'Two-Week Titan',d_s14:'14-day daily streak',b_s30:'Monthly Legend',d_s30:'30-day daily streak',badgeGot:'🏅 Badge: {b}!',
 setBtn:'⚙️ Settings',setTitle:'⚙️ Settings',cbL:'Colorblind patterns',cbD:'Adds a shape to each color: ● blue, ▲ pink, ■ yellow, ✚ green.',relaxL:'Relaxed speed',relaxD:'Bricks fall slower and speed up gently.',on:'ON',off:'OFF',
-contT:'Continue?',contP:'Watch a short ad for +1 ❤️ and keep going. Once per game.',contScore:'Score so far: {s}',contYes:'▶️ Watch ad (+1 ❤️)',contNo:'No thanks',adPh:'Ad placeholder',adP:'A rewarded ad will play here.',contGo:'+1 ❤️ KEEP GOING!',
+contT:'Continue?',contP:'Get +1 ❤️ for free and keep going. Once per game.',contScore:'Score so far: {s}',contYes:'▶️ Continue (+1 ❤️)',contNo:'No thanks',contGo:'+1 ❤️ KEEP GOING!',
 camExT:'Face mode',camEx1:'Uses your front camera to read your expressions (blink, mouth, smile, eyebrows).',camEx2:'Video stays on this phone. Nothing is recorded or uploaded.',camEx3:'You can switch back to Touch any time.',camExGo:'📷 Turn on camera',back:'⬅️ Back',
 dark:'💡 It\'s too dark here: find better light (face a window or a lamp).',relaxHud:'🐢 Relaxed',colon:': ',
 hProg:'<b>📅 Daily challenge</b>: the same bricks for everyone today. Play it every day for a 🔥 streak and rewards · <b>📖 Chapters</b>: 3 quick missions each · <b>🏆 Collection</b>: styles and badges · ⚙️ colorblind patterns and relaxed speed.'});
@@ -263,7 +262,7 @@ collectBtn:'🏆 Collection',collTitle:'🏆 Collection',badgesH:'🏅 Badges',s
 b_first:'Première pile',d_first:'Videz votre première pile',b_bomb:'Escouade anti-bombe',d_bomb:'Désamorcez 10 bombes',b_speed:'Démon de la vitesse',d_speed:'20 prises à pleine valeur',b_rainbow:'Maître arc-en-ciel',d_rainbow:'Attrapez 15 briques arc-en-ciel',
 b_s3:'Sur la lancée',d_s3:'Série de 3 jours',b_s7:'Guerrier de la semaine',d_s7:'Série de 7 jours',b_s14:'Titan des deux semaines',d_s14:'Série de 14 jours',b_s30:'Légende du mois',d_s30:'Série de 30 jours',badgeGot:'🏅 Badge : {b} !',
 setBtn:'⚙️ Réglages',setTitle:'⚙️ Réglages',cbL:'Motifs daltoniens',cbD:'Ajoute une forme à chaque couleur : ● bleu, ▲ rose, ■ jaune, ✚ vert.',relaxL:'Vitesse détente',relaxD:'Les briques tombent moins vite et accélèrent doucement.',on:'OUI',off:'NON',
-contT:'Continuer ?',contP:'Regardez une courte pub pour +1 ❤️ et continuez. Une fois par partie.',contScore:'Score actuel : {s}',contYes:'▶️ Voir la pub (+1 ❤️)',contNo:'Non merci',adPh:'Emplacement publicitaire',adP:'Une pub récompensée sera diffusée ici.',contGo:'+1 ❤️ ON CONTINUE !',
+contT:'Continuer ?',contP:'Récupérez +1 ❤️ gratuitement et continuez. Une fois par partie.',contScore:'Score actuel : {s}',contYes:'▶️ Continuer (+1 ❤️)',contNo:'Non merci',contGo:'+1 ❤️ ON CONTINUE !',
 camExT:'Mode visage',camEx1:'Utilise la caméra avant pour lire vos expressions (clignement, bouche, sourire, sourcils).',camEx2:'La vidéo reste sur ce téléphone. Rien n\'est enregistré ni envoyé.',camEx3:'Vous pouvez revenir au tactile à tout moment.',camExGo:'📷 Activer la caméra',back:'⬅️ Retour',
 dark:'💡 Il fait trop sombre : trouvez un meilleur éclairage (face à une fenêtre ou une lampe).',relaxHud:'🐢 Détente',colon:' : ',
 hProg:'<b>📅 Défi du jour</b> : les mêmes briques pour tout le monde aujourd\'hui. Jouez chaque jour pour une série 🔥 et des récompenses · <b>📖 Chapitres</b> : 3 missions rapides chacun · <b>🏆 Collection</b> : styles et badges · ⚙️ motifs daltoniens et vitesse détente.'});
@@ -818,12 +817,12 @@ function ev(type,val=1){if(STATK[type]){STATS[STATK[type]]=(STATS[STATK[type]]||
   if(!ch)return;
   if(ms.every((m,i)=>PROG.p[i]>=m[1])){const done=PROG.ch;PROG={ch:done+1,p:[0,0,0]};addBoost(1);if(S){(S.chapDone=S.chapDone||[]).push(done);if(running&&!S.ended){hype(t('chapDone',{n:done}),'#00e676',{dur:1.5,force:true,size:30});screenFlash('#00e676',.4,.3);sfx.fanfare()}}}
   LS.set('fb_prog',PROG)}
-// ----- "Continue?" offer: once per game, rewarded ad for +1 heart -----
-// TODO(AdMob): replace the body of showRewardedAd() with the real rewarded-ad call (e.g. Capacitor AdMob plugin:
-// load + show a RewardedAd, resolve(true) only on the "reward earned" callback, resolve(false) on dismiss/failure).
-// Placeholder for now: a 3-second "Ad placeholder" countdown that always grants the reward.
-function showRewardedAd(){return new Promise(res=>{const o=$('ad');o.classList.remove('hide');let n=3;$('adN').textContent=n;
-  const iv=setInterval(()=>{n--;$('adN').textContent=n;if(n<=0){clearInterval(iv);o.classList.add('hide');res(true)}},1000)})}
+// ----- "Continue?" offer: once per game, a free +1 heart (no ads) -----
+// TODO(AdMob): to turn this free continue into a rewarded ad later, replace the body of showRewardedAd() with the real
+// rewarded-ad call (e.g. Capacitor AdMob plugin: load + show a RewardedAd, resolve(true) only on the "reward earned"
+// callback, resolve(false) on dismiss/failure) and update the Continue wording, privacy policy and Play ads/Data safety answers.
+// For now the continue is FREE: no ad, no countdown; it grants +1 heart immediately.
+function showRewardedAd(){return Promise.resolve(true)}
 function endOrOffer(){if(!S.contUsed&&S.score>0){S.contUsed=true;S.offer=true;camStop();$('touch').classList.add('hide');$('bPause').classList.add('hide');$('contScore').textContent=t('contScore',{s:S.score});$('cont').classList.remove('hide');draw()}else gameOver()}
 function continueGame(){S.offer=false;gestureQ=[];S.hearts=1;S.overT=-1;S.cur=null;S.spawnT=1.4;S.streak=0;S.mult=1;paused=false;last=performance.now();
   $('touch').classList.toggle('hide',mode!=='touch');$('bPause').classList.remove('hide');hype(t('contGo'),'#ff6ec7',{force:true,size:32,dur:1.2});sfx.defuse();camResume()}
@@ -948,7 +947,7 @@ $('bQuit').onclick=()=>askQuit('pause');
 $('bQuitYes').onclick=goHome;
 $('bQuitNo').onclick=()=>{$('quitAsk').classList.add('hide');if(askFrom==='home')$('bResume').click();askFrom=null};
 // hardware/system back: returns true when handled, false at the start screen (caller exits the app)
-function navBack(){if(vis('ad'))return true;
+function navBack(){
  if(vis('quitAsk')){$('bQuitNo').click();return true}
  for(const id of ['camEx','howto','styles','settings','missions'])if(vis(id)){closeOv(id);return true}
  if(vis('cont')){$('bContNo').click();return true}
