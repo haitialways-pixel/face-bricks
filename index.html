@@ -617,7 +617,7 @@ function makeCard(o){const c=document.createElement('canvas');c.width=1080;c.hei
     g.font='30px sans-serif';g.fillStyle='#888';g.fillText(t('copy'),540,1250)}finally{ctx=O}
   return c}
 function showCard(o){const c=makeCard(o);cardURL=c.toDataURL('image/png');$('oCard').src=cardURL;$('oCard').classList.remove('hide');$('bShare').classList.remove('hide');
-  cardFile=null;c.toBlob(b=>{if(b)cardFile=new File([b],'face-bricks-record.png',{type:'image/png'})},'image/png');cardText=t('shareText',{s:o.s})+' https://haitialways-pixel.github.io/face-bricks/'}
+  cardFile=null;c.toBlob(b=>{if(b)cardFile=new File([b],'face-bricks-record.png',{type:'image/png'})},'image/png');cardText=t('shareText',{s:o.s})}
 let cardText='';
 $('bShare').onclick=async()=>{
   if(cardFile&&navigator.canShare&&navigator.canShare({files:[cardFile]})){try{await navigator.share({files:[cardFile],title:'Face-Action: Falling Bricks',text:cardText});return}catch(e){if(e&&e.name==='AbortError')return}}
