@@ -271,7 +271,7 @@ L.en.hSink='<b>10 bricks on a stack</b> and it sinks into the ground: <b>+20</b>
 L.fr.hSink='<b>10 briques sur une pile</b> et elle s\'enfonce dans le sol : <b>+20</b>. Les briques accélèrent au fil de la partie (environ 1 à 3 minutes).';
 const tp=(k,n,v={})=>t(k,{n,s:n>1?'s':'',es:n>1?'es':'',...v});
 const cv=$('game'),video=$('cam');let ctx=cv.getContext('2d');
-let W,H,DPR;function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);if(S&&!running){Object.assign(S,layout())}}addEventListener('resize',resize);
+let W,H,DPR;function resize(){DPR=Math.min(devicePixelRatio||1,(typeof LOWFX!=='undefined'&&LOWFX)?1.25:2);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);if(S&&!running){Object.assign(S,layout())}}addEventListener('resize',resize);
 const BEST_KEYS={face:'fb_best_face',touch:'fb_best_touch'};const getBest=m=>+localStorage.getItem(BEST_KEYS[m])||0;
 function showBest(){$('best').innerHTML=t('faceBest')+': <b>'+getBest('face')+'</b> &nbsp;·&nbsp; '+t('touchBest')+': <b>'+getBest('touch')+'</b>'}
 // ---------- Colors, gestures, styles ----------
@@ -309,7 +309,9 @@ async function initFaceFrom(src){
     catch(e){console.warn('FaceLandmarker '+d+' failed',e);landmarker=null;modelStatus=d+' failed: '+(e.message||e)}}
   throw new Error('Face model failed to load: '+modelStatus)}
 let bs={};
+let lastDet=0;
 function readFace(){
+  {const n=performance.now();if(n-lastDet<((typeof LOWFX!=='undefined'&&LOWFX)?66:33))return;lastDet=n}
   if(!landmarker||video.readyState<2||video.paused||!video.videoWidth)return;
   if(video.currentTime===lastVT)return;lastVT=video.currentTime;
   lastTs=Math.max(lastTs+1,performance.now());
@@ -736,8 +738,15 @@ function draw(){
     if(!faceSeen){ctx.textAlign='center';ctx.fillStyle='#f88';ctx.font='14px sans-serif';ctx.fillText(t('noFace'),W/2,H*.45)}}
   drawHud()}
 document.documentElement.style.setProperty('--sat','env(safe-area-inset-top)');
-function step(now){requestAnimationFrame(step);const dt=Math.min(.05,(now-last)/1000);last=now;
-  if(!running)return;updateInput(dt);if(!paused&&!S.ended)update(dt);if(running)draw()}
+// time-based loop: real elapsed time (capped at .25 s for tab switches) split into <=1/30 s substeps,
+// so bricks fall at the same real speed on slow devices. Adaptive low-FX mode if fps stays low.
+let fpsAcc=0,fpsN=0,LOWFX=false;
+function step(now){requestAnimationFrame(step);let el=Math.min(.25,Math.max(0,(now-last)/1000));last=now;
+  if(!running)return;fpsAcc+=el;fpsN++;if(fpsAcc>=2){const f=fpsN/fpsAcc;if(!LOWFX&&f<40){LOWFX=true;resize()}else if(LOWFX&&f>57){LOWFX=false;resize()}fpsAcc=0;fpsN=0}
+  const n=Math.max(1,Math.ceil(el/(1/30)-1e-6)),dt=el/n;
+  for(let i=0;i<n;i++){updateInput(dt);if(!paused&&!S.ended)update(dt)}if(running)draw()}
+{const P=CanvasRenderingContext2D.prototype,d=Object.getOwnPropertyDescriptor(P,'shadowBlur');
+ Object.defineProperty(ctx,'shadowBlur',{get(){return d.get.call(this)},set(v){d.set.call(this,LOWFX&&this===ctx?0:v)}})}
 
 // ---------- Styles screen ----------
 function buildStyles(){const g=$('styleGrid');g.innerHTML='';const ts=topScore();
