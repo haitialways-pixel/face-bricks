@@ -378,7 +378,7 @@ const COLORS={blue:{hex:'#2979ff',hi:'#82b1ff',g:'blink2',n:'cBlue',gn:'gBlue',i
 const CKEYS=['blue','pink','yellow','green'];const G2C={blink2:'blue',jaw:'pink',smile:'yellow',brow:'green'};
 const STYLES=[{k:'classic',n:'sClassic',need:0},{k:'neon',n:'sNeon',need:1500},{k:'candy',n:'sCandy',need:4000},{k:'gems',n:'sGems',need:8000}];
 const topScore=()=>Math.max(+localStorage.getItem('fb_top')||0,getBest('face'),getBest('touch'));
-let style=localStorage.getItem('fb_style')||'classic';if(!STYLES.some(s=>s.k===style&&(topScore()>=s.need||JSON.parse(localStorage.getItem('fb_unlocks')||'[]').includes(s.k))))style='classic';
+let style=localStorage.getItem('fb_style')||'classic';if(!(style==='classic'||JSON.parse(localStorage.getItem('fb_unlocks')||'[]').includes(style)))style='classic';
 let FAKE_DAY=null; // test hook: pretend today is another date
 let daily=false;
 let S=null,paused=false,running=false,last=performance.now();
@@ -636,7 +636,7 @@ const fallProgress=b=>Math.max(0,Math.min(1,(b.y-S.spawnY)/(S.deadY-S.fall.h-S.s
 const brickValue=b=>Math.max(0,Math.round((b.kind==='golden'?100:20)*(1-fallProgress(b))));
 // gold -> white -> grey as the value drains
 function valCol(p){const L=(a,b,k)=>Math.round(a+(b-a)*k);let c;if(p<.5){const k=p/.5;c=[L(255,255,k),L(213,255,k),L(74,255,k)]}else{const k=(p-.5)/.5;c=[L(255,120,k),L(255,120,k),L(255,120,k)]}return 'rgb('+c+')'}
-function checkUnlock(){checkRecord();ev('score',S.score);for(const k of [...S.unlockAt]){const st=STYLES.find(s=>s.k===k);if(S.score>=st.need){S.unlockAt=S.unlockAt.filter(x=>x!==k);localStorage.setItem('fb_top',Math.max(topScore(),S.score));sfx.unlock();banner(t('unlocked',{s:t(st.n)}),'#7cf',2.2)}}}
+function checkUnlock(){checkRecord();ev('score',S.score);for(const k of [...S.unlockAt]){const st=STYLES.find(s=>s.k===k);if(S.score>=st.need){S.unlockAt=S.unlockAt.filter(x=>x!==k);localStorage.setItem('fb_top',Math.max(topScore(),S.score));try{const u=JSON.parse(localStorage.getItem('fb_unlocks')||'[]');if(!u.includes(k)){u.push(k);localStorage.setItem('fb_unlocks',JSON.stringify(u))}}catch(e){}sfx.unlock();banner(t('unlocked',{s:t(st.n)}),'#7cf',2.2)}}}
 const stackTopY=i=>S.groundY-S.cols[i].length*S.rh;
 function shortestCol(){let m=Infinity,c=0;S.cols.forEach((s,i)=>{if(s.length<m){m=s.length;c=i}});return c}
 function handleGesture(g){const b=S.cur;if(!b||b.state!=='fall')return;if(b.kind!=='bomb'&&b.age<(mode==='touch'?.15:.35))return;
@@ -695,10 +695,20 @@ function update(dt){
   const pd=frozen?dt*.5:dt;for(const p of S.parts){p.t-=pd;if(p.conf){p.vx*=1-pd*1.5;p.vy=p.vy*(1-pd*1.5)+260*pd;p.rot+=p.vr*pd}else p.vy+=(p.star?40:p.spark?160:500)*pd;p.x+=p.vx*pd;p.y+=p.vy*pd}S.parts=S.parts.filter(p=>p.t>0);
   if(S.parts.length>MAXPARTS)S.parts.splice(0,S.parts.length-MAXPARTS); // cap for phone performance
 }
+function resetAcquiredOnLoss(){
+  // Wipe coin upgrades + brick-style unlocks; force classic. Coins/bests/badges kept. No refunds.
+  try{_lsSet('fb_upgrades',{})}catch(e){}
+  try{LS.set('fb_unlocks',[])}catch(e){try{localStorage.setItem('fb_unlocks','[]')}catch(e2){}}
+  style='classic';try{localStorage.setItem('fb_style','classic')}catch(e){}
+  try{if(!$('upgrades').classList.contains('hide'))buildUpgrades()}catch(e){}
+  try{if(!$('styles').classList.contains('hide'))buildStyles()}catch(e){}
+}
 function gameOver(){S.ended=true;running=false;sfx.over();camStop();$('bPause').classList.add('hide');$('touch').classList.add('hide');
   clearRun();
   try{boardBump('games',1);boardMarkDay()}catch(e){}
+  // Bank soft currency first, then wipe upgrades/collections (continue-offer path never reaches here).
   const gained=addCoins(Math.floor((S.score||0)/10));
+  resetAcquiredOnLoss();
   const m=mode,prev=getBest(m),b=Math.max(S.score,prev);localStorage.setItem(BEST_KEYS[m],b);localStorage.setItem('fb_top',Math.max(topScore(),S.score));
   if(S.score>prev&&S.score>0){try{localStorage.setItem(BEST_KEYS[m]+'_stage',S.level|0);stampBestAt(m)}catch(e){}}
   showBest();
@@ -955,7 +965,7 @@ const dayNum=s=>{const [y,m,d]=s.split('-').map(Number);return Math.round(Date.U
 function streakInfo(){const s=LS.get('fb_streak',{});if(!s.last)return {n:0,state:'none'};const d=dayNum(today())-dayNum(s.last);
   return d<=0?{n:s.n,state:'today'}:d===1?{n:s.n,state:'keep'}:{n:0,state:'broken'}}
 const STREAK_REW={3:null,7:'neon',14:'candy',30:'gems'}; // every milestone also gives a golden boost
-const styleOK=s=>topScore()>=s.need||LS.get('fb_unlocks',[]).includes(s.k);
+const styleOK=s=>s.k==='classic'||LS.get('fb_unlocks',[]).includes(s.k);
 const getBoost=()=>+localStorage.getItem('fb_boost')||0,addBoost=n=>localStorage.setItem('fb_boost',Math.max(0,getBoost()+n));
 // called when a daily-challenge game ends; returns what happened for the game-over screen
 function recordDaily(){const s=LS.get('fb_streak',{n:0,best:0}),td=today();if(s.last===td)return {n:s.n,same:true};
@@ -1196,6 +1206,8 @@ window.__fb={get S(){return S},begin,gameOver,gesture:g=>gestureQ.push(g),get ru
 // ===== Weekly online leaderboard (Cloudflare Worker + D1) — Falling Bricks =====
 const LB_API='https://face-action-scores.haitialways.workers.dev';
 const LB_GAME='bricks';
+/** Leaderboard protocol version — must be >= Worker MIN_CLIENT (2 = loss-reset / FB 1.0.5). */
+const LB_CLIENT=2;
 function faPlayerId(){let id=localStorage.getItem('fa_pid');if(!id){id=(crypto.randomUUID&&crypto.randomUUID())||('p'+Math.random().toString(36).slice(2)+Date.now().toString(36));localStorage.setItem('fa_pid',id)}return id}
 function faName(){return (localStorage.getItem('fa_name')||'').trim()}
 function setFaName(n){n=String(n||'').trim().replace(/\s+/g,' ').slice(0,16);if(n)localStorage.setItem('fa_name',n);return n}
@@ -1204,11 +1216,11 @@ let lbMode='touch';
 async function lbFetch(path,opt){const r=await fetch(LB_API+path,{...opt,headers:{'Content-Type':'application/json',...((opt&&opt.headers)||{})}});if(!r.ok)throw new Error('http '+r.status);return r.json()}
 function resolveLbName(){let name=faName();if(!name){const el=$('lbName');if(el&&el.value)name=setFaName(el.value)}return name}
 async function submitScore(o){try{const score=(o&&(o.score!=null?o.score:o.s))|0,stage=(o&&(o.stage!=null?o.stage:o.g))|0||1;if(!(score>0))return null;const now=Date.now();if(now<LB_CUTOFF_MS)return null;let name=resolveLbName();if(!name){name=await askLbName();if(!name)return null}
-  const body={playerId:faPlayerId(),name,score,stage,mode:o.m==='face'?'face':'touch',game:LB_GAME,secs:o.secs|0||0,ts:now};
+  const body={playerId:faPlayerId(),name,score,stage,mode:o.m==='face'?'face':'touch',game:LB_GAME,secs:o.secs|0||0,ts:now,client:LB_CLIENT};
   return await lbFetch('/submit',{method:'POST',body:JSON.stringify(body)})}catch(e){return null}}
 /** Post local bests only if stamped on/after LB cutoff (pre-launch bests were zeroed by resetLbScoresOnce). */
 async function publishLocalBests(name){name=setFaName(name||faName());if(!name)return null;const pid=faPlayerId();const modes=['touch','face'];const out=[];
-  for(const mode of modes){if(!isLbPublishable(mode))continue;const score=getBest(mode)|0,stage=(+localStorage.getItem(BEST_KEYS[mode]+'_stage')|0),at=bestAt(mode);try{out.push(await lbFetch('/submit',{method:'POST',body:JSON.stringify({playerId:pid,name,score,stage,mode,game:LB_GAME,secs:0,ts:at})}))}catch(e){out.push(null)}}
+  for(const mode of modes){if(!isLbPublishable(mode))continue;const score=getBest(mode)|0,stage=(+localStorage.getItem(BEST_KEYS[mode]+'_stage')|0),at=bestAt(mode);try{out.push(await lbFetch('/submit',{method:'POST',body:JSON.stringify({playerId:pid,name,score,stage,mode,game:LB_GAME,secs:0,ts:at,client:LB_CLIENT})}))}catch(e){out.push(null)}}
   return out}
 function askLbName(){return new Promise(resolve=>{let ov=$('lbAsk');if(!ov){ov=document.createElement('div');ov.id='lbAsk';ov.className='ov fbHall hide';ov.innerHTML='<h2 data-t="lbName"></h2><p style="margin:0;font-size:14px;opacity:.85">'+escLb(t('lbP'))+'</p><input id="lbAskIn" maxlength="16" style="width:min(280px,80vw);padding:10px 12px;border-radius:12px;border:2px solid rgba(255,20,147,.55);background:#0a1448;color:#fff;font-size:16px;font-weight:700"><button id="lbAskOk" class="play pTouch" data-t="lbSave"></button>';document.body.appendChild(ov)}
   const inp=$('lbAskIn');inp.value=faName()||($('lbName')&&$('lbName').value)||'';ov.classList.remove('hide');try{inp.focus();inp.select()}catch(e){}
