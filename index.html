@@ -28,8 +28,22 @@ button.big{font-size:24px;padding:18px 30px;min-width:260px;box-shadow:0 0 24px 
 .mini button.on{background:#ffd54a;color:#2a1600}
 h1{margin:0;font-size:34px;color:#ffd54a;text-shadow:0 0 18px #ffd54a88;line-height:1.1}
 h1 small{display:block;font-size:22px;color:#fff;text-shadow:0 0 12px #ff1493;opacity:1;margin-top:4px}
-#howto,#styles,#settings,#missions{justify-content:flex-start;overflow-y:auto;background:#05030c;z-index:8;padding:calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px);gap:8px}
-#howto h2,#styles h2,#settings h2,#missions h2,#styles h3{margin:4px 0;color:#ffd54a;font-size:24px}
+#howto,#styles,#settings,#missions,#upgrades,#board{justify-content:flex-start;overflow-y:auto;background:#05030c;z-index:8;padding:calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px);gap:8px}
+#howto h2,#styles h2,#settings h2,#missions h2,#upgrades h2,#board h2,#styles h3,#board h3{margin:4px 0;color:#ffd54a;font-size:24px}
+.boardBtn{position:relative;min-width:0;font-size:14px;padding:7px 14px;background:#1a1430;color:#ffd54a;border:1px solid #ffd54a66;border-radius:12px}
+.boardBtn .dot{position:absolute;top:-3px;right:-3px;width:12px;height:12px;border-radius:50%;background:#ff1744;border:2px solid #05030c;box-shadow:0 0 8px #ff1744}
+.claimBtn{min-width:0;font-size:13px;padding:8px 10px;border-radius:10px;background:#00c853;color:#fff}
+.claimBtn:disabled{background:#5b4a8a;opacity:.7}
+.upRow{display:flex;align-items:center;gap:10px;width:100%;max-width:440px;text-align:left;background:#1a1430;border:2px solid #ffd54a55;border-radius:12px;padding:8px 10px;box-sizing:border-box}
+.upRow .ic{font-size:28px;width:40px;text-align:center;flex:none}
+.upRow .meta{flex:1;min-width:0;font-size:13px;line-height:1.3}
+.upRow .meta b{color:#ffd54a;font-size:15px}
+.upRow button{min-width:0;font-size:13px;padding:8px 10px;border-radius:10px}
+#coinHud{margin:0;font-size:15px;color:#ffd54a;font-weight:700}
+#bContRun{background:linear-gradient(180deg,#00c853,#009624);color:#fff;border:2px solid #b9f6ca;width:min(84vw,330px);min-width:0;font-size:20px;padding:14px 10px;border-radius:18px;font-weight:800}
+.thFB .boardBtn{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:999px;font-weight:800}
+.thFB #coinHud{color:#ffd600;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+.thFB #bContRun{border-radius:999px}
 .hrow{display:flex;align-items:center;gap:12px;width:100%;max-width:440px;text-align:left;background:#1a1430;border:2px solid #ffd54a55;border-radius:12px;padding:7px 10px;box-sizing:border-box;flex:none}
 .hrow .ic{font-size:30px;width:44px;text-align:center;flex:none}.hrow b{color:#ffd54a;font-size:16px}.hrow div{font-size:14px;line-height:1.3;color:#fff}
 .sw{width:44px;height:26px;border-radius:6px;flex:none;border:2px solid #fff;box-shadow:0 0 10px var(--c);background:var(--c);box-sizing:border-box}
@@ -99,11 +113,14 @@ html,body,button,canvas{touch-action:manipulation;-webkit-user-select:none;user-
   <canvas id="startBg" aria-hidden="true"></canvas>
   <h1><span class="fbBrand">FACE-ACTION</span><span class="fbWord" id="fbWord" aria-hidden="true"></span><small data-t="sub" class="sr" id="fbSub"></small></h1>
   <p data-h="intro" style="max-width:360px;margin:0;font-size:15px"></p>
+  <button id="bContRun" class="hide"></button>
   <button id="bTouch" class="play pTouch" data-t="playTouch"></button>
   <button id="bFace" class="play pFace" data-t="playFace"></button>
   <button id="bDaily" class="daily"><span class="dTop" id="dTop"></span><span class="dSub" id="dSub"></span></button>
   <button id="bChapter" class="chap"></button>
-  <div class="mini"><button id="bStyle" class="sec" data-t="collectBtn"></button><button id="bSet" class="sec" data-t="setBtn"></button><button id="bHow" class="sec" data-t="howBtn"></button></div>
+  <button id="bBoard" class="boardBtn"><span data-t="boardBtn"></span><span id="boardDot" class="dot hide"></span></button>
+  <p id="coinHud"></p>
+  <div class="mini"><button id="bUp" class="sec" data-t="upBtn"></button><button id="bStyle" class="sec" data-t="collectBtn"></button><button id="bSet" class="sec" data-t="setBtn"></button><button id="bHow" class="sec" data-t="howBtn"></button></div>
   <p id="best" style="margin:0;font-size:14px"></p><p style="margin:0"><a href="privacy.html" style="color:#9cf;font-size:13px" data-t="privacy"></a> · <a href="#" id="bLang" style="color:#9cf;font-size:13px"></a><br><small style="opacity:.6;font-size:11px" data-t="copy"></small></p><p id="msg" style="margin:0"><small></small></p>
 </div>
 <script>/* start-screen background: animates only while #start is visible; one static frame with prefers-reduced-motion */
@@ -137,6 +154,18 @@ new MutationObserver(build).observe(src,{childList:true,characterData:true,subtr
 <div id="camEx" class="ov hide" style="z-index:9"><div style="font-size:56px">📷</div><h2 data-t="camExT" style="margin:0;color:#7df"></h2>
   <div class="hrow"><span class="ic">😀</span><div data-t="camEx1"></div></div><div class="hrow"><span class="ic">🔒</span><div data-t="camEx2"></div></div><div class="hrow"><span class="ic">👆</span><div data-t="camEx3"></div></div>
   <button id="bCamGo" class="play pFace" data-t="camExGo"></button><button id="bCamBack" class="sec" data-t="back"></button></div>
+<div id="upgrades" class="ov hide"><h2 data-t="upTitle"></h2>
+  <p id="upCoins" style="margin:0;font-size:16px;color:#ffd54a;font-weight:700"></p>
+  <p data-t="upP" style="margin:0;font-size:13px;max-width:400px;opacity:.85"></p>
+  <div id="upList" style="display:flex;flex-direction:column;gap:8px;width:100%;align-items:center"></div>
+  <button id="bUpOk" data-t="done"></button></div>
+<div id="board" class="ov hide"><h2 data-t="boardTitle"></h2>
+  <p data-t="boardP" style="margin:0;font-size:13px;max-width:400px;opacity:.85"></p>
+  <h3 data-t="boardDaily" style="font-size:18px;margin:8px 0 0"></h3>
+  <div id="boardDaily" style="display:flex;flex-direction:column;gap:8px;width:100%;align-items:center"></div>
+  <h3 data-t="boardWeekly" style="font-size:18px;margin:12px 0 0"></h3>
+  <div id="boardWeekly" style="display:flex;flex-direction:column;gap:8px;width:100%;align-items:center"></div>
+  <button id="bBoardOk" data-t="done"></button></div>
 <div id="settings" class="ov hide"><h2 data-t="setTitle"></h2>
   <div class="hrow"><span class="ic">🔷</span><div><b data-t="cbL"></b><br><span data-t="cbD"></span></div><button id="tCb" class="tog"></button></div>
   <div class="hrow"><span class="ic">🐢</span><div><b data-t="relaxL"></b><br><span data-t="relaxD"></span></div><button id="tRelax" class="tog"></button></div>
@@ -234,7 +263,7 @@ function applyLang(){document.documentElement.lang=LANG;
   if(msgState)$('msg').innerHTML=t(msgState[0],msgState[1]);
   if(overState)renderOver();
   if(calState.text)$('cText').textContent=t(calState.text);if(calState.step)$('cStep').textContent=t('stepOf',calState.step);
-  showBest();syncDaily();buildSettings();if(!$('styles').classList.contains('hide')){buildStyles();buildBadges()}if(!$('missions').classList.contains('hide'))buildMissions();if(S&&S.offer)$('contScore').textContent=t('contScore',{s:S.score})}
+  showBest();syncDaily();buildSettings();syncResumeUI();syncCoinsUI();if(!$('styles').classList.contains('hide')){buildStyles();buildBadges()}if(!$('missions').classList.contains('hide'))buildMissions();if(!$('upgrades').classList.contains('hide'))buildUpgrades();if(!$('board').classList.contains('hide'))buildBoard();try{syncBoardBtn()}catch(e){}if(S&&S.offer)$('contScore').textContent=t('contScore',{s:S.score})}
 
 // ---------- v0.6 strings ----------
 Object.assign(L.en,{intro:'Sort glowing bricks onto their color stacks. Tap to play, or go hands-free with your face!',
@@ -453,13 +482,64 @@ function layout(){
   const fall={w:Math.min(W*.36,150),h:Math.min(44,rh*1.4)};
   return {groundY:gy,rh,colW,cw,zoneTop,deadY:zoneTop-12,spawnY:Math.max(150,H*.16),fall}}
 const colX=i=>S.colW*(i+.5);
+/* Soft-currency upgrades (fb_coins / fb_upgrades). Coins banked on game-over at score/10.
+   Upgrades raise the floor; face/touch skill still sets the ceiling. Respect 1.0.2 bomb heal ≤3 & combo x3. */
+const UP_DEFS=[
+  {k:'hearts',icon:'❤️',max:2,costs:[100,250]},
+  {k:'slow',icon:'🐢',max:3,costs:[60,140,280]},
+  {k:'gap',icon:'⏱️',max:4,costs:[60,140,280,500]},
+  {k:'golden',icon:'⭐',max:3,costs:[70,160,320]},
+  {k:'combo',icon:'🔥',max:3,costs:[50,120,250]}
+];
+const RUN_KEY='fb_run',RUN_VER=1;let pendingResume=null;
+const _lsGet=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}};
+const _lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const getCoins=()=>Math.max(0,+localStorage.getItem('fb_coins')||0);
+const setCoins=n=>{localStorage.setItem('fb_coins',Math.max(0,Math.floor(n)));try{syncCoinsUI()}catch(e){}};
+const addCoins=n=>{if(n>0)setCoins(getCoins()+n);return n};
+const getUpgrades=()=>{const u=_lsGet('fb_upgrades',{});const o={};for(const d of UP_DEFS)o[d.k]=Math.min(d.max,Math.max(0,+u[d.k]||0));return o};
+const setUpgrade=(k,lv)=>{const u=getUpgrades();u[k]=lv;_lsSet('fb_upgrades',u)};
+const upMul=()=>{const u=getUpgrades();return{hearts:u.hearts,maxHearts:Math.min(7,5+u.hearts),slowStart:1.5*u.slow,gap:1+.08*u.gap,golden:1+.25*u.golden,combo:u.combo}};
+function clearRun(){try{localStorage.removeItem(RUN_KEY)}catch(e){}try{syncResumeUI()}catch(e){}}
+function loadRun(){const r=_lsGet(RUN_KEY,null);if(!r||r.v!==RUN_VER||!(r.hearts>0)||r.ended)return null;return r}
+function saveRun(){if(!S||!running||S.ended||S.offer||!(S.hearts>0))return;try{
+  _lsSet(RUN_KEY,{v:RUN_VER,at:Date.now(),mode,daily:!!S.daily,day:S.day||today(),
+    score:S.score,hearts:S.hearts,maxHearts:S.maxHearts||5,streak:S.streak|0,mult:S.mult||1,
+    level:S.level|0,sinks:S.sinks|0,locks:S.locks|0,t:S.t||0,slowT:S.slowT||0,spawnT:S.spawnT||0,
+    chainC:S.chainC,chainN:S.chainN|0,idx:S.idx|0,perfects:S.perfects|0,bursts:S.bursts|0,
+    contUsed:!!S.contUsed,boost:!!S.boost,relax:!!S.relax,prevBest:S.prevBest|0,
+    newBadges:[...(S.newBadges||[])],chapDone:[...(S.chapDone||[])],earned:[...(S.earned||[])],
+    unlockAt:[...(S.unlockAt||[])],
+    cols:(S.cols||[]).map(col=>col.map(b=>({c:b.c,kind:b.kind}))),
+    next:S.next?{c:S.next.c,kind:S.next.kind}:null,
+    cur:S.cur&&S.cur.state==='fall'?{c:S.cur.c,kind:S.cur.kind,x:S.cur.x,y:S.cur.y,state:S.cur.state,age:S.cur.age,vy:S.cur.vy}:null
+  })}catch(e){}}
+function restoreRun(r){
+  daily=!!r.daily;const day=r.day||today();
+  const L=layout();
+  S={...L,score:r.score|0,hearts:r.hearts|0,maxHearts:r.maxHearts||Math.max(5,r.hearts|0),
+    streak:r.streak|0,mult:r.mult||1,cols:(r.cols||CKEYS.map(()=>[])).map(col=>(col||[]).map(b=>({c:b.c,kind:b.kind||'normal'}))),
+    sinking:[],cur:null,fly:[],next:r.next?{c:r.next.c,kind:r.next.kind||'normal'}:{c:'blue',kind:'normal'},
+    fx:[],parts:[],level:r.level|0||1,sinks:r.sinks|0,slowT:r.slowT||0,shake:0,spawnT:r.spawnT??.8,
+    locks:r.locks|0,t:r.t||0,ended:false,chainC:r.chainC||null,chainN:r.chainN|0,
+    daily,day,rng:daily?mulberry(hashStr('fb-'+day)):Math.random,idx:r.idx|0,
+    banner:t('resumeBanner'),bannerT:3.2,bannerCol:'#7cf',
+    unlockAt:r.unlockAt||STYLES.filter(s=>!styleOK(s)).map(s=>s.k),overT:-1,bursts:r.bursts|0,
+    earned:[...(r.earned||[])],hype:null,hypeLast:-9,flash:null,coins:[],colLabels:[],
+    prevBest:r.prevBest??getBest(mode),recordHit:false,freezeT:0,fireQ:[],scorePulse:0,
+    perfects:r.perfects|0,contUsed:!!r.contUsed,offer:false,boost:!!r.boost,
+    newBadges:[...(r.newBadges||[])],chapDone:[...(r.chapDone||[])],relax:!!r.relax};
+  if(r.cur&&r.cur.state==='fall'){S.cur={...r.cur};if(!S.cur.vy)S.cur.vy=(S.deadY-S.fall.h-S.spawnY)/Math.max(.3,fallTime())}
+  if(!S.next)S.next=genBrick();
+}
 function newGame(){
-  S={...layout(),score:0,hearts:5,streak:0,mult:1,cols:CKEYS.map(()=>[]),sinking:[],cur:null,fly:[],next:null,fx:[],parts:[],level:1,sinks:0,slowT:0,shake:0,spawnT:.8,locks:0,t:0,ended:false,
+  const um=upMul();
+  S={...layout(),score:0,hearts:um.maxHearts,maxHearts:um.maxHearts,streak:um.combo,mult:Math.min(3,1+Math.floor(um.combo/3)),cols:CKEYS.map(()=>[]),sinking:[],cur:null,fly:[],next:null,fx:[],parts:[],level:1,sinks:0,slowT:um.slowStart,shake:0,spawnT:.8,locks:0,t:0,ended:false,
     chainC:null,chainN:0,daily,day:today(),rng:daily?mulberry(hashStr('fb-'+today())):Math.random,idx:0,bannerT:0,banner:'',unlockAt:STYLES.filter(s=>!styleOK(s)).map(s=>s.k),overT:-1,bursts:0,earned:[],hype:null,hypeLast:-9,flash:null,coins:[],colLabels:[],prevBest:getBest(mode),recordHit:false,freezeT:0,fireQ:[],scorePulse:0,perfects:0,contUsed:false,offer:false,boost:false,newBadges:[],chapDone:[],relax:OPT.relax};
   S.next=genBrick()}
 // brick sequence: daily mode uses a date-seeded RNG, so everyone gets the same bricks that day
 function genBrick(){const r=S.rng,i=S.idx++;let kind='normal';const c=CKEYS[Math.floor(r()*4)],sp=r();
-  if(i>=6){if(sp<.06)kind='rainbow';else if(sp<.12)kind='bomb';else if(sp<(S.boost?.27:.16))kind='golden'}
+  if(i>=6){if(sp<.06)kind='rainbow';else if(sp<.12)kind='bomb';else if(sp<(S.boost?.27:.16)*upMul().golden)kind='golden'}
   else if(S.boost&&i>=2&&sp>.82)kind='golden'; // golden boost (chapter/streak reward)
   return {c,kind}}
 // time-based ramp for 1-3 min games: fall time halves every 50 s of play (4.6 s -> floor 0.7 s), plus 4% per sink.
@@ -472,7 +552,7 @@ const lateP=()=>S.relax?Math.max(0,Math.min(1,(S.t-BAL.relT0)/BAL.relRamp)):Math
 // overtime: once the floor is reached it keeps creeping down 0.04 s per minute (to a hard minimum) so no run is endless.
 const floorT=()=>{const p=lateP(),ot=Math.max(0,S.t-(S.relax?BAL.relT0+BAL.relRamp:BAL.t0+BAL.ramp))/60*BAL.otPerMin;
   return S.relax?Math.max(BAL.relHard,BAL.relMax-(BAL.relMax-BAL.relMin)*p-ot):Math.max(mode==='face'?BAL.hardF:BAL.hardT,.7-(.7-(mode==='face'?BAL.minF:BAL.minT))*p-ot)};
-const gapT=()=>.55-.25*lateP();
+const gapT=()=>(.55-.25*lateP())*upMul().gap;
 const fallTime=()=>{const r=S.relax,f=Math.max(floorT(),(r?6.5:4.6)*Math.pow(.5,S.t/(r?100:BAL.half))*Math.pow(.96,S.level-1));return f*(mode==='face'?1.35:1)};
 function spawnBrick(){const b=S.next;S.next=genBrick();
   S.cur={...b,x:W/2,y:S.spawnY,state:'fall',age:0};S.cur.vy=(S.deadY-S.fall.h-S.spawnY)/fallTime()}
@@ -526,6 +606,8 @@ function sinkCol(i){const bricks=S.cols[i];S.cols[i]=[];S.sinking.push({ci:i,bri
 const ease=x=>1-Math.pow(1-x,3);
 function update(dt){
   if(S.offer)return; // waiting on the Continue? offer
+  S._saveAcc=(S._saveAcc||0)+dt;if(S._saveAcc>2.5){S._saveAcc=0;saveRun()}
+  S._survAcc=(S._survAcc||0)+dt;if(S._survAcc>=1){const sec=Math.floor(S._survAcc);S._survAcc-=sec;try{boardBump('survive',sec)}catch(e){}}
   celebUpdate(dt);const frozen=S.freezeT>0;
   S.t+=dt;S.bannerT-=dt;S.shake=Math.max(0,S.shake-dt);S.squash=Math.max(0,(S.squash||0)-dt);S.slowT=Math.max(0,S.slowT-dt);
   if(S.overT>0){S.overT-=dt;if(S.overT<=0){endOrOffer();return}}
@@ -545,12 +627,15 @@ function update(dt){
   if(S.parts.length>MAXPARTS)S.parts.splice(0,S.parts.length-MAXPARTS); // cap for phone performance
 }
 function gameOver(){S.ended=true;running=false;sfx.over();camStop();$('bPause').classList.add('hide');$('touch').classList.add('hide');
+  clearRun();
+  try{boardBump('games',1);boardMarkDay()}catch(e){}
+  const gained=addCoins(Math.floor((S.score||0)/10));
   const m=mode,prev=getBest(m),b=Math.max(S.score,prev);localStorage.setItem(BEST_KEYS[m],b);localStorage.setItem('fb_top',Math.max(topScore(),S.score));showBest();
   let streak=null;if(S.daily){const dk='fb_daily_'+S.day+'_'+m;localStorage.setItem(dk,Math.max(+localStorage.getItem(dk)||0,S.score));streak=recordDaily()}
   STATS.games++;LS.set('fb_stats',STATS);checkBadges(false);
-  overState={m,s:S.score,g:S.level,r:S.locks,nb:S.score>prev&&S.score>0,b,prev,daily:S.daily?S.day:null,date:new Date(),streak,badges:[...S.newBadges],chapDone:[...S.chapDone],secs:Math.round(S.t)};renderOver();$('over').classList.remove('hide');draw()}
+  overState={m,s:S.score,g:S.level,r:S.locks,nb:S.score>prev&&S.score>0,b,prev,daily:S.daily?S.day:null,date:new Date(),streak,badges:[...S.newBadges],chapDone:[...S.chapDone],secs:Math.round(S.t),coins:gained};renderOver();$('over').classList.remove('hide');draw()}
 function renderOver(){const o=overState,lbl=t(o.m+'L');
-  $('oScore').innerHTML=(o.daily?t('dailyL',{d:o.daily})+'<br>':'')+t('overLine',{m:lbl,s:o.s,g:o.g,r:o.r})+'<br>'+(o.nb?t('newBest',{m:lbl}):t('bestIs',{m:lbl,b:o.b}));
+  $('oScore').innerHTML=(o.daily?t('dailyL',{d:o.daily})+'<br>':'')+t('overLine',{m:lbl,s:o.s,g:o.g,r:o.r})+'<br>'+(o.nb?t('newBest',{m:lbl}):t('bestIs',{m:lbl,b:o.b}))+(o.coins?('<br><span style="color:#ffd54a">'+t('banked',{n:o.coins})+'</span>'):'');
   const gap=o.prev-o.s;$('oHook').innerHTML=!o.nb&&gap>0&&gap<=Math.max(60,o.prev*.25)?t('near',{n:gap}):'';
   const meta=[];if(o.streak&&!o.streak.same){meta.push(tp('streakUp',o.streak.n));if(o.streak.milestone)meta.push(t('streakRew',{n:o.streak.n})+' '+t('rewBoost')+(o.streak.style?' · '+t('rewStyle',{s:t(STYLES.find(x=>x.k===o.streak.style).n)}):''))}
   for(const c of o.chapDone)meta.push(t('chapRewOver',{n:c}));for(const b of o.badges)meta.push(t('badgeGot',{b:t('b_'+b)}));
@@ -559,7 +644,7 @@ function renderOver(){const o=overState,lbl=t(o.m+'L');
   $('oShareMsg').textContent='';if(o.nb)showCard(o);else{$('oCard').classList.add('hide');$('bShare').classList.add('hide')}}
 $('bAgain').onclick=()=>{$('over').classList.add('hide');overState=null;begin(true)};
 $('bMenu').onclick=()=>{$('over').classList.add('hide');overState=null;toMenu()};
-function toMenu(){running=false;paused=false;camStop();['pause','bPause','touch'].forEach(i=>$(i).classList.add('hide'));$('start').classList.remove('hide');showBest();syncDaily();newGame();draw()}
+function toMenu(){running=false;paused=false;camStop();['pause','bPause','touch'].forEach(i=>$(i).classList.add('hide'));$('start').classList.remove('hide');showBest();syncDaily();syncResumeUI();syncCoinsUI();try{syncBoardBtn()}catch(e){}newGame();draw()}
 
 // ---------- Gratification: hype banners, stack-sink party, personal best ----------
 const MAXPARTS=260;
@@ -726,7 +811,7 @@ function draw(){
   // HUD
   const top=14+(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat'))||0);
   ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#ffd54a';ctx.font='bold '+Math.round(26*(1+S.scorePulse*.8))+'px sans-serif';ctx.shadowColor='#ffd54a';ctx.shadowBlur=8+S.scorePulse*40;ctx.fillText(String(S.score),12,top+10);ctx.shadowBlur=0;
-  for(let i=0;i<5;i++)heart(22+i*24,top+28,18,i<S.hearts);
+  const mh=Math.max(5,S.maxHearts||5,S.hearts|0);const hs=mh>5?20:24;for(let i=0;i<mh;i++)heart(22+i*hs,top+28,mh>5?16:18,i<S.hearts);
   ctx.fillStyle='#fff';ctx.font='bold 14px sans-serif';ctx.fillText(t('level')+' '+S.level+(S.relax?'  '+t('relaxHud'):'')+(S.boost?'  ⭐':''),12,top+62);
   let hy=top+86;
   if(S.mult>1){ctx.fillStyle='#ff6ec7';ctx.font='bold 20px sans-serif';ctx.shadowColor='#ff1493';ctx.shadowBlur=10;ctx.fillText('x'+S.mult+' COMBO',12,hy);ctx.shadowBlur=0;hy+=22}
@@ -774,6 +859,19 @@ function buildSettings(){for(const [id,k] of [['tCb','cb'],['tRelax','relax']]){
 function setOpt(k,v){OPT[k]=v;LS.set('fb_opts',OPT);buildSettings()}
 $('tCb').onclick=()=>setOpt('cb',!OPT.cb);$('tRelax').onclick=()=>setOpt('relax',!OPT.relax);
 $('bSet').onclick=()=>{buildSettings();$('settings').classList.remove('hide')};$('bSetOk').onclick=()=>$('settings').classList.add('hide');
+function syncCoinsUI(){const n=getCoins(),el=$('coinHud');if(el)el.textContent=t('upCoins',{n});const u=$('upCoins');if(u)u.textContent=t('upCoins',{n})}
+function syncResumeUI(){const btn=$('bContRun');if(!btn)return;const r=loadRun();if(r){btn.classList.remove('hide');btn.textContent=t('resumeRun',{s:r.score,g:r.level})}else btn.classList.add('hide')}
+function buildUpgrades(){syncCoinsUI();const list=$('upList');if(!list)return;list.innerHTML='';const u=getUpgrades(),coins=getCoins();
+  for(const d of UP_DEFS){const lv=u[d.k]|0,maxed=lv>=d.max,cost=maxed?0:d.costs[lv];
+    const row=document.createElement('div');row.className='upRow';
+    row.innerHTML='<span class="ic">'+d.icon+'</span><div class="meta"><b>'+t('up_'+d.k)+'</b> · '+t('upLvl',{n:lv})+(maxed?'':' / '+d.max)+'<br>'+t('up_'+d.k+'D')+'</div>';
+    const b=document.createElement('button');b.className=maxed||coins<cost?'sec':'';b.disabled=maxed||coins<cost;b.textContent=maxed?t('upMax'):t('upBuy',{c:cost});
+    b.onclick=()=>{if(maxed||getCoins()<cost)return;setCoins(getCoins()-cost);setUpgrade(d.k,lv+1);sfx.beep&&sfx.beep(true);buildUpgrades()};
+    row.appendChild(b);list.appendChild(row)}}
+$('bUp').onclick=()=>{buildUpgrades();$('upgrades').classList.remove('hide');$('upgrades').scrollTop=0};
+$('bUpOk').onclick=()=>$('upgrades').classList.add('hide');
+$('bContRun').onclick=()=>{const r=loadRun();if(!r)return;mode=r.mode==='face'?'face':'touch';daily=!!r.daily;if(mode==='face'){pendingResume=r;askFace()}else{pendingResume=null;begin(false,r)}};
+syncCoinsUI();syncResumeUI();
 // colorblind shapes: ● blue, ▲ pink, ■ yellow, ✚ green
 function drawPat(c,x,y,s,dark){ctx.save();ctx.beginPath();
   if(c==='blue')ctx.arc(x,y,s*.48,0,7);
@@ -815,6 +913,86 @@ function buildMissions(){const ms=chapterMissions(PROG.ch);$('mTitle').textConte
   $('mList').innerHTML=ms.map(([ty,n],i)=>{const v=Math.min(n,PROG.p[i]),ok=v>=n;return '<div class="hrow mrow"><span class="ic">'+(ok?'✅':{sink:'⬇️',bomb:'💣',combo:'🔥',score:'🎯',perfect:'⚡',chain:'💥',golden:'⭐',bricks:'🧱'}[ty])+'</span><div style="flex:1"><b>'+mText(ty,n)+'</b> <span style="float:right">'+v+'/'+n+'</span><div class="bar"><i style="width:'+(v/n*100)+'%"></i></div></div></div>'}).join('');
   $('mTotal').textContent=t('chapTotal',{n:PROG.ch-1})}
 $('bChapter').onclick=()=>{buildMissions();$('missions').classList.remove('hide')};$('bMisOk').onclick=()=>$('missions').classList.add('hide');
+// ----- Daily / weekly mission board (fb_daily_m / fb_weekly_m) — separate from chapters -----
+const BOARD_IC={score:'🎯',sink:'⬇️',bomb:'💣',bricks:'🧱',perfect:'⚡',chain:'💥',golden:'⭐',rainbow:'🌈',combo:'🔥',face:'😀',touch:'👆',survive:'⏱️',games:'🎮',days:'📆'};
+const BOARD_MAX=new Set(['score','combo']);
+function weekKey(iso){const [y,m,d]=(iso||today()).split('-').map(Number);const dt=new Date(Date.UTC(y,m-1,d));
+  const day=(dt.getUTCDay()+6)%7;dt.setUTCDate(dt.getUTCDate()-day+3);
+  const first=new Date(Date.UTC(dt.getUTCFullYear(),0,4));const w1d=(first.getUTCDay()+6)%7;
+  first.setUTCDate(first.getUTCDate()-w1d+3);
+  const w=1+Math.round((dt-first)/6048e5);return dt.getUTCFullYear()+'-W'+String(w).padStart(2,'0')}
+function boardPick(seed,pool,n){const r=mulberry(hashStr(seed)),bag=pool.slice(),out=[];
+  while(out.length<n&&bag.length){const i=Math.floor(r()*bag.length);out.push(bag.splice(i,1)[0])}
+  return out.map((p,i)=>({id:p.t+'-'+p.n+'-'+i,t:p.t,n:p.n,p:0,rew:p.rew,claimed:false}))}
+function freshDaily(day){
+  const pool=[
+    {t:'score',n:800,rew:25},{t:'score',n:1500,rew:40},{t:'score',n:2500,rew:55},
+    {t:'sink',n:1,rew:20},{t:'sink',n:2,rew:35},{t:'sink',n:3,rew:50},
+    {t:'bomb',n:1,rew:20},{t:'bomb',n:2,rew:35},{t:'bomb',n:3,rew:50},
+    {t:'bricks',n:20,rew:20},{t:'bricks',n:40,rew:35},{t:'bricks',n:60,rew:50},
+    {t:'perfect',n:3,rew:25},{t:'perfect',n:6,rew:40},{t:'perfect',n:10,rew:55},
+    {t:'chain',n:1,rew:25},{t:'chain',n:2,rew:40},{t:'golden',n:1,rew:30},{t:'golden',n:2,rew:50},
+    {t:'rainbow',n:1,rew:25},{t:'combo',n:3,rew:30},
+    {t:'face',n:1,rew:30},{t:'touch',n:1,rew:25},
+    {t:'survive',n:60,rew:25},{t:'survive',n:90,rew:40},{t:'survive',n:120,rew:55}
+  ];
+  const picked=[],used=new Set(),r=mulberry(hashStr('fbdailym-'+day)),bag=pool.slice();
+  while(picked.length<3&&bag.length){const i=Math.floor(r()*bag.length),p=bag.splice(i,1)[0];
+    if(used.has(p.t))continue;used.add(p.t);
+    picked.push({id:p.t+'-'+p.n,t:p.t,n:p.n,p:0,rew:p.rew,claimed:false})}
+  return {day,items:picked}}
+function freshWeekly(week){
+  const pool=[
+    {t:'score',n:5000,rew:150},{t:'score',n:8000,rew:220},
+    {t:'sink',n:8,rew:140},{t:'sink',n:12,rew:200},
+    {t:'bomb',n:8,rew:130},{t:'bomb',n:12,rew:200},
+    {t:'bricks',n:150,rew:120},{t:'bricks',n:250,rew:180},
+    {t:'perfect',n:25,rew:140},{t:'perfect',n:40,rew:200},
+    {t:'chain',n:8,rew:130},{t:'golden',n:8,rew:160},
+    {t:'games',n:5,rew:100},{t:'games',n:8,rew:160},
+    {t:'survive',n:480,rew:140},{t:'survive',n:900,rew:220},
+    {t:'days',n:3,rew:180},{t:'days',n:5,rew:250},
+    {t:'face',n:3,rew:120},{t:'touch',n:3,rew:100}
+  ];
+  const items=boardPick('fbweekm-'+week,pool,3),used=new Set(),out=[];
+  for(const it of items){if(used.has(it.t))continue;used.add(it.t);out.push(it);if(out.length>=3)break}
+  while(out.length<2){const p=pool[out.length];out.push({id:p.t+'-'+p.n,t:p.t,n:p.n,p:0,rew:p.rew,claimed:false})}
+  return {week,items:out,days:[]}
+}
+function getDailyBoard(){const day=today();let b=LS.get('fb_daily_m',null);
+  if(!b||b.day!==day||!Array.isArray(b.items)){b=freshDaily(day);LS.set('fb_daily_m',b)}return b}
+function getWeeklyBoard(){const week=weekKey();let b=LS.get('fb_weekly_m',null);
+  if(!b||b.week!==week||!Array.isArray(b.items)){b=freshWeekly(week);LS.set('fb_weekly_m',b)}return b}
+function boardText(it){const k='bm_'+it.t;return t(k,{n:it.n,s:it.n>1?'s':'',es:it.n>1?'es':''})}
+function boardBump(type,val=1){let ch=false;
+  const apply=(b,key)=>{for(const it of b.items){if(it.t!==type||it.claimed)continue;
+    const before=it.p|0;
+    if(BOARD_MAX.has(type)||type==='days')it.p=Math.min(it.n,Math.max(before,val));
+    else it.p=Math.min(it.n,before+val);
+    if(it.p!==before)ch=true}LS.set(key,b)};
+  apply(getDailyBoard(),'fb_daily_m');apply(getWeeklyBoard(),'fb_weekly_m');
+  if(ch){try{syncBoardBtn()}catch(e){}if($('board')&&!$('board').classList.contains('hide'))buildBoard()}}
+function boardMarkDay(){const b=getWeeklyBoard(),d=today();if(!b.days)b.days=[];
+  if(!b.days.includes(d)){b.days.push(d);LS.set('fb_weekly_m',b)}boardBump('days', (getWeeklyBoard().days||[]).length)}
+function boardUnclaimed(){const all=[...getDailyBoard().items,...getWeeklyBoard().items];
+  return all.filter(it=>(it.p|0)>=it.n&&!it.claimed).length}
+function syncBoardBtn(){const n=boardUnclaimed(),dot=$('boardDot');if(dot)dot.classList.toggle('hide',n<=0);
+  const btn=$('bBoard');if(btn){const lab=btn.querySelector('[data-t=boardBtn]');if(lab)lab.textContent=t('boardBtn')}}
+function buildBoard(){
+  const paint=(el,board,storeKey)=>{el.innerHTML='';
+    for(const it of board.items){const v=Math.min(it.n,it.p|0),ok=v>=it.n,row=document.createElement('div');row.className='hrow mrow';
+      row.innerHTML='<span class="ic">'+(it.claimed?'✅':ok?'🎁':(BOARD_IC[it.t]||'🎯'))+'</span><div style="flex:1"><b>'+boardText(it)+'</b> <span style="float:right">'+v+'/'+it.n+'</span><div class="bar"><i style="width:'+(v/it.n*100)+'%"></i></div></div>';
+      const b=document.createElement('button');b.className='claimBtn';
+      if(it.claimed){b.textContent=t('boardClaimed');b.disabled=true}
+      else if(ok){b.textContent=t('boardClaim',{n:it.rew});b.onclick=()=>{it.claimed=true;LS.set(storeKey,board);addCoins(it.rew);sfx.unlock();syncCoinsUI();syncBoardBtn();buildBoard()}}
+      else{b.textContent=t('boardClaim',{n:it.rew});b.disabled=true}
+      row.appendChild(b);el.appendChild(row)}};
+  paint($('boardDaily'),getDailyBoard(),'fb_daily_m');
+  paint($('boardWeekly'),getWeeklyBoard(),'fb_weekly_m');
+  syncBoardBtn()}
+$('bBoard').onclick=()=>{buildBoard();$('board').classList.remove('hide');$('board').scrollTop=0};
+$('bBoardOk').onclick=()=>$('board').classList.add('hide');
+syncBoardBtn();
 // ----- lifetime stats & badges -----
 let STATS=Object.assign({sinks:0,bombs:0,perfects:0,rainbows:0,goldens:0,bricks:0,games:0},LS.get('fb_stats',{}));
 const BADGES=[{k:'first',ic:'⬇️',st:'sinks',n:1},{k:'bomb',ic:'💣',st:'bombs',n:10},{k:'speed',ic:'⚡',st:'perfects',n:20},{k:'rainbow',ic:'🌈',st:'rainbows',n:15},
@@ -829,6 +1007,7 @@ function buildBadges(){$('badgeGrid').innerHTML=BADGES.map(b=>{const got=BGOT.in
 // one entry point for game events: lifetime stats, badges and chapter missions
 const STATK={sink:'sinks',bomb:'bombs',perfect:'perfects',rainbow:'rainbows',golden:'goldens',bricks:'bricks'};
 function ev(type,val=1){if(STATK[type]){STATS[STATK[type]]=(STATS[STATK[type]]||0)+val;LS.set('fb_stats',STATS);checkBadges(true)}
+  try{boardBump(type,val)}catch(e){}
   const ms=chapterMissions(PROG.ch);let ch=false;
   ms.forEach(([ty,n],i)=>{if(ty!==type||PROG.p[i]>=n)return;PROG.p[i]=Math.min(n,MT[ty].cum?PROG.p[i]+val:Math.max(PROG.p[i],val));ch=true;
     if(PROG.p[i]>=n&&S&&running){banner(t('mDone',{m:mText(ty,n)}),'#00e676',2.2);sfx.unlock()}});
@@ -868,7 +1047,7 @@ async function startFace(){
   try{const iv=setInterval(()=>{msgState=null;$('msg').innerHTML='<small>'+t('loadingModel')+' ('+modelStatus+')</small>'},200);try{await initFace()}finally{clearInterval(iv)}}
   catch(e){setMsg('loadFail',{e:e.message});camStop();return}
   if(gen!==window.__faceGen){camStop();setMsg(null);return}
-  setMsg(null);mode='face';faceLoopOn=true;faceLoop();$('start').classList.add('hide');if(forceCal||!loadCal()){try{await calibrate()}catch(e){if(e==='cancel'){lightWatch(false);return}throw e}}if(gen!==window.__faceGen)return;forceCal=false;begin(false)}
+  setMsg(null);mode='face';faceLoopOn=true;faceLoop();$('start').classList.add('hide');if(forceCal||!loadCal()){try{await calibrate()}catch(e){if(e==='cancel'){lightWatch(false);return}throw e}}if(gen!==window.__faceGen)return;forceCal=false;if(pendingResume){const r=pendingResume;pendingResume=null;begin(false,r)}else begin(false)}
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 let stream=null,camWanted=false,prevOn=localStorage.getItem('fb_prev')!=='0';
 function updInd(){video.classList.toggle('off',!prevOn);$('bPrev').classList.toggle('hide',!stream);$('camNote').classList.toggle('hide',!stream||!prevOn);$('camInd').classList.toggle('hide',!stream);$('camResume').classList.toggle('hide',!(camWanted&&!stream&&mode==='face'&&running&&S&&!S.ended&&!paused))}
@@ -906,10 +1085,12 @@ async function calibrate(){const cg=window.__faceGen;const chk=()=>{if(cg!==wind
   const bl=await stepRun('c3','😑',ms=>sampleLv(ms,LV.blink));if(bl.n)TH.blink=fitTH('blink',bl.max);
   for(const [k,c,ic] of [['jaw','c4','😮'],['smile','c5','😁'],['brow','c6','🤨'],['puff','c7','😤']]){const r=await stepRun(c,ic,ms=>sampleLv(ms,LV[k]));if(r.n)TH[k]=k==='puff'?(r.p90<TH_DEF.puff*.6?TH_DEF.puff*.8:Math.max(TH_DEF.puff*.5,Math.min(TH_DEF.puff*1.3,r.p90*.4))):fitTH(k,r.p90)}
   $('cCount').textContent='';$('cStep').textContent='';calState={};saveCal();lightWatch(false);$('calib').classList.add('hide')}
-function begin(again){$('start').classList.add('hide');$('bPause').classList.remove('hide');$('touch').classList.toggle('hide',mode!=='touch');
-  newGame();if(!daily&&getBoost()>0){S.boost=true;addBoost(-1);S.next=genBrick();banner(t('boostOn'),'#ffd54a',2.2)}
-  gestureQ=[];GE.cur=null;GE.blinks=[];DEF.t=0;DEF.prog=0;yawRef=yaw0;running=true;paused=false;last=performance.now();if(again)camResume()}
-$('bFace').onclick=askFace;
+function begin(again,fromSave){$('start').classList.add('hide');$('bPause').classList.remove('hide');$('touch').classList.toggle('hide',mode!=='touch');
+  if(fromSave){restoreRun(fromSave)}
+  else{clearRun();newGame();if(!daily&&getBoost()>0){S.boost=true;addBoost(-1);S.next=genBrick();banner(t('boostOn'),'#ffd54a',2.2)}}
+  gestureQ=[];GE.cur=null;GE.blinks=[];DEF.t=0;DEF.prog=0;yawRef=yaw0;running=true;paused=false;last=performance.now();if(again||fromSave)camResume();saveRun();syncResumeUI();
+  try{boardMarkDay();if(!fromSave)boardBump(mode==='face'?'face':'touch',1);S._survAcc=0}catch(e){}}
+$('bFace').onclick=()=>{pendingResume=null;askFace()};
 const HOW_KEY='fb_howto_v1';
 function showHow(){$('howto').classList.remove('hide');$('howto').scrollTop=0}
 $('bHow').onclick=showHow;$('bHowP').onclick=showHow;
@@ -919,7 +1100,7 @@ let restI;
 function startRest(){paused=true;camStop();let n=15;$('rest').classList.remove('hide');$('restT').textContent=n;clearInterval(restI);restI=setInterval(()=>{n--;$('restT').textContent=n;if(n<=0)endRest()},1000)}
 function endRest(){clearInterval(restI);$('rest').classList.add('hide');paused=false;last=performance.now();camResume()}
 $('bSkip').onclick=endRest;
-function doPause(){if(!running||S.ended||paused)return;paused=true;camStop();$('pause').classList.remove('hide')}
+function doPause(){if(!running||S.ended||paused)return;paused=true;camStop();saveRun();$('pause').classList.remove('hide')}
 $('bPause').onclick=doPause;
 $('bResume').onclick=()=>{$('pause').classList.add('hide');paused=false;last=performance.now();camResume()};
 $('bQuit').onclick=toMenu;
@@ -930,9 +1111,9 @@ $('bHud').onclick=()=>{hudOn=!hudOn;localStorage.setItem('fb_hud',hudOn?'1':'0')
 $('bRecalStart').onclick=()=>{$('settings').classList.add('hide');forceCal=true;askFace()};
 $('bRecalAuto').onclick=async()=>{$('bRecalAuto').classList.add('hide');noFaceT=0;paused=true;await calibrate();paused=false;last=performance.now()};
 $('bRecal').onclick=async()=>{if(mode!=='face'||!stream)return;paused=true;await calibrate();paused=false;last=performance.now()};
-$('bTouch').onclick=()=>{mode='touch';begin(false)};
-document.addEventListener('visibilitychange',()=>{if(document.hidden){camStop();if(running)paused=true}else{if($('rest').classList.contains('hide')&&$('calib').classList.contains('hide')&&$('pause').classList.contains('hide')&&!(S&&S.offer))paused=false;last=performance.now();camResume()}updInd()});
-addEventListener('pagehide',camStop);addEventListener('pageshow',e=>{if(e.persisted)camResume()});
+$('bTouch').onclick=()=>{pendingResume=null;mode='touch';begin(false)};
+document.addEventListener('visibilitychange',()=>{if(document.hidden){camStop();if(running){paused=true;saveRun()}}else{if($('rest').classList.contains('hide')&&$('calib').classList.contains('hide')&&$('pause').classList.contains('hide')&&!(S&&S.offer))paused=false;last=performance.now();camResume()}updInd()});
+addEventListener('pagehide',()=>{saveRun();camStop()});addEventListener('pageshow',e=>{if(e.persisted)camResume()});
 $('camResume').onclick=()=>camStart();
 $('bPrev').onclick=()=>{prevOn=!prevOn;localStorage.setItem('fb_prev',prevOn?'1':'0');updInd()};
 newGame();draw();requestAnimationFrame(step);
@@ -941,21 +1122,21 @@ window.__fb={get S(){return S},begin,gameOver,gesture:g=>gestureQ.push(g),get ru
 
 
 // ===== Navigation: 🏠 Home in the top bar, quit confirmation, ← Back on overlays, Android hardware back (Oct 18 2026) =====
-Object.assign(L.en,{home:'Home',quitT:'Quit to menu?',quitP:"Your score won't be saved.",quitYes:'🏠 Yes, quit',quitNo:'▶️ No, keep playing',quitNoP:'↩️ No, go back',navBack:'← Back'});
-Object.assign(L.fr,{home:'Accueil',quitT:'Retourner au menu ?',quitP:'Votre score ne sera pas enregistré.',quitYes:'🏠 Oui, quitter',quitNo:'▶️ Non, continuer',quitNoP:'↩️ Non, revenir',navBack:'← Retour'});
+Object.assign(L.en,{home:'Home',quitT:'Quit to menu?',quitP:'This run will be abandoned (saved progress cleared).',quitYes:'🏠 Yes, quit',quitNo:'▶️ No, keep playing',quitNoP:'↩️ No, go back',navBack:'← Back',resumeRun:'▶️ Continue · {s} pts · lv {g}',resumeBanner:'↩️ Resumed — pick up where you left off!',upBtn:'⬆️ Upgrades',upTitle:'Upgrades',upP:'Spend coins earned from your runs. Upgrades raise your floor — skill still sets the ceiling.',upCoins:'🪙 Coins: {n}',upMax:'MAX',upBuy:'🪙 {c}',upLvl:'Lv {n}',up_hearts:'Max hearts',up_heartsD:'Start with more ❤️ (cap 7).',up_slow:'Starting slow-mo',up_slowD:'Begin each run with a short 🐢 slow-burst.',up_gap:'Breathing room',up_gapD:'A bit more time between bricks.',up_golden:'Golden luck',up_goldenD:'Slightly more ⭐ golden bricks.',up_combo:'Combo head-start',up_comboD:'Start each run closer to a higher combo.',banked:'+{n} 🪙 banked',boardBtn:'🎯 Missions',boardTitle:'Daily & Weekly Missions',boardP:'Finish short goals for bonus coins. Resets each day / week. Chapters stay separate.',boardDaily:'☀️ Daily',boardWeekly:'📅 Weekly',boardClaim:'🪙 Claim {n}',boardClaimed:'Claimed',bm_score:'Score {n} in one run',bm_sink:'Clear {n} stack{s}',bm_bomb:'Defuse {n} bomb{s}',bm_bricks:'Stack {n} bricks',bm_perfect:'{n} perfect catch{es}',bm_chain:'{n} color burst{s}',bm_golden:'Catch {n} golden brick{s}',bm_rainbow:'Catch {n} rainbow brick{s}',bm_combo:'Reach x{n} combo',bm_face:'Play a Face-mode run',bm_touch:'Play a Touch-mode run',bm_survive:'Survive {n} seconds total',bm_games:'Finish {n} runs',bm_days:'Play on {n} different days'});
+Object.assign(L.fr,{home:'Accueil',quitT:'Retourner au menu ?',quitP:'Cette partie sera abandonnée (progression sauvegardée effacée).',quitYes:'🏠 Oui, quitter',quitNo:'▶️ Non, continuer',quitNoP:'↩️ Non, revenir',navBack:'← Retour',resumeRun:'▶️ Reprendre · {s} pts · niv. {g}',resumeBanner:'↩️ Reprise — continuez où vous vous êtes arrêté !',upBtn:'⬆️ Améliorations',upTitle:'Améliorations',upP:'Dépensez les pièces gagnées en partie. Les améliorations haussent le plancher — le skill fixe toujours le plafond.',upCoins:'🪙 Pièces : {n}',upMax:'MAX',upBuy:'🪙 {c}',upLvl:'Niv. {n}',up_hearts:'Cœurs max',up_heartsD:'Commencez avec plus de ❤️ (plafond 7).',up_slow:'Ralenti de départ',up_slowD:'Commencez chaque partie avec un court 🐢 ralenti.',up_gap:'Respiration',up_gapD:'Un peu plus de temps entre les briques.',up_golden:'Chance dorée',up_goldenD:'Un peu plus de briques ⭐ dorées.',up_combo:'Avance combo',up_comboD:'Commencez chaque partie plus près d\'un combo élevé.',banked:'+{n} 🪙 en banque',boardBtn:'🎯 Quêtes',boardTitle:'Quêtes du jour & de la semaine',boardP:'Objectifs courts pour des pièces bonus. Se réinitialisent chaque jour / semaine. Les chapitres restent séparés.',boardDaily:'☀️ Quotidien',boardWeekly:'📅 Hebdomadaire',boardClaim:'🪙 Réclamer {n}',boardClaimed:'Réclamé',bm_score:'Marquez {n} en une partie',bm_sink:'Videz {n} pile{s}',bm_bomb:'Désamorcez {n} bombe{s}',bm_bricks:'Empilez {n} briques',bm_perfect:'{n} prise{s} parfaite{s}',bm_chain:'{n} explosion{s} de couleur',bm_golden:'Attrapez {n} brique{s} dorée{s}',bm_rainbow:'Attrapez {n} brique{s} arc-en-ciel',bm_combo:'Atteignez un combo x{n}',bm_face:'Jouez une partie Visage',bm_touch:'Jouez une partie Tactile',bm_survive:'Survivez {n} secondes au total',bm_games:'Terminez {n} parties',bm_days:'Jouez {n} jours différents'});
 (()=>{const st=document.createElement('style');st.textContent='.navBack{position:fixed;left:8px;top:calc(env(safe-area-inset-top) + 8px);min-width:0!important;width:auto!important;padding:7px 14px!important;font-size:15px!important;z-index:7;border-radius:999px!important}#quitAsk{z-index:10}';document.head.appendChild(st);
  const h=document.createElement('button');h.id='bHome';h.className='hide';h.dataset.ti='home';h.textContent='🏠';h.setAttribute('aria-label','Home');
  h.style.cssText='position:fixed;right:200px;top:calc(env(safe-area-inset-top) + 8px);min-width:0;padding:6px 10px;font-size:16px;z-index:6';document.body.appendChild(h);
  const q=document.createElement('div');q.id='quitAsk';q.className='ov hide';q.innerHTML='<div style="font-size:52px">🏠</div><h2 data-t="quitT" style="margin:0"></h2><p data-t="quitP" style="margin:0;font-size:17px"></p><button id="bQuitYes" class="play pTouch" data-t="quitYes"></button><button id="bQuitNo" class="sec" data-t="quitNo"></button>';document.body.appendChild(q);
- for(const id of ['howto','styles','settings','missions']){const o=$(id);if(!o)continue;const b=document.createElement('button');b.className='sec navBack';b.dataset.t='navBack';b.dataset.for=id;o.insertBefore(b,o.firstChild)}
+ for(const id of ['howto','styles','settings','missions','upgrades','board']){const o=$(id);if(!o)continue;const b=document.createElement('button');b.className='sec navBack';b.dataset.t='navBack';b.dataset.for=id;o.insertBefore(b,o.firstChild)}
  new MutationObserver(()=>h.classList.toggle('hide',$('bPause').classList.contains('hide'))).observe($('bPause'),{attributes:true,attributeFilter:['class']});
 })();
 const vis=id=>{const e=$(id);return !!e&&!e.classList.contains('hide')};
-function closeOv(id){({howto:'bHowOk',styles:'bStyleOk',settings:'bSetOk',missions:'bMisOk',camEx:'bCamBack'})[id]&&$(({howto:'bHowOk',styles:'bStyleOk',settings:'bSetOk',missions:'bMisOk',camEx:'bCamBack'})[id]).click()}
+function closeOv(id){({howto:'bHowOk',styles:'bStyleOk',settings:'bSetOk',missions:'bMisOk',upgrades:'bUpOk',board:'bBoardOk',camEx:'bCamBack'})[id]&&$(({howto:'bHowOk',styles:'bStyleOk',settings:'bSetOk',missions:'bMisOk',upgrades:'bUpOk',board:'bBoardOk',camEx:'bCamBack'})[id]).click()}
 document.querySelectorAll('.navBack').forEach(b=>b.onclick=()=>closeOv(b.dataset.for));
 // leave whatever is happening and show the start screen; toMenu() stops the loop and the camera
 function cancelFace(){window.__faceGen=(window.__faceGen||0)+1}
-function goHome(){cancelFace();try{clearInterval(restI)}catch(e){}document.querySelectorAll('.ov').forEach(o=>{if(o.id!=='start')o.classList.add('hide')});try{overState=null}catch(e){}toMenu();camStop();try{setMsg(null)}catch(e){}}
+function goHome(){cancelFace();try{clearInterval(restI)}catch(e){}document.querySelectorAll('.ov').forEach(o=>{if(o.id!=='start')o.classList.add('hide')});try{overState=null}catch(e){}clearRun();pendingResume=null;toMenu();camStop();try{setMsg(null)}catch(e){}}
 // tapping Touch while the face model is still loading cancels the face start and turns the camera off
 $('bTouch').addEventListener('click',()=>{if(stream||window.__faceGen){cancelFace();camStop()}},true);
 let askFrom=null;
@@ -967,7 +1148,7 @@ $('bQuitNo').onclick=()=>{$('quitAsk').classList.add('hide');if(askFrom==='home'
 // hardware/system back: returns true when handled, false at the start screen (caller exits the app)
 function navBack(){
  if(vis('quitAsk')){$('bQuitNo').click();return true}
- for(const id of ['camEx','howto','styles','settings','missions'])if(vis(id)){closeOv(id);return true}
+ for(const id of ['camEx','howto','styles','settings','missions','upgrades','board'])if(vis(id)){closeOv(id);return true}
  if(vis('cont')){$('bContNo').click();return true}
  if(vis('over')){$('bMenu').click();return true}
  if(vis('calib')||vis('rest')){goHome();return true}
