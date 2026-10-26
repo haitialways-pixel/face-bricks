@@ -28,7 +28,7 @@ button.big{font-size:24px;padding:18px 30px;min-width:260px;box-shadow:0 0 24px 
 .mini button.on{background:#ffd54a;color:#2a1600}
 h1{margin:0;font-size:34px;color:#ffd54a;text-shadow:0 0 18px #ffd54a88;line-height:1.1}
 h1 small{display:block;font-size:22px;color:#fff;text-shadow:0 0 12px #ff1493;opacity:1;margin-top:4px}
-#howto,#styles,#settings,#missions,#upgrades,#board{justify-content:flex-start;overflow-y:auto;background:#05030c;z-index:8;padding:calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px);gap:8px}
+#howto,#styles,#settings,#missions,#upgrades,#board,#lb{justify-content:flex-start;overflow-y:auto;background:#05030c;z-index:8;padding:calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px);gap:8px}
 #howto h2,#styles h2,#settings h2,#missions h2,#upgrades h2,#board h2,#styles h3,#board h3{margin:4px 0;color:#ffd54a;font-size:24px}
 .boardBtn{position:relative;min-width:0;font-size:14px;padding:7px 14px;background:#1a1430;color:#ffd54a;border:1px solid #ffd54a66;border-radius:12px}
 .boardBtn .dot{position:absolute;top:-3px;right:-3px;width:12px;height:12px;border-radius:50%;background:#ff1744;border:2px solid #05030c;box-shadow:0 0 8px #ff1744}
@@ -106,6 +106,42 @@ small{opacity:.75}
 .thFB #best.fbBestPlaque{color:#fff;font-weight:800;font-family:'Baloo 2','Fredoka',system-ui,sans-serif;font-size:13px;letter-spacing:.3px;padding:8px 14px;border-radius:14px;background:linear-gradient(135deg,rgba(255,20,147,.35),rgba(0,229,255,.25));border:2px solid rgba(255,255,255,.75);box-shadow:0 0 16px rgba(255,20,147,.45),0 0 28px rgba(0,229,255,.3),inset 0 1px 0 rgba(255,255,255,.35);text-shadow:0 1px 2px rgba(0,0,0,.5)}
 .thFB #best.fbBestPlaque b{color:#ffd600;text-shadow:0 0 8px rgba(255,214,0,.7)}
 @media (max-height:720px){#start.thFB{gap:8px;padding-top:58px;padding-bottom:14px}.thFB .fbWord b{width:32px;height:38px;font-size:25px}.thFB .play{padding:12px 10px;font-size:20px}.thFB .daily{padding:8px 12px}}
+
+/* ===== Weekly Hall of Champions (Falling Bricks) — neon magenta/cyan arcade, distinct from Treasure Hunt cavern gold ===== */
+#lb.fbHall{background:linear-gradient(165deg,#0a1a6b 0%,#3a1bd6 45%,#a21bff 78%,#1a0a40 100%);border:0;font-family:'Baloo 2','Fredoka','Nunito',system-ui,sans-serif;gap:10px;padding:calc(env(safe-area-inset-top) + 20px) 16px calc(env(safe-area-inset-bottom) + 16px);overflow-y:auto;justify-content:flex-start}
+#lb.fbHall::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 15% 20%,rgba(255,20,147,.28),transparent 42%),radial-gradient(ellipse at 85% 75%,rgba(0,229,255,.22),transparent 40%),radial-gradient(ellipse at 50% 100%,rgba(255,214,0,.12),transparent 45%);z-index:0}
+#lb.fbHall>*{position:relative;z-index:1}
+#lb.fbHall [data-t="lbGame"]{font-family:'Baloo 2','Fredoka',system-ui,sans-serif;font-size:clamp(26px,7.2vw,36px);font-weight:900;letter-spacing:.5px;line-height:1.12;margin:0;max-width:min(94vw,440px);color:#fff;text-shadow:0 0 12px rgba(255,20,147,.85),0 0 24px rgba(0,229,255,.55),0 3px 0 rgba(20,0,80,.45);text-transform:none}
+#lb.fbHall h2{margin:4px 0 0;font-family:'Baloo 2','Fredoka',system-ui,sans-serif;font-size:clamp(16px,4.2vw,20px);font-weight:900;letter-spacing:1px;color:#ffd600;text-shadow:0 0 10px rgba(255,214,0,.55),0 2px 0 rgba(0,0,0,.35);background:none;-webkit-background-clip:unset;background-clip:unset;filter:none}
+#lb.fbHall [data-t="lbP"]{color:#e2dcff;opacity:1;font-weight:600;font-size:12.5px;max-width:380px}
+#lb.fbHall #lbWeek{color:#9cf;font-family:system-ui,sans-serif;font-size:12px;opacity:1;font-weight:600}
+#lb.fbHall .lbTabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:100%}
+#lb.fbHall .lbTab{min-width:0;padding:8px 16px;border-radius:999px;border:2px solid rgba(255,255,255,.55);background:rgba(255,255,255,.14);color:#fff;font-family:'Baloo 2','Fredoka',system-ui,sans-serif;font-weight:800;font-size:14px;box-shadow:0 3px 0 rgba(20,0,80,.35)}
+#lb.fbHall .lbTab.on{border-color:#ffd600;box-shadow:0 0 0 1px #ffd60088,0 0 18px rgba(255,20,147,.45),0 3px 0 #b39500;color:#fff;background:linear-gradient(135deg,rgba(255,20,147,.55),rgba(0,229,255,.35))}
+#lb.fbHall .lbNick{display:flex;gap:8px;align-items:center;width:100%;max-width:420px;justify-content:center;flex-wrap:wrap;background:rgba(10,15,60,.55);border:2px solid rgba(255,255,255,.65);border-radius:16px;padding:8px 10px;box-sizing:border-box;box-shadow:0 0 20px rgba(0,229,255,.2)}
+#lb.fbHall .lbNick label{color:#ffd600;font-size:13px;font-weight:900}
+#lb.fbHall #lbName{flex:1;min-width:120px;padding:8px 10px;border-radius:12px;border:2px solid rgba(255,20,147,.55);background:#0a1448;color:#fff;font-size:15px;font-family:'Baloo 2','Fredoka',system-ui,sans-serif;font-weight:700}
+#lb.fbHall #lbSaveName{min-width:0;padding:8px 14px;border-radius:999px;border:0;background:linear-gradient(180deg,#ff7ccf 0%,#ff1493 55%,#e0007a 100%);color:#fff;font-weight:900;font-family:'Baloo 2','Fredoka',system-ui,sans-serif;box-shadow:0 4px 0 #9c0055,0 0 14px rgba(255,20,147,.45)}
+#lb.fbHall #lbYou{color:#7dffb8;font-weight:900;font-size:14px;text-shadow:0 0 10px rgba(0,230,118,.5)}
+#lb.fbHall #lbList{width:100%;max-width:420px;gap:8px}
+#lb.fbHall #lbTop{gap:8px}
+#lb.fbHall #lbRest{display:none;flex-direction:column;gap:6px;max-height:168px;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 4px 4px;border-top:2px solid rgba(255,255,255,.35);margin-top:2px;scrollbar-color:#ff1493 #0a1448}
+#lb.fbHall .lbRow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;flex-shrink:0;border-radius:14px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.45);box-shadow:0 3px 10px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);font-family:system-ui,sans-serif;text-align:left}
+#lb.fbHall .lbRow.podium{border-width:2px;padding:12px 14px}
+#lb.fbHall .lbRow.r1{border-color:#ffd600;background:linear-gradient(135deg,rgba(255,214,0,.35),rgba(255,20,147,.25));box-shadow:0 0 0 1px #ffd60066,0 0 22px rgba(255,214,0,.35),inset 0 1px 0 rgba(255,255,255,.35)}
+#lb.fbHall .lbRow.r2{border-color:#00e5ff;background:linear-gradient(135deg,rgba(0,229,255,.28),rgba(41,121,255,.22))}
+#lb.fbHall .lbRow.r3{border-color:#ff1493;background:linear-gradient(135deg,rgba(255,20,147,.3),rgba(162,27,255,.22))}
+#lb.fbHall .lbRow .lbMedal{font-size:22px;line-height:1;margin-right:4px}
+#lb.fbHall .lbRow .lbRank{color:#ffd600;font-weight:900;min-width:2.2em}
+#lb.fbHall .lbRow .lbNameTxt{color:#fff;font-weight:800}
+#lb.fbHall .lbRow .lbScore{color:#ffd600;font-weight:900;white-space:nowrap;text-shadow:0 0 8px rgba(255,214,0,.45)}
+#lb.fbHall .lbRow .lbScore small{color:#9cf;font-weight:700}
+#lb.fbHall #lbStatus{color:#9cf;font-size:12px;font-weight:600}
+#lb.fbHall #bLbOk{min-width:0;padding:10px 28px;border-radius:999px;border:0;background:linear-gradient(180deg,#7dffb8 0%,#00e676 55%,#00c853 100%);color:#003b1e;font-family:'Baloo 2','Fredoka',system-ui,sans-serif;font-weight:900;box-shadow:0 5px 0 #00843a,0 0 16px rgba(0,230,118,.4);text-shadow:0 1px 0 rgba(255,255,255,.45)}
+#lbAsk.fbHall{background:linear-gradient(165deg,#0a1a6b,#a21bff 70%);font-family:'Baloo 2','Fredoka',system-ui,sans-serif}
+#lbAsk.fbHall input{border:2px solid rgba(255,20,147,.55);background:#0a1448;color:#fff;border-radius:12px;font-family:'Baloo 2','Fredoka',system-ui,sans-serif;font-weight:700}
+#start.thFB #bLb{color:#fff!important;border:2px solid rgba(255,255,255,.75)!important;background:linear-gradient(135deg,rgba(255,20,147,.45),rgba(0,229,255,.35))!important;box-shadow:0 0 16px rgba(255,20,147,.4),0 0 22px rgba(0,229,255,.3);font-weight:900}
+
 html,body,button,canvas{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;text-size-adjust:100%}html,body,canvas{touch-action:none}input,textarea,select{-webkit-user-select:text;user-select:text}
 </style></head><body>
 <canvas id="game"></canvas>
@@ -120,6 +156,7 @@ html,body,button,canvas{touch-action:manipulation;-webkit-user-select:none;user-
   <button id="bDaily" class="daily"><span class="dTop" id="dTop"></span><span class="dSub" id="dSub"></span></button>
   <button id="bChapter" class="chap"></button>
   <button id="bBoard" class="boardBtn"><span data-t="boardBtn"></span><span id="boardDot" class="dot hide"></span></button>
+  <button id="bLb" class="boardBtn"><span data-t="lbBtn"></span></button>
   <p id="coinHud"></p>
   <div class="mini"><button id="bUp" class="sec" data-t="upBtn"></button><button id="bStyle" class="sec" data-t="collectBtn"></button><button id="bSet" class="sec" data-t="setBtn"></button><button id="bHow" class="sec" data-t="howBtn"></button></div>
   <p id="best" class="fbBestPlaque" style="margin:0"></p><p style="margin:0"><a href="privacy.html" style="color:#9cf;font-size:13px" data-t="privacy"></a> · <a href="#" id="bLang" style="color:#9cf;font-size:13px"></a><br><small style="opacity:.6;font-size:11px" data-t="copy"></small></p><p id="msg" style="margin:0"><small></small></p>
@@ -167,6 +204,26 @@ new MutationObserver(build).observe(src,{childList:true,characterData:true,subtr
   <h3 data-t="boardWeekly" style="font-size:18px;margin:12px 0 0"></h3>
   <div id="boardWeekly" style="display:flex;flex-direction:column;gap:8px;width:100%;align-items:center"></div>
   <button id="bBoardOk" data-t="done"></button></div>
+<div id="lb" class="ov fbHall hide"><p data-t="lbGame"></p><h2 data-t="lbTitle"></h2>
+  <p data-t="lbP"></p>
+  <div class="lbTabs">
+    <button type="button" id="lbTabTouch" class="lbTab" data-t="lbTouch"></button>
+    <button type="button" id="lbTabFace" class="lbTab" data-t="lbFace"></button>
+  </div>
+  <p id="lbWeek"></p>
+  <div class="lbNick">
+    <label data-t="lbName"></label>
+    <input id="lbName" maxlength="16" autocomplete="nickname">
+    <button type="button" id="lbSaveName" data-t="lbSave"></button>
+  </div>
+  <p id="lbYou"></p>
+  <div id="lbList" style="display:flex;flex-direction:column;align-items:stretch">
+    <div id="lbTop" style="display:flex;flex-direction:column"></div>
+    <div id="lbRest"></div>
+  </div>
+  <p id="lbStatus"></p>
+  <button type="button" id="bLbOk" data-t="done"></button></div>
+
 <div id="settings" class="ov hide"><h2 data-t="setTitle"></h2>
   <div class="hrow"><span class="ic">🔷</span><div><b data-t="cbL"></b><br><span data-t="cbD"></span></div><button id="tCb" class="tog"></button></div>
   <div class="hrow"><span class="ic">🐢</span><div><b data-t="relaxL"></b><br><span data-t="relaxD"></span></div><button id="tRelax" class="tog"></button></div>
@@ -631,10 +688,12 @@ function gameOver(){S.ended=true;running=false;sfx.over();camStop();$('bPause').
   clearRun();
   try{boardBump('games',1);boardMarkDay()}catch(e){}
   const gained=addCoins(Math.floor((S.score||0)/10));
-  const m=mode,prev=getBest(m),b=Math.max(S.score,prev);localStorage.setItem(BEST_KEYS[m],b);localStorage.setItem('fb_top',Math.max(topScore(),S.score));showBest();
+  const m=mode,prev=getBest(m),b=Math.max(S.score,prev);localStorage.setItem(BEST_KEYS[m],b);localStorage.setItem('fb_top',Math.max(topScore(),S.score));
+  if(S.score>prev&&S.score>0){try{localStorage.setItem(BEST_KEYS[m]+'_stage',S.level|0)}catch(e){}}
+  showBest();
   let streak=null;if(S.daily){const dk='fb_daily_'+S.day+'_'+m;localStorage.setItem(dk,Math.max(+localStorage.getItem(dk)||0,S.score));streak=recordDaily()}
   STATS.games++;LS.set('fb_stats',STATS);checkBadges(false);
-  overState={m,s:S.score,g:S.level,r:S.locks,nb:S.score>prev&&S.score>0,b,prev,daily:S.daily?S.day:null,date:new Date(),streak,badges:[...S.newBadges],chapDone:[...S.chapDone],secs:Math.round(S.t),coins:gained};renderOver();$('over').classList.remove('hide');draw()}
+  overState={m,s:S.score,g:S.level,r:S.locks,nb:S.score>prev&&S.score>0,b,prev,daily:S.daily?S.day:null,date:new Date(),streak,badges:[...S.newBadges],chapDone:[...S.chapDone],secs:Math.round(S.t),coins:gained};renderOver();$('over').classList.remove('hide');draw();try{if(S.score>0)submitScore(overState).then(r=>{if(r&&r.rank)$('oShareMsg').textContent=t('lbSubmitted',{r:r.rank,s:r.best||S.score});else if(r===null)$('oShareMsg').textContent=''})}catch(e){}}
 function renderOver(){const o=overState,lbl=t(o.m+'L');
   $('oScore').innerHTML=(o.daily?t('dailyL',{d:o.daily})+'<br>':'')+t('overLine',{m:lbl,s:o.s,g:o.g,r:o.r})+'<br>'+(o.nb?t('newBest',{m:lbl}):t('bestIs',{m:lbl,b:o.b}))+(o.coins?('<br><span style="color:#ffd54a">'+t('banked',{n:o.coins})+'</span>'):'');
   const gap=o.prev-o.s;$('oHook').innerHTML=!o.nb&&gap>0&&gap<=Math.max(60,o.prev*.25)?t('near',{n:gap}):'';
@@ -1122,18 +1181,60 @@ newGame();draw();requestAnimationFrame(step);
 window.__fb={get S(){return S},begin,gameOver,gesture:g=>gestureQ.push(g),get running(){return running},faceGestures,defuseDetect,GE,DEF,setBs:v=>{bs=v;faceSeen=true},setYaw:v=>{yaw=v},setMode:m=>{mode=m},update:dt=>update(dt),handleGesture:g=>handleGesture(g),setDay:d=>{FAKE_DAY=d;syncDaily()},recordDaily,syncDaily,get PROG(){return PROG},ev,get STATS(){return STATS},get BGOT(){return BGOT},showRewardedAd,lightWatch,luma,fallTime:()=>fallTime(),get OPT(){return OPT},endOrOffer,get yawRef(){return yawRef},setStyle:s=>style=s};
 
 
+
+// ===== Weekly online leaderboard (Cloudflare Worker + D1) — Falling Bricks =====
+const LB_API='https://face-action-scores.haitialways.workers.dev';
+const LB_GAME='bricks';
+function faPlayerId(){let id=localStorage.getItem('fa_pid');if(!id){id=(crypto.randomUUID&&crypto.randomUUID())||('p'+Math.random().toString(36).slice(2)+Date.now().toString(36));localStorage.setItem('fa_pid',id)}return id}
+function faName(){return (localStorage.getItem('fa_name')||'').trim()}
+function setFaName(n){n=String(n||'').trim().replace(/\s+/g,' ').slice(0,16);if(n)localStorage.setItem('fa_name',n);return n}
+function escLb(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+let lbMode='touch';
+async function lbFetch(path,opt){const r=await fetch(LB_API+path,{...opt,headers:{'Content-Type':'application/json',...((opt&&opt.headers)||{})}});if(!r.ok)throw new Error('http '+r.status);return r.json()}
+function resolveLbName(){let name=faName();if(!name){const el=$('lbName');if(el&&el.value)name=setFaName(el.value)}return name}
+async function submitScore(o){try{const score=(o&&(o.score!=null?o.score:o.s))|0,stage=(o&&(o.stage!=null?o.stage:o.g))|0||1;if(!(score>0))return null;let name=resolveLbName();if(!name){name=await askLbName();if(!name)return null}
+  const body={playerId:faPlayerId(),name,score,stage,mode:o.m==='face'?'face':'touch',game:LB_GAME,secs:o.secs|0||0};
+  return await lbFetch('/submit',{method:'POST',body:JSON.stringify(body)})}catch(e){return null}}
+async function publishLocalBests(name){name=setFaName(name||faName());if(!name)return null;const pid=faPlayerId();const modes=['touch','face'];const out=[];
+  for(const mode of modes){const score=getBest(mode)|0;if(score<=0)continue;try{out.push(await lbFetch('/submit',{method:'POST',body:JSON.stringify({playerId:pid,name,score,stage:(+localStorage.getItem(BEST_KEYS[mode]+'_stage')|0),mode,game:LB_GAME,secs:0})}))}catch(e){out.push(null)}}
+  return out}
+function askLbName(){return new Promise(resolve=>{let ov=$('lbAsk');if(!ov){ov=document.createElement('div');ov.id='lbAsk';ov.className='ov fbHall hide';ov.innerHTML='<h2 data-t="lbName"></h2><p style="margin:0;font-size:14px;opacity:.85">'+escLb(t('lbP'))+'</p><input id="lbAskIn" maxlength="16" style="width:min(280px,80vw);padding:10px 12px;border-radius:12px;border:2px solid rgba(255,20,147,.55);background:#0a1448;color:#fff;font-size:16px;font-weight:700"><button id="lbAskOk" class="play pTouch" data-t="lbSave"></button>';document.body.appendChild(ov)}
+  const inp=$('lbAskIn');inp.value=faName()||($('lbName')&&$('lbName').value)||'';ov.classList.remove('hide');try{inp.focus();inp.select()}catch(e){}
+  const done=()=>{const n=setFaName(inp.value);ov.classList.add('hide');resolve(n||null)};$('lbAskOk').onclick=done;inp.onkeydown=e=>{if(e.key==='Enter')done()}})}
+function lbRowHtml(r){const n=r.rank|0;const medal=n===1?'🥇':n===2?'🥈':n===3?'🥉':'';const cls='lbRow'+(n>=1&&n<=3?' podium r'+n:'');const rank=medal?('<span class="lbMedal">'+medal+'</span>'):('<span class="lbRank">#'+n+'</span>');
+  return '<div class="'+cls+'"><span>'+rank+' <span class="lbNameTxt">'+escLb(r.name)+'</span></span><span class="lbScore">'+r.score+(r.stage>0?' <small>lv '+r.stage+'</small>':'')+'</span></div>'}
+function buildLb(){const nameEl=$('lbName');if(nameEl&&document.activeElement!==nameEl)nameEl.value=faName();$('lbStatus').textContent=t('lbLoading');$('lbTop').innerHTML='';$('lbRest').innerHTML='';$('lbRest').style.display='none';$('lbYou').textContent='';
+  if($('lbTabTouch'))$('lbTabTouch').classList.toggle('on',lbMode==='touch');
+  if($('lbTabFace'))$('lbTabFace').classList.toggle('on',lbMode==='face');
+  lbFetch('/board?game='+LB_GAME+'&mode='+lbMode+'&playerId='+encodeURIComponent(faPlayerId())).then(data=>{
+    $('lbWeek').textContent=(data.week||'')+' · '+(lbMode==='face'?t('lbFace'):t('lbTouch'))+(data.resetsAt?' · reset '+String(data.resetsAt).replace('T00:00:00-04:00',' (Mon)'):'');
+    const rows=(data.rows||[]).slice(0,10);
+    if(!rows.length){$('lbTop').innerHTML='<p style="opacity:.75;margin:0">'+t('lbEmpty')+'</p>'}
+    else{$('lbTop').innerHTML=rows.slice(0,3).map(lbRowHtml).join('');
+      const rest=rows.slice(3);if(rest.length){$('lbRest').style.display='flex';$('lbRest').innerHTML=rest.map(lbRowHtml).join('');$('lbRest').scrollTop=0}}
+    if(data.you){let y=t('lbYou',{r:data.you.rank,s:data.you.score,g:data.you.stage});if(!(data.you.stage>0))y=y.replace(/ · (level|niv\.) .*$/,'');$('lbYou').textContent=y}
+    else $('lbYou').textContent='';
+    $('lbStatus').textContent=''}).catch(()=>{$('lbStatus').textContent=t('lbOffline');$('lbWeek').textContent=''})}
+if($('bLb'))$('bLb').onclick=()=>{lbMode='touch';buildLb();$('lb').classList.remove('hide');$('lb').scrollTop=0};
+if($('bLbOk'))$('bLbOk').onclick=()=>$('lb').classList.add('hide');
+if($('lbTabTouch'))$('lbTabTouch').onclick=()=>{lbMode='touch';buildLb()};
+if($('lbTabFace'))$('lbTabFace').onclick=()=>{lbMode='face';buildLb()};
+if($('lbName')){const sync=()=>{const v=$('lbName').value;if(v&&v.trim())setFaName(v)};$('lbName').addEventListener('change',sync);$('lbName').addEventListener('blur',sync)}
+if($('lbSaveName'))$('lbSaveName').onclick=async()=>{const name=setFaName($('lbName').value);if(!name){$('lbStatus').textContent=t('lbName');return}$('lbStatus').textContent=t('lbLoading');await publishLocalBests(name);buildLb()};
+
+
 // ===== Navigation: 🏠 Home in the top bar, quit confirmation, ← Back on overlays, Android hardware back (Oct 18 2026) =====
-Object.assign(L.en,{home:'Home',quitT:'Quit to menu?',quitP:'This run will be abandoned (saved progress cleared).',quitYes:'🏠 Yes, quit',quitNo:'▶️ No, keep playing',quitNoP:'↩️ No, go back',navBack:'← Back',resumeRun:'▶️ Continue · {s} pts · lv {g}',resumeBanner:'↩️ Resumed — pick up where you left off!',upBtn:'⬆️ Upgrades',upTitle:'Upgrades',upP:'Spend coins earned from your runs. Upgrades raise your floor — skill still sets the ceiling.',upCoins:'🪙 Coins: {n}',upMax:'MAX',upBuy:'🪙 {c}',upLvl:'Lv {n}',up_hearts:'Max hearts',up_heartsD:'Start with more ❤️ (cap 7).',up_slow:'Starting slow-mo',up_slowD:'Begin each run with a short 🐢 slow-burst.',up_gap:'Breathing room',up_gapD:'A bit more time between bricks.',up_golden:'Golden luck',up_goldenD:'Slightly more ⭐ golden bricks.',up_combo:'Combo head-start',up_comboD:'Start each run closer to a higher combo.',banked:'+{n} 🪙 banked',boardBtn:'🎯 Missions',boardTitle:'Daily & Weekly Missions',boardP:'Finish short goals for bonus coins. Resets each day / week. Chapters stay separate.',boardDaily:'☀️ Daily',boardWeekly:'📅 Weekly',boardClaim:'🪙 Claim {n}',boardClaimed:'Claimed',bm_score:'Score {n} in one run',bm_sink:'Clear {n} stack{s}',bm_bomb:'Defuse {n} bomb{s}',bm_bricks:'Stack {n} bricks',bm_perfect:'{n} perfect catch{es}',bm_chain:'{n} color burst{s}',bm_golden:'Catch {n} golden brick{s}',bm_rainbow:'Catch {n} rainbow brick{s}',bm_combo:'Reach x{n} combo',bm_face:'Play a Face-mode run',bm_touch:'Play a Touch-mode run',bm_survive:'Survive {n} seconds total',bm_games:'Finish {n} runs',bm_days:'Play on {n} different days'});
-Object.assign(L.fr,{home:'Accueil',quitT:'Retourner au menu ?',quitP:'Cette partie sera abandonnée (progression sauvegardée effacée).',quitYes:'🏠 Oui, quitter',quitNo:'▶️ Non, continuer',quitNoP:'↩️ Non, revenir',navBack:'← Retour',resumeRun:'▶️ Reprendre · {s} pts · niv. {g}',resumeBanner:'↩️ Reprise — continuez où vous vous êtes arrêté !',upBtn:'⬆️ Améliorations',upTitle:'Améliorations',upP:'Dépensez les pièces gagnées en partie. Les améliorations haussent le plancher — le skill fixe toujours le plafond.',upCoins:'🪙 Pièces : {n}',upMax:'MAX',upBuy:'🪙 {c}',upLvl:'Niv. {n}',up_hearts:'Cœurs max',up_heartsD:'Commencez avec plus de ❤️ (plafond 7).',up_slow:'Ralenti de départ',up_slowD:'Commencez chaque partie avec un court 🐢 ralenti.',up_gap:'Respiration',up_gapD:'Un peu plus de temps entre les briques.',up_golden:'Chance dorée',up_goldenD:'Un peu plus de briques ⭐ dorées.',up_combo:'Avance combo',up_comboD:'Commencez chaque partie plus près d\'un combo élevé.',banked:'+{n} 🪙 en banque',boardBtn:'🎯 Quêtes',boardTitle:'Quêtes du jour & de la semaine',boardP:'Objectifs courts pour des pièces bonus. Se réinitialisent chaque jour / semaine. Les chapitres restent séparés.',boardDaily:'☀️ Quotidien',boardWeekly:'📅 Hebdomadaire',boardClaim:'🪙 Réclamer {n}',boardClaimed:'Réclamé',bm_score:'Marquez {n} en une partie',bm_sink:'Videz {n} pile{s}',bm_bomb:'Désamorcez {n} bombe{s}',bm_bricks:'Empilez {n} briques',bm_perfect:'{n} prise{s} parfaite{s}',bm_chain:'{n} explosion{s} de couleur',bm_golden:'Attrapez {n} brique{s} dorée{s}',bm_rainbow:'Attrapez {n} brique{s} arc-en-ciel',bm_combo:'Atteignez un combo x{n}',bm_face:'Jouez une partie Visage',bm_touch:'Jouez une partie Tactile',bm_survive:'Survivez {n} secondes au total',bm_games:'Terminez {n} parties',bm_days:'Jouez {n} jours différents'});
+Object.assign(L.en,{home:'Home',quitT:'Quit to menu?',quitP:'This run will be abandoned (saved progress cleared).',quitYes:'🏠 Yes, quit',quitNo:'▶️ No, keep playing',quitNoP:'↩️ No, go back',navBack:'← Back',resumeRun:'▶️ Continue · {s} pts · lv {g}',resumeBanner:'↩️ Resumed — pick up where you left off!',upBtn:'⬆️ Upgrades',upTitle:'Upgrades',upP:'Spend coins earned from your runs. Upgrades raise your floor — skill still sets the ceiling.',upCoins:'🪙 Coins: {n}',upMax:'MAX',upBuy:'🪙 {c}',upLvl:'Lv {n}',up_hearts:'Max hearts',up_heartsD:'Start with more ❤️ (cap 7).',up_slow:'Starting slow-mo',up_slowD:'Begin each run with a short 🐢 slow-burst.',up_gap:'Breathing room',up_gapD:'A bit more time between bricks.',up_golden:'Golden luck',up_goldenD:'Slightly more ⭐ golden bricks.',up_combo:'Combo head-start',up_comboD:'Start each run closer to a higher combo.',banked:'+{n} 🪙 banked',boardBtn:'🎯 Missions',boardTitle:'Daily & Weekly Missions',boardP:'Finish short goals for bonus coins. Resets each day / week. Chapters stay separate.',boardDaily:'☀️ Daily',boardWeekly:'📅 Weekly',boardClaim:'🪙 Claim {n}',boardClaimed:'Claimed',bm_score:'Score {n} in one run',bm_sink:'Clear {n} stack{s}',bm_bomb:'Defuse {n} bomb{s}',bm_bricks:'Stack {n} bricks',bm_perfect:'{n} perfect catch{es}',bm_chain:'{n} color burst{s}',bm_golden:'Catch {n} golden brick{s}',bm_rainbow:'Catch {n} rainbow brick{s}',bm_combo:'Reach x{n} combo',bm_face:'Play a Face-mode run',bm_touch:'Play a Touch-mode run',bm_survive:'Survive {n} seconds total',bm_games:'Finish {n} runs',bm_days:'Play on {n} different days',lbBtn:'🏆 Leaderboard',lbGame:'Face-Action Falling Bricks',lbTitle:'🏆 Weekly Leaderboard',lbP:'Top 10 this week (Mon–Sun, America/Port-au-Prince). Resets Sunday 11:59 pm. Touch and Face are separate.',lbTouch:'👆 Touch',lbFace:'😀 Face',lbName:'Nickname',lbSave:'Save',lbYou:'You · #{r} · {s} pts · level {g}',lbEmpty:'No scores yet this week — be the first!',lbOffline:'Board offline — try again later.',lbLoading:'Loading…',lbRank:'#{r}',lbSubmitted:'Posted · #{r} · {s} pts'});
+Object.assign(L.fr,{home:'Accueil',quitT:'Retourner au menu ?',quitP:'Cette partie sera abandonnée (progression sauvegardée effacée).',quitYes:'🏠 Oui, quitter',quitNo:'▶️ Non, continuer',quitNoP:'↩️ Non, revenir',navBack:'← Retour',resumeRun:'▶️ Reprendre · {s} pts · niv. {g}',resumeBanner:'↩️ Reprise — continuez où vous vous êtes arrêté !',upBtn:'⬆️ Améliorations',upTitle:'Améliorations',upP:'Dépensez les pièces gagnées en partie. Les améliorations haussent le plancher — le skill fixe toujours le plafond.',upCoins:'🪙 Pièces : {n}',upMax:'MAX',upBuy:'🪙 {c}',upLvl:'Niv. {n}',up_hearts:'Cœurs max',up_heartsD:'Commencez avec plus de ❤️ (plafond 7).',up_slow:'Ralenti de départ',up_slowD:'Commencez chaque partie avec un court 🐢 ralenti.',up_gap:'Respiration',up_gapD:'Un peu plus de temps entre les briques.',up_golden:'Chance dorée',up_goldenD:'Un peu plus de briques ⭐ dorées.',up_combo:'Avance combo',up_comboD:'Commencez chaque partie plus près d\'un combo élevé.',banked:'+{n} 🪙 en banque',boardBtn:'🎯 Quêtes',boardTitle:'Quêtes du jour & de la semaine',boardP:'Objectifs courts pour des pièces bonus. Se réinitialisent chaque jour / semaine. Les chapitres restent séparés.',boardDaily:'☀️ Quotidien',boardWeekly:'📅 Hebdomadaire',boardClaim:'🪙 Réclamer {n}',boardClaimed:'Réclamé',bm_score:'Marquez {n} en une partie',bm_sink:'Videz {n} pile{s}',bm_bomb:'Désamorcez {n} bombe{s}',bm_bricks:'Empilez {n} briques',bm_perfect:'{n} prise{s} parfaite{s}',bm_chain:'{n} explosion{s} de couleur',bm_golden:'Attrapez {n} brique{s} dorée{s}',bm_rainbow:'Attrapez {n} brique{s} arc-en-ciel',bm_combo:'Atteignez un combo x{n}',bm_face:'Jouez une partie Visage',bm_touch:'Jouez une partie Tactile',bm_survive:'Survivez {n} secondes au total',bm_games:'Terminez {n} parties',bm_days:'Jouez {n} jours différents',lbBtn:'🏆 Classement',lbGame:'Face-Action Briques en chute',lbTitle:'🏆 Classement de la semaine',lbP:'Top 10 de la semaine (lun–dim, America/Port-au-Prince). Remise à zéro dimanche 23 h 59. Tactile et Visage sont séparés.',lbTouch:'👆 Tactile',lbFace:'😀 Visage',lbName:'Pseudo',lbSave:'Enregistrer',lbYou:'Vous · #{r} · {s} pts · niv. {g}',lbEmpty:'Aucun score cette semaine — soyez le premier !',lbOffline:'Classement hors-ligne — réessayez plus tard.',lbLoading:'Chargement…',lbRank:'#{r}',lbSubmitted:'Envoyé · #{r} · {s} pts'});
 (()=>{const st=document.createElement('style');st.textContent='.navBack{position:fixed;left:8px;top:calc(env(safe-area-inset-top) + 8px);min-width:0!important;width:auto!important;padding:7px 14px!important;font-size:15px!important;z-index:7;border-radius:999px!important}#quitAsk{z-index:10}';document.head.appendChild(st);
  const h=document.createElement('button');h.id='bHome';h.className='hide';h.dataset.ti='home';h.textContent='🏠';h.setAttribute('aria-label','Home');
  h.style.cssText='position:fixed;right:200px;top:calc(env(safe-area-inset-top) + 8px);min-width:0;padding:6px 10px;font-size:16px;z-index:6';document.body.appendChild(h);
  const q=document.createElement('div');q.id='quitAsk';q.className='ov hide';q.innerHTML='<div style="font-size:52px">🏠</div><h2 data-t="quitT" style="margin:0"></h2><p data-t="quitP" style="margin:0;font-size:17px"></p><button id="bQuitYes" class="play pTouch" data-t="quitYes"></button><button id="bQuitNo" class="sec" data-t="quitNo"></button>';document.body.appendChild(q);
- for(const id of ['howto','styles','settings','missions','upgrades','board']){const o=$(id);if(!o)continue;const b=document.createElement('button');b.className='sec navBack';b.dataset.t='navBack';b.dataset.for=id;o.insertBefore(b,o.firstChild)}
+ for(const id of ['howto','styles','settings','missions','upgrades','board','lb']){const o=$(id);if(!o)continue;const b=document.createElement('button');b.className='sec navBack';b.dataset.t='navBack';b.dataset.for=id;o.insertBefore(b,o.firstChild)}
  new MutationObserver(()=>h.classList.toggle('hide',$('bPause').classList.contains('hide'))).observe($('bPause'),{attributes:true,attributeFilter:['class']});
 })();
 const vis=id=>{const e=$(id);return !!e&&!e.classList.contains('hide')};
-function closeOv(id){({howto:'bHowOk',styles:'bStyleOk',settings:'bSetOk',missions:'bMisOk',upgrades:'bUpOk',board:'bBoardOk',camEx:'bCamBack'})[id]&&$(({howto:'bHowOk',styles:'bStyleOk',settings:'bSetOk',missions:'bMisOk',upgrades:'bUpOk',board:'bBoardOk',camEx:'bCamBack'})[id]).click()}
+function closeOv(id){({howto:'bHowOk',styles:'bStyleOk',settings:'bSetOk',missions:'bMisOk',upgrades:'bUpOk',board:'bBoardOk',lb:'bLbOk',camEx:'bCamBack'})[id]&&$(({howto:'bHowOk',styles:'bStyleOk',settings:'bSetOk',missions:'bMisOk',upgrades:'bUpOk',board:'bBoardOk',lb:'bLbOk',camEx:'bCamBack'})[id]).click()}
 document.querySelectorAll('.navBack').forEach(b=>b.onclick=()=>closeOv(b.dataset.for));
 // leave whatever is happening and show the start screen; toMenu() stops the loop and the camera
 function cancelFace(){window.__faceGen=(window.__faceGen||0)+1}
@@ -1149,7 +1250,7 @@ $('bQuitNo').onclick=()=>{$('quitAsk').classList.add('hide');if(askFrom==='home'
 // hardware/system back: returns true when handled, false at the start screen (caller exits the app)
 function navBack(){
  if(vis('quitAsk')){$('bQuitNo').click();return true}
- for(const id of ['camEx','howto','styles','settings','missions','upgrades','board'])if(vis(id)){closeOv(id);return true}
+ for(const id of ['camEx','howto','styles','settings','missions','upgrades','board','lb'])if(vis(id)){closeOv(id);return true}
  if(vis('cont')){$('bContNo').click();return true}
  if(vis('over')){$('bMenu').click();return true}
  if(vis('calib')||vis('rest')){goHome();return true}
