@@ -103,7 +103,8 @@ small{opacity:.75}
 .thFB .chap{background:#ffd600;color:#3a2a00;border:0;border-radius:999px;font-weight:900;box-shadow:0 4px 0 #b39500}
 .thFB .mini button{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:999px;font-weight:800}
 .thFB a{color:#fff!important;font-weight:700}
-.thFB #best{color:#fff;font-weight:700}
+.thFB #best.fbBestPlaque{color:#fff;font-weight:800;font-family:'Baloo 2','Fredoka',system-ui,sans-serif;font-size:13px;letter-spacing:.3px;padding:8px 14px;border-radius:14px;background:linear-gradient(135deg,rgba(255,20,147,.35),rgba(0,229,255,.25));border:2px solid rgba(255,255,255,.75);box-shadow:0 0 16px rgba(255,20,147,.45),0 0 28px rgba(0,229,255,.3),inset 0 1px 0 rgba(255,255,255,.35);text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.thFB #best.fbBestPlaque b{color:#ffd600;text-shadow:0 0 8px rgba(255,214,0,.7)}
 @media (max-height:720px){#start.thFB{gap:8px;padding-top:58px;padding-bottom:14px}.thFB .fbWord b{width:32px;height:38px;font-size:25px}.thFB .play{padding:12px 10px;font-size:20px}.thFB .daily{padding:8px 12px}}
 html,body,button,canvas{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;text-size-adjust:100%}html,body,canvas{touch-action:none}input,textarea,select{-webkit-user-select:text;user-select:text}
 </style></head><body>
@@ -121,7 +122,7 @@ html,body,button,canvas{touch-action:manipulation;-webkit-user-select:none;user-
   <button id="bBoard" class="boardBtn"><span data-t="boardBtn"></span><span id="boardDot" class="dot hide"></span></button>
   <p id="coinHud"></p>
   <div class="mini"><button id="bUp" class="sec" data-t="upBtn"></button><button id="bStyle" class="sec" data-t="collectBtn"></button><button id="bSet" class="sec" data-t="setBtn"></button><button id="bHow" class="sec" data-t="howBtn"></button></div>
-  <p id="best" style="margin:0;font-size:14px"></p><p style="margin:0"><a href="privacy.html" style="color:#9cf;font-size:13px" data-t="privacy"></a> · <a href="#" id="bLang" style="color:#9cf;font-size:13px"></a><br><small style="opacity:.6;font-size:11px" data-t="copy"></small></p><p id="msg" style="margin:0"><small></small></p>
+  <p id="best" class="fbBestPlaque" style="margin:0"></p><p style="margin:0"><a href="privacy.html" style="color:#9cf;font-size:13px" data-t="privacy"></a> · <a href="#" id="bLang" style="color:#9cf;font-size:13px"></a><br><small style="opacity:.6;font-size:11px" data-t="copy"></small></p><p id="msg" style="margin:0"><small></small></p>
 </div>
 <script>/* start-screen background: animates only while #start is visible; one static frame with prefers-reduced-motion */
 (()=>{const st=document.getElementById('start'),cv=document.getElementById('startBg');if(!st||!cv)return;const g=cv.getContext('2d');

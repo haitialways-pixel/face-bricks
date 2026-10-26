@@ -101,3 +101,6 @@ Same as Face-Action Treasure Hunt:
 - **← Back** on How to Play, Collection, Settings and missions. Game over has 🏠 Menu.
 - **Hardware back** (Capacitor App plugin `backButton`, if the game is ever wrapped as an app) or Escape on the web: pause, then quit dialog, then close overlays; exits the app from the start screen.
 - **Camera:** always off on the start screen. A pending face start (camera start-up, model loading, calibration) is cancelled by Home, back or Touch.
+
+## Weekly leaderboard appearance (when online board ships)
+Falling Bricks board UI must stay **neon arcade / brick-stack**: magenta↔cyan gradients, white brand pill, Baloo/Fredoka (or similar rounded) type, brick-tile rows, pink/cyan glows. Do **not** reuse Treasure Hunt’s cavern-gold Hall of Champions (`#lb.thHall` browns, Cinzel/serif, torch gold). The two games’ boards must look unique at a glance.
