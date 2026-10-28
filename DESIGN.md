@@ -24,7 +24,7 @@ Each falling brick shows its gesture icon. The touch buttons sit in a 4-column g
 - **Decaying value (v0.4, replaces the flat 10 pts and the quick +5):** each brick is worth `round(20 × (1 − progress))`, where progress goes from 0 at spawn to 1 at the red line (whole numbers, min 0). A live value badge next to the falling brick counts down and shifts gold → white → grey, with a thin drain bar under the brick (and ×N beside it when a combo is active). The popup shows what you earned, e.g. `+17` or `+34 x2`. Catching a brick at 18+ (golden 90+) adds a sparkle.
 - **Lose a heart** for a wrong gesture (the brick cracks and shatters) or a brick reaching the red line unidentified ("Too slow!"). **5 hearts**; game over at 0. Single natural blinks are ignored, and cheek puff on a normal brick is ignored.
 - **Each stack sinks on its own** when it reaches 10 bricks: crunch sound, dust, screen shake, **+20**, and the level goes up.
-- **Difficulty curve (v0.6, tuned for 1–3 minute games):** fall time = `max(floor, start × 0.5^(t / half) × 0.96^(level−1))`, where t is seconds of play (pauses and offers excluded). Normal: start 4.6 s, half 50 s, floor 0.7 s. **Relaxed speed** (⚙️): start 6.5 s, half 100 s, floor 1.0 s. Face mode multiplies by ×1.35. Hearts stay at 5. The first 6 bricks are never special.
+- **Difficulty curve (v0.6, tuned for 1–3 minute games):** fall time = `max(floor, start × 0.5^(t / half) × 0.96^(level−1))`, where t is seconds of play (pauses and offers excluded). Normal: start 4.6 s, half ~55 s, floor 0.7 s. Face mode multiplies by ×1.35. Hearts stay at 5. The first 6 bricks are never special.
   - Simulated single-life games (30 runs each, a bot with log-normal reaction time and some wrong taps): casual touch player (0.95 s reaction, 5 % wrong) median **1:44** (p10–p90 1:33–1:52); typical (0.8 s, 3 %) **1:51** (1:44–2:00); skilled (0.62 s, 2 %) **2:07** (1:57–2:17); typical face player (1.25 s, 5 %) **1:49**; typical in Relaxed **3:41**, slow player (1.2 s) in Relaxed **3:12**. The old curve (6.5 s, −8 % per sink, 2.5 s floor) let a decent player go on almost indefinitely.
 - In face mode a 15 s face-rest break is offered every 3 sinks (skippable, camera off).
 
@@ -79,7 +79,6 @@ When the last heart is lost, once per game: "Continue? Get +1 ❤️ for free an
 
 ## Accessibility (v0.6)
 - **Colorblind patterns** (⚙️, default ON): every color also has a shape: ● blue, ▲ pink, ■ yellow, ✚ green. Shapes are drawn on stack bricks, both sides of the falling brick, the Next preview, the touch buttons and the style previews; stack labels also name the color.
-- **Relaxed speed** (⚙️): slower start and a gentler ramp (see Difficulty curve). Shown as 🐢 in the HUD. Bests are shared with normal speed.
 - **Calibration light check:** every 0.4 s the video frame is downscaled to 32×24 and its average luma measured; below 60/255 for 2 checks in a row, a "💡 It's too dark here: find better light" tip appears (and hides when the light improves). Frames are only read in memory, never stored.
 
 ## Not yet / roadmap

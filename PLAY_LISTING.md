@@ -51,7 +51,7 @@ Complete chapter missions, earn badges, and unlock brick styles: Classic, Neon, 
 Prefer buttons? Tap the four color buttons instead. The camera is only requested if you choose face mode.
 
 ♿ COMFORT OPTIONS
-Relaxed speed for a calmer pace, colorblind patterns (a shape on every color), English and French, sound controls, and pause at any time. Games last about 1–3 minutes, perfect for a quick break.
+Colorblind patterns (a shape on every color), English and French, sound controls, and pause at any time. Games last about 1–3 minutes, perfect for a quick break.
 
 🔒 PRIVATE BY DESIGN
 Face tracking runs entirely on your device. Video is never recorded or uploaded, and the app collects no data. No accounts and no ads. Everything works offline.
@@ -108,7 +108,7 @@ First release of Face-Action: Falling Bricks!
 • Combos up to x5, rainbow, golden and bomb bricks
 • Daily challenge with streak rewards
 • Chapters, badges and 4 brick styles
-• Relaxed speed and colorblind patterns
+• Colorblind patterns
 • English and French
 Face tracking runs on your device; nothing is recorded or uploaded.
 </en-US>

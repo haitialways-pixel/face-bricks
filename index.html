@@ -226,7 +226,6 @@ new MutationObserver(build).observe(src,{childList:true,characterData:true,subtr
 
 <div id="settings" class="ov hide"><h2 data-t="setTitle"></h2>
   <div class="hrow"><span class="ic">🔷</span><div><b data-t="cbL"></b><br><span data-t="cbD"></span></div><button id="tCb" class="tog"></button></div>
-  <div class="hrow"><span class="ic">🐢</span><div><b data-t="relaxL"></b><br><span data-t="relaxD"></span></div><button id="tRelax" class="tog"></button></div>
   <button id="bRecalStart" class="sec" data-t="recalFace"></button><button id="bSetOk" data-t="done"></button></div>
 <div id="missions" class="ov hide"><h2 id="mTitle"></h2><p data-t="chapP" style="margin:0;font-size:14px;max-width:400px"></p><div id="mList" style="display:flex;flex-direction:column;gap:8px;width:100%;align-items:center"></div><p id="mTotal" style="margin:0;font-size:13px;opacity:.75"></p><button id="bMisOk" data-t="done"></button></div>
 <div id="cont" class="ov hide" style="z-index:7"><div style="font-size:60px">💔</div><h2 data-t="contT" style="margin:0;font-size:32px;color:#ff6ec7"></h2><p data-t="contP" style="margin:0;font-size:17px;max-width:320px"></p><p id="contScore" style="margin:0;font-size:20px;color:#ffd54a;font-weight:700"></p><button id="bContYes" class="play pTouch" data-t="contYes"></button><button id="bContRemove" class="play hide" style="background:linear-gradient(135deg,#7c4dff,#b388ff);color:#fff;border:2px solid rgba(255,255,255,.4);box-shadow:0 0 18px rgba(124,77,255,.45)" data-t="contRemove"></button><button id="bContNo" class="sec" data-t="contNo"></button></div><div id="noAds" class="ov hide" style="z-index:8"><div style="font-size:48px">✨</div><h2 data-t="noAdsT" style="margin:0;color:#ffd54a"></h2><p data-t="noAdsP" style="margin:0;font-size:15px;max-width:360px;line-height:1.35"></p><button id="bNoAdsTip" class="play pTouch" data-t="noAdsTip"></button><button id="bNoAdsUnlock" class="play" style="background:linear-gradient(135deg,#00c853,#009624);color:#fff" data-t="noAdsUnlock"></button><p id="noAdsMsg" style="margin:0;font-size:14px;min-height:1.3em;font-weight:700"></p><button id="bNoAdsBack" class="sec" data-t="back"></button></div>
@@ -334,11 +333,11 @@ mDone:'✅ Mission complete: {m}',chapDone:'CHAPTER {n} COMPLETE!',chapRewOver:'
 collectBtn:'🏆 Collection',collTitle:'🏆 Collection',badgesH:'🏅 Badges',styleP:'Unlock with score milestones or daily streaks.',needStreak:'or 🔥 {n} days',bestStreak:'🔥 Best daily streak: {n} day{s}',
 b_first:'First Sink',d_first:'Clear your first stack',b_bomb:'Bomb Squad',d_bomb:'Defuse 10 bombs',b_speed:'Speed Demon',d_speed:'20 full-value catches',b_rainbow:'Rainbow Master',d_rainbow:'Catch 15 rainbow bricks',
 b_s3:'On a Roll',d_s3:'3-day daily streak',b_s7:'Week Warrior',d_s7:'7-day daily streak',b_s14:'Two-Week Titan',d_s14:'14-day daily streak',b_s30:'Monthly Legend',d_s30:'30-day daily streak',badgeGot:'🏅 Badge: {b}!',
-setBtn:'⚙️ Settings',setTitle:'⚙️ Settings',cbL:'Colorblind patterns',cbD:'Adds a shape to each color: ● blue, ▲ pink, ■ yellow, ✚ green.',relaxL:'Relaxed speed',relaxD:'Bricks fall slower and speed up gently.',on:'ON',off:'OFF',
+setBtn:'⚙️ Settings',setTitle:'⚙️ Settings',cbL:'Colorblind patterns',cbD:'Adds a shape to each color: ● blue, ▲ pink, ■ yellow, ✚ green.',on:'ON',off:'OFF',
 contT:'Continue?',contP:'Get +1 ❤️ for free and keep going. Once per game.',contPAd:'Watch a short ad for +1 ❤️ and keep going. Once per game.',contScore:'Score so far: {s}',contYes:'▶️ Continue (+1 ❤️)',contYesAd:'▶️ Watch ad · Continue (+1 ❤️)',contNo:'No thanks',contGo:'+1 ❤️ KEEP GOING!',contRemove:'✨ Play ad-free — $2.99',noAdsT:'Play ad-free — $2.99',noAdsP:'Tip ~$2.99 on the itch page (Pay what you want). When you\'re back, tap I\'ve tipped to remove ads on this browser for this game. Honor system — thanks for supporting.',noAdsTip:'💙 Open tip jar / itch page',noAdsCodeL:'',noAdsUnlock:'✅ I\'ve tipped — unlock ad-free',noAdsOk:'✅ Ads removed here. Continue is free!',noAdsBad:'Code not recognized. Check spelling or email faceaction.support@gmail.com.',noAdsHave:'✅ Ad-free on this device',
 camExT:'Face mode',camEx1:'Uses your front camera to read your expressions (blink, mouth, smile, eyebrows).',camEx2:'Video stays on this phone. Nothing is recorded or uploaded.',camEx3:'You can switch back to Touch any time.',camExGo:'📷 Turn on camera',back:'⬅️ Back',
-dark:'💡 It\'s too dark here: find better light (face a window or a lamp).',relaxHud:'🐢 Relaxed',colon:': ',
-hProg:'<b>📅 Daily challenge</b>: the same bricks for everyone today. Play it every day for a 🔥 streak and rewards · <b>📖 Chapters</b>: 3 quick missions each · <b>🏆 Collection</b>: styles and badges · ⚙️ colorblind patterns and relaxed speed.'});
+dark:'💡 It\'s too dark here: find better light (face a window or a lamp).',colon:': ',
+hProg:'<b>📅 Daily challenge</b>: the same bricks for everyone today. Play it every day for a 🔥 streak and rewards · <b>📖 Chapters</b>: 3 quick missions each · <b>🏆 Collection</b>: styles and badges · ⚙️ colorblind patterns.'});
 Object.assign(L.fr,{intro:'Triez les briques lumineuses sur leur pile de couleur. Jouez au doigt, ou sans les mains avec votre visage !',
 dailyT:'📅 Défi du jour · {d}',dailyBest:'Record du jour : <b>{b}</b>',dailyNone:'Pas encore joué aujourd\'hui',dailyOnP:'✓ ACTIF',dailyOffP:'Touchez pour choisir',dailyHint:'✓ Choisi : jouez en tactile ou avec le visage',
 streakN:'🔥 {n} jour{s}',streakKeep:'🔥 {n} jour{s} : jouez aujourd\'hui pour la garder !',streak0:'Jouez chaque jour pour lancer une série 🔥',
@@ -349,11 +348,11 @@ mDone:'✅ Mission réussie : {m}',chapDone:'CHAPITRE {n} TERMINÉ !',chapRewOve
 collectBtn:'🏆 Collection',collTitle:'🏆 Collection',badgesH:'🏅 Badges',styleP:'Débloquez-les avec des paliers de score ou des séries quotidiennes.',needStreak:'ou 🔥 {n} jours',bestStreak:'🔥 Meilleure série : {n} jour{s}',
 b_first:'Première pile',d_first:'Videz votre première pile',b_bomb:'Escouade anti-bombe',d_bomb:'Désamorcez 10 bombes',b_speed:'Démon de la vitesse',d_speed:'20 prises à pleine valeur',b_rainbow:'Maître arc-en-ciel',d_rainbow:'Attrapez 15 briques arc-en-ciel',
 b_s3:'Sur la lancée',d_s3:'Série de 3 jours',b_s7:'Guerrier de la semaine',d_s7:'Série de 7 jours',b_s14:'Titan des deux semaines',d_s14:'Série de 14 jours',b_s30:'Légende du mois',d_s30:'Série de 30 jours',badgeGot:'🏅 Badge : {b} !',
-setBtn:'⚙️ Réglages',setTitle:'⚙️ Réglages',cbL:'Motifs daltoniens',cbD:'Ajoute une forme à chaque couleur : ● bleu, ▲ rose, ■ jaune, ✚ vert.',relaxL:'Vitesse détente',relaxD:'Les briques tombent moins vite et accélèrent doucement.',on:'OUI',off:'NON',
+setBtn:'⚙️ Réglages',setTitle:'⚙️ Réglages',cbL:'Motifs daltoniens',cbD:'Ajoute une forme à chaque couleur : ● bleu, ▲ rose, ■ jaune, ✚ vert.',on:'OUI',off:'NON',
 contT:'Continuer ?',contP:'Récupérez +1 ❤️ gratuitement et continuez. Une fois par partie.',contPAd:'Regardez une courte pub pour +1 ❤️ et continuez. Une fois par partie.',contScore:'Score actuel : {s}',contYes:'▶️ Continuer (+1 ❤️)',contYesAd:'▶️ Voir la pub · Continuer (+1 ❤️)',contNo:'Non merci',contGo:'+1 ❤️ ON CONTINUE !',contRemove:'✨ Jouer sans pub — 2,99 $',noAdsT:'Jouer sans pub — 2,99 $',noAdsP:'Donnez ~2,99 $ sur la page itch (prix libre). Au retour, appuyez sur J\'ai donné pour retirer les pubs sur ce navigateur pour ce jeu. Système d\'honneur — merci pour le soutien.',noAdsTip:'💙 Ouvrir le pourboire / page itch',noAdsCodeL:'',noAdsUnlock:'✅ J\'ai donné — débloquer sans pub',noAdsOk:'✅ Pubs retirées ici. Continuer est gratuit !',noAdsBad:'Code non reconnu. Vérifiez l\'orthographe ou écrivez à faceaction.support@gmail.com.',noAdsHave:'✅ Sans pub sur cet appareil',
 camExT:'Mode visage',camEx1:'Utilise la caméra avant pour lire vos expressions (clignement, bouche, sourire, sourcils).',camEx2:'La vidéo reste sur ce téléphone. Rien n\'est enregistré ni envoyé.',camEx3:'Vous pouvez revenir au tactile à tout moment.',camExGo:'📷 Activer la caméra',back:'⬅️ Retour',
-dark:'💡 Il fait trop sombre : trouvez un meilleur éclairage (face à une fenêtre ou une lampe).',relaxHud:'🐢 Détente',colon:' : ',
-hProg:'<b>📅 Défi du jour</b> : les mêmes briques pour tout le monde aujourd\'hui. Jouez chaque jour pour une série 🔥 et des récompenses · <b>📖 Chapitres</b> : 3 missions rapides chacun · <b>🏆 Collection</b> : styles et badges · ⚙️ motifs daltoniens et vitesse détente.'});
+dark:'💡 Il fait trop sombre : trouvez un meilleur éclairage (face à une fenêtre ou une lampe).',colon:' : ',
+hProg:'<b>📅 Défi du jour</b> : les mêmes briques pour tout le monde aujourd\'hui. Jouez chaque jour pour une série 🔥 et des récompenses · <b>📖 Chapitres</b> : 3 missions rapides chacun · <b>🏆 Collection</b> : styles et badges · ⚙️ motifs daltoniens.'});
 L.en.hSink='<b>10 bricks on a stack</b> and it sinks into the ground: <b>+20</b>. Bricks speed up as the game goes on (games last about 1–3 minutes).';
 L.fr.hSink='<b>10 briques sur une pile</b> et elle s\'enfonce dans le sol : <b>+20</b>. Les briques accélèrent au fil de la partie (environ 1 à 3 minutes).';
 const tp=(k,n,v={})=>t(k,{n,s:n>1?'s':'',es:n>1?'es':'',...v});
@@ -576,7 +575,7 @@ function saveRun(){if(!S||!running||S.ended||S.offer||!(S.hearts>0))return;try{
     score:S.score,hearts:S.hearts,maxHearts:S.maxHearts||5,streak:S.streak|0,mult:S.mult||1,
     level:S.level|0,sinks:S.sinks|0,locks:S.locks|0,t:S.t||0,slowT:S.slowT||0,spawnT:S.spawnT||0,
     chainC:S.chainC,chainN:S.chainN|0,idx:S.idx|0,perfects:S.perfects|0,bursts:S.bursts|0,
-    contUsed:!!S.contUsed,boost:!!S.boost,relax:!!S.relax,prevBest:S.prevBest|0,
+    contUsed:!!S.contUsed,boost:!!S.boost,prevBest:S.prevBest|0,
     newBadges:[...(S.newBadges||[])],chapDone:[...(S.chapDone||[])],earned:[...(S.earned||[])],
     unlockAt:[...(S.unlockAt||[])],
     cols:(S.cols||[]).map(col=>col.map(b=>({c:b.c,kind:b.kind}))),
@@ -597,32 +596,30 @@ function restoreRun(r){
     earned:[...(r.earned||[])],hype:null,hypeLast:-9,flash:null,coins:[],colLabels:[],
     prevBest:r.prevBest??getBest(mode),recordHit:false,freezeT:0,fireQ:[],scorePulse:0,
     perfects:r.perfects|0,contUsed:!!r.contUsed,offer:false,boost:!!r.boost,
-    newBadges:[...(r.newBadges||[])],chapDone:[...(r.chapDone||[])],relax:!!r.relax};
+    newBadges:[...(r.newBadges||[])],chapDone:[...(r.chapDone||[])]};
   if(r.cur&&r.cur.state==='fall'){S.cur={...r.cur};if(!S.cur.vy)S.cur.vy=(S.deadY-S.fall.h-S.spawnY)/Math.max(.3,fallTime())}
   if(!S.next)S.next=genBrick();
 }
 function newGame(){
   const um=upMul();
   S={...layout(),score:0,hearts:um.maxHearts,maxHearts:um.maxHearts,streak:um.combo,mult:Math.min(3,1+Math.floor(um.combo/3)),cols:CKEYS.map(()=>[]),sinking:[],cur:null,fly:[],next:null,fx:[],parts:[],level:1,sinks:0,slowT:um.slowStart,shake:0,spawnT:.8,locks:0,t:0,ended:false,
-    chainC:null,chainN:0,daily,day:today(),rng:daily?mulberry(hashStr('fb-'+today())):Math.random,idx:0,bannerT:0,banner:'',unlockAt:STYLES.filter(s=>!styleOK(s)).map(s=>s.k),overT:-1,bursts:0,earned:[],hype:null,hypeLast:-9,flash:null,coins:[],colLabels:[],prevBest:getBest(mode),recordHit:false,freezeT:0,fireQ:[],scorePulse:0,perfects:0,contUsed:false,offer:false,boost:false,newBadges:[],chapDone:[],relax:OPT.relax};
+    chainC:null,chainN:0,daily,day:today(),rng:daily?mulberry(hashStr('fb-'+today())):Math.random,idx:0,bannerT:0,banner:'',unlockAt:STYLES.filter(s=>!styleOK(s)).map(s=>s.k),overT:-1,bursts:0,earned:[],hype:null,hypeLast:-9,flash:null,coins:[],colLabels:[],prevBest:getBest(mode),recordHit:false,freezeT:0,fireQ:[],scorePulse:0,perfects:0,contUsed:false,offer:false,boost:false,newBadges:[],chapDone:[]};
   S.next=genBrick()}
 // brick sequence: daily mode uses a date-seeded RNG, so everyone gets the same bricks that day
 function genBrick(){const r=S.rng,i=S.idx++;let kind='normal';const c=CKEYS[Math.floor(r()*4)],sp=r();
   if(i>=6){if(sp<.06)kind='rainbow';else if(sp<.12)kind='bomb';else if(sp<(S.boost?.27:.16)*upMul().golden)kind='golden'}
   else if(S.boost&&i>=2&&sp>.82)kind='golden'; // golden boost (chapter/streak reward)
   return {c,kind}}
-// time-based ramp for 1-3 min games: fall time halves every 50 s of play (4.6 s -> floor 0.7 s), plus 4% per sink.
-// Relaxed speed: starts at 6.5 s, halves every 100 s, floor 1.0 s. Face mode: x1.35 on top.
-// v1.0.2 rebalance: no plateau. After ~100 s (relaxed ~200 s) the floor keeps sliding from 0.7 s toward FLOOR_MIN
-// (touch 0.45 s, face 0.62 s before the x1.35 face factor, relaxed 1.0 -> 0.8 s) over RAMP seconds; the gap between bricks
-// shrinks from 0.55 s toward 0.3 s on the same curve.
-const BAL={half:55,t0:100,ramp:240,minT:.45,minF:.62,relT0:200,relRamp:300,relMin:.8,relMax:1,otPerMin:.04,hardT:.3,hardF:.45,relHard:.45};
-const lateP=()=>S.relax?Math.max(0,Math.min(1,(S.t-BAL.relT0)/BAL.relRamp)):Math.max(0,Math.min(1,(S.t-BAL.t0)/BAL.ramp));
+// time-based ramp for 1-3 min games: fall time halves every ~55 s of play (4.6 s -> floor 0.7 s), plus 4% per sink.
+// Face mode: x1.35 on top. After ~100 s the floor keeps sliding toward FLOOR_MIN (touch 0.45 s, face 0.62 s
+// before the x1.35 face factor) over RAMP seconds; the gap between bricks shrinks from 0.55 s toward 0.3 s.
+const BAL={half:55,t0:100,ramp:240,minT:.45,minF:.62,otPerMin:.04,hardT:.3,hardF:.45};
+const lateP=()=>Math.max(0,Math.min(1,(S.t-BAL.t0)/BAL.ramp));
 // overtime: once the floor is reached it keeps creeping down 0.04 s per minute (to a hard minimum) so no run is endless.
-const floorT=()=>{const p=lateP(),ot=Math.max(0,S.t-(S.relax?BAL.relT0+BAL.relRamp:BAL.t0+BAL.ramp))/60*BAL.otPerMin;
-  return S.relax?Math.max(BAL.relHard,BAL.relMax-(BAL.relMax-BAL.relMin)*p-ot):Math.max(mode==='face'?BAL.hardF:BAL.hardT,.7-(.7-(mode==='face'?BAL.minF:BAL.minT))*p-ot)};
+const floorT=()=>{const p=lateP(),ot=Math.max(0,S.t-(BAL.t0+BAL.ramp))/60*BAL.otPerMin;
+  return Math.max(mode==='face'?BAL.hardF:BAL.hardT,.7-(.7-(mode==='face'?BAL.minF:BAL.minT))*p-ot)};
 const gapT=()=>(.55-.25*lateP())*upMul().gap;
-const fallTime=()=>{const r=S.relax,f=Math.max(floorT(),(r?6.5:4.6)*Math.pow(.5,S.t/(r?100:BAL.half))*Math.pow(.96,S.level-1));return f*(mode==='face'?1.35:1)};
+const fallTime=()=>{const f=Math.max(floorT(),4.6*Math.pow(.5,S.t/BAL.half)*Math.pow(.96,S.level-1));return f*(mode==='face'?1.35:1)};
 function spawnBrick(){const b=S.next;S.next=genBrick();
   S.cur={...b,x:W/2,y:S.spawnY,state:'fall',age:0};S.cur.vy=(S.deadY-S.fall.h-S.spawnY)/fallTime()}
 function banner(txt,col='#ffd54a',dur=1.6){S.banner=txt;S.bannerCol=col;S.bannerT=dur}
@@ -893,7 +890,7 @@ function draw(){
   const top=14+(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat'))||0);
   ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#ffd54a';ctx.font='bold '+Math.round(26*(1+S.scorePulse*.8))+'px sans-serif';ctx.shadowColor='#ffd54a';ctx.shadowBlur=8+S.scorePulse*40;ctx.fillText(String(S.score),12,top+10);ctx.shadowBlur=0;
   const mh=Math.max(5,S.maxHearts||5,S.hearts|0);const hs=mh>5?20:24;for(let i=0;i<mh;i++)heart(22+i*hs,top+28,mh>5?16:18,i<S.hearts);
-  ctx.fillStyle='#fff';ctx.font='bold 14px sans-serif';ctx.fillText(t('level')+' '+S.level+(S.relax?'  '+t('relaxHud'):'')+(S.boost?'  ⭐':''),12,top+62);
+  ctx.fillStyle='#fff';ctx.font='bold 14px sans-serif';ctx.fillText(t('level')+' '+S.level+(S.boost?'  ⭐':''),12,top+62);
   let hy=top+86;
   if(S.mult>1){ctx.fillStyle='#ff6ec7';ctx.font='bold 20px sans-serif';ctx.shadowColor='#ff1493';ctx.shadowBlur=10;ctx.fillText('x'+S.mult+' COMBO',12,hy);ctx.shadowBlur=0;hy+=22}
   if(S.chainN>=1&&S.chainC){ctx.font='12px sans-serif';ctx.fillStyle=COLORS[S.chainC].hex;ctx.fillText('●'.repeat(S.chainN)+'○'.repeat(3-S.chainN),12,hy);hy+=18}
@@ -935,10 +932,10 @@ $('bStyle').onclick=()=>{buildStyles();buildBadges();$('styles').classList.remov
 // ---------- Meta: settings, daily streak, chapters & missions, badges, continue offer ----------
 const LS={get:(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 // settings (colorblind patterns default ON)
-let OPT=Object.assign({cb:true,relax:false},LS.get('fb_opts',{}));
-function buildSettings(){for(const [id,k] of [['tCb','cb'],['tRelax','relax']]){const b=$(id);b.textContent=OPT[k]?t('on'):t('off');b.classList.toggle('off',!OPT[k])}document.body.classList.toggle('nocb',!OPT.cb)}
-function setOpt(k,v){OPT[k]=v;LS.set('fb_opts',OPT);buildSettings()}
-$('tCb').onclick=()=>setOpt('cb',!OPT.cb);$('tRelax').onclick=()=>setOpt('relax',!OPT.relax);
+let OPT=Object.assign({cb:true},LS.get('fb_opts',{}));delete OPT.relax; // drop legacy relaxed-speed flag
+function buildSettings(){const b=$('tCb');b.textContent=OPT.cb?t('on'):t('off');b.classList.toggle('off',!OPT.cb);document.body.classList.toggle('nocb',!OPT.cb)}
+function setOpt(k,v){OPT[k]=v;delete OPT.relax;LS.set('fb_opts',OPT);buildSettings()}
+$('tCb').onclick=()=>setOpt('cb',!OPT.cb);
 $('bSet').onclick=()=>{buildSettings();$('settings').classList.remove('hide')};$('bSetOk').onclick=()=>$('settings').classList.add('hide');
 function syncCoinsUI(){const n=getCoins(),el=$('coinHud');if(el)el.textContent=t('upCoins',{n});const u=$('upCoins');if(u)u.textContent=t('upCoins',{n})}
 function syncResumeUI(){const btn=$('bContRun');if(!btn)return;const r=loadRun();if(r){btn.classList.remove('hide');btn.textContent=t('resumeRun',{s:r.score,g:r.level})}else btn.classList.add('hide')}
